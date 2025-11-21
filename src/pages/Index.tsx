@@ -68,14 +68,14 @@ const Index = () => {
       
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-up">
-            <div className="inline-block p-3 bg-primary/10 rounded-2xl mb-4 animate-float">
-              <Sparkles className="h-12 w-12 text-primary" />
+          <div className="text-center mb-16 animate-fade-up">
+            <div className="inline-flex items-center justify-center p-4 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent rounded-3xl mb-6 shadow-lg border border-primary/20">
+              <Sparkles className="h-10 w-10 text-primary" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3 bg-clip-text">
+            <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-4 tracking-tight leading-tight">
               Transform Your Text
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Powerful text manipulation tools at your fingertips - all in one place
             </p>
           </div>
