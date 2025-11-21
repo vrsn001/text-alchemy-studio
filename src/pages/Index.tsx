@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { TextToolCard } from "@/components/TextToolCard";
 import { StatsCard } from "@/components/StatsCard";
+import { LineBreaksTool } from "@/components/LineBreaksTool";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calculator, Type, Sparkles, Wrench, ArrowDownAZ } from "lucide-react";
 
 const Index = () => {
   const [uppercaseInput, setUppercaseInput] = useState("");
@@ -61,27 +63,56 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-surface-2 to-background">
       <Header />
       
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-foreground mb-2">
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 animate-fade-up">
+            <div className="inline-block p-3 bg-primary/10 rounded-2xl mb-4 animate-float">
+              <Sparkles className="h-12 w-12 text-primary" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3 bg-clip-text">
               Transform Your Text
             </h2>
-            <p className="text-muted-foreground">
-              Powerful text manipulation tools at your fingertips
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Powerful text manipulation tools at your fingertips - all in one place
             </p>
           </div>
 
+          {/* Featured Tool - Line Breaks */}
+          <div className="mb-12 animate-fade-in">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="p-1.5 bg-primary/10 rounded-lg">
+                <Wrench className="h-5 w-5 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground">Featured Tool</h3>
+            </div>
+            <LineBreaksTool />
+          </div>
+
           <Tabs defaultValue="stats" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 mb-8 bg-muted">
-              <TabsTrigger value="stats" className="transition-m3">Statistics</TabsTrigger>
-              <TabsTrigger value="case" className="transition-m3">Case</TabsTrigger>
-              <TabsTrigger value="transform" className="transition-m3">Transform</TabsTrigger>
-              <TabsTrigger value="format" className="transition-m3">Format</TabsTrigger>
-              <TabsTrigger value="sort" className="transition-m3">Sort</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-8 bg-muted/50 backdrop-blur-sm p-1.5 h-auto gap-1">
+              <TabsTrigger value="stats" className="transition-m3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex items-center gap-2 py-3">
+                <Calculator className="h-4 w-4" />
+                <span className="hidden sm:inline">Statistics</span>
+              </TabsTrigger>
+              <TabsTrigger value="case" className="transition-m3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex items-center gap-2 py-3">
+                <Type className="h-4 w-4" />
+                <span className="hidden sm:inline">Case</span>
+              </TabsTrigger>
+              <TabsTrigger value="transform" className="transition-m3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex items-center gap-2 py-3">
+                <Sparkles className="h-4 w-4" />
+                <span className="hidden sm:inline">Transform</span>
+              </TabsTrigger>
+              <TabsTrigger value="format" className="transition-m3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex items-center gap-2 py-3">
+                <Wrench className="h-4 w-4" />
+                <span className="hidden sm:inline">Format</span>
+              </TabsTrigger>
+              <TabsTrigger value="sort" className="transition-m3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground flex items-center gap-2 py-3">
+                <ArrowDownAZ className="h-4 w-4" />
+                <span className="hidden sm:inline">Sort</span>
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="stats" className="space-y-6">
@@ -183,9 +214,22 @@ const Index = () => {
         </div>
       </main>
 
-      <footer className="border-t border-border mt-16 py-8">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>Made with creative fuel ⚡ by TextCraft</p>
+      <footer className="border-t border-border/50 mt-20 py-12 bg-gradient-to-r from-card via-surface-2 to-card">
+        <div className="container mx-auto px-4">
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center gap-2">
+              <div className="p-2 bg-primary/10 rounded-xl animate-float">
+                <Sparkles className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-lg font-semibold text-foreground">TextCraft</span>
+            </div>
+            <p className="text-muted-foreground">
+              Made with creative fuel ⚡ by TextCraft
+            </p>
+            <p className="text-sm text-muted-foreground/70">
+              Transform, format, and enhance your text with ease
+            </p>
+          </div>
         </div>
       </footer>
     </div>
