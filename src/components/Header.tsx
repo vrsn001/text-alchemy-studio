@@ -1,18 +1,42 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
 
 export const Header = () => {
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
     <header className="bg-gradient-to-r from-card via-surface-2 to-card border-b border-border shadow-md">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-between">
+          <div className="flex-1" />
           <div className="flex items-center gap-3 animate-fade-up">
-            <div className="p-3 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl animate-float shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl shadow-lg">
               <Sparkles className="h-8 w-8 text-primary" />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-foreground tracking-tight">TextCraft</h1>
               <p className="text-sm text-muted-foreground mt-0.5">Crafted with creative fuel ⚡</p>
             </div>
+          </div>
+          <div className="flex-1 flex justify-end">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleTheme}
+              className="rounded-full transition-all hover:scale-105"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </Button>
           </div>
         </div>
       </div>
