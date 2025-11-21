@@ -29,7 +29,7 @@ export const StatsCard = () => {
   }, [text]);
 
   return (
-    <Card className="p-6 bg-card shadow-lg transition-m3 hover:shadow-xl">
+    <Card className="p-6 bg-card shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-border/50">
       <div className="mb-4">
         <h3 className="text-xl font-semibold text-foreground mb-1">Text Statistics</h3>
         <p className="text-sm text-muted-foreground">Count characters, words, and more</p>
@@ -44,25 +44,25 @@ export const StatsCard = () => {
         />
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          <div className="bg-accent/50 rounded-lg p-3 text-center transition-m3">
-            <div className="text-2xl font-bold text-accent-foreground">{stats.characters}</div>
-            <div className="text-xs text-muted-foreground">Characters</div>
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-md border border-primary/10">
+            <div className="text-3xl font-bold text-primary mb-1">{stats.characters}</div>
+            <div className="text-xs text-muted-foreground font-medium">Characters</div>
           </div>
-          <div className="bg-accent/50 rounded-lg p-3 text-center transition-m3">
-            <div className="text-2xl font-bold text-accent-foreground">{stats.charactersNoSpaces}</div>
-            <div className="text-xs text-muted-foreground">No Spaces</div>
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-md border border-primary/10">
+            <div className="text-3xl font-bold text-primary mb-1">{stats.charactersNoSpaces}</div>
+            <div className="text-xs text-muted-foreground font-medium">No Spaces</div>
           </div>
-          <div className="bg-accent/50 rounded-lg p-3 text-center transition-m3">
-            <div className="text-2xl font-bold text-accent-foreground">{stats.words}</div>
-            <div className="text-xs text-muted-foreground">Words</div>
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-md border border-primary/10">
+            <div className="text-3xl font-bold text-primary mb-1">{stats.words}</div>
+            <div className="text-xs text-muted-foreground font-medium">Words</div>
           </div>
-          <div className="bg-accent/50 rounded-lg p-3 text-center transition-m3">
-            <div className="text-2xl font-bold text-accent-foreground">{stats.lines}</div>
-            <div className="text-xs text-muted-foreground">Lines</div>
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-md border border-primary/10">
+            <div className="text-3xl font-bold text-primary mb-1">{stats.lines}</div>
+            <div className="text-xs text-muted-foreground font-medium">Lines</div>
           </div>
-          <div className="bg-accent/50 rounded-lg p-3 text-center transition-m3">
-            <div className="text-2xl font-bold text-accent-foreground">{stats.sentences}</div>
-            <div className="text-xs text-muted-foreground">Sentences</div>
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-md border border-primary/10">
+            <div className="text-3xl font-bold text-primary mb-1">{stats.sentences}</div>
+            <div className="text-xs text-muted-foreground font-medium">Sentences</div>
           </div>
         </div>
       </div>
