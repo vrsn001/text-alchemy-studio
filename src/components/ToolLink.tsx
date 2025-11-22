@@ -1,18 +1,17 @@
 import { LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface ToolLinkProps {
   icon: LucideIcon;
   title: string;
   description: string;
+  href?: string;
   onClick?: () => void;
 }
 
-export const ToolLink = ({ icon: Icon, title, description, onClick }: ToolLinkProps) => {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/50 transition-m3 text-left w-full group"
-    >
+export const ToolLink = ({ icon: Icon, title, description, href, onClick }: ToolLinkProps) => {
+  const content = (
+    <>
       <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-m3 mt-0.5">
         <Icon className="h-4 w-4 text-primary" />
       </div>
@@ -22,6 +21,26 @@ export const ToolLink = ({ icon: Icon, title, description, onClick }: ToolLinkPr
         </h4>
         <p className="text-sm text-muted-foreground mt-0.5">{description}</p>
       </div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        to={href}
+        className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/50 transition-m3 text-left w-full group"
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/50 transition-m3 text-left w-full group"
+    >
+      {content}
     </button>
   );
 };
