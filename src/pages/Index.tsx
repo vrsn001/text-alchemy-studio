@@ -55,8 +55,9 @@ const Index = () => {
               <div className="space-y-1">
                 <ToolLink
                   icon={Scissors}
-                  title="RemoveLineBreaks"
-                  description="Remove unwanted line breaks from your text."
+                  title="Add Line Breaks"
+                  description="Add line breaks to scrunched-up text to make it more readable."
+                  href="/tools/add-line-breaks"
                 />
                 <ToolLink
                   icon={Wand2}
