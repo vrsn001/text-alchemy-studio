@@ -18,10 +18,10 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 210 15% 15%;
 
-    /* M3 Primary - Teal/Blue */
-    --primary: 186 85% 40%;
+    /* Primary - Orange/Red inspired by textfixer */
+    --primary: 14 90% 53%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 186 85% 35%;
+    --primary-hover: 14 90% 48%;
     
     /* M3 Secondary - Soft Cyan */
     --secondary: 190 50% 92%;
@@ -74,9 +74,9 @@ All colors MUST be HSL.
     --popover: 210 20% 10%;
     --popover-foreground: 210 15% 95%;
 
-    --primary: 186 85% 50%;
-    --primary-foreground: 210 20% 8%;
-    --primary-hover: 186 85% 55%;
+    --primary: 14 90% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 14 90% 63%;
 
     --secondary: 190 30% 20%;
     --secondary-foreground: 186 80% 80%;

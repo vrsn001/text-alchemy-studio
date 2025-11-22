@@ -10,34 +10,41 @@ export const Header = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-card via-surface-2 to-card border-b border-border shadow-md">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between">
-          <div className="flex-1" />
-          <div className="flex items-center gap-3 animate-fade-up">
-            <div className="p-3 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl shadow-lg">
-              <Sparkles className="h-8 w-8 text-primary" />
-            </div>
+    <header className="bg-primary text-primary-foreground shadow-md">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center gap-3">
+            <Sparkles className="h-8 w-8" />
             <div>
-              <h1 className="text-3xl font-bold text-foreground tracking-tight">TextCraft</h1>
-              <p className="text-sm text-muted-foreground mt-0.5">Crafted with creative fuel ⚡</p>
+              <h1 className="text-2xl font-bold tracking-tight">TEXT CRAFT</h1>
             </div>
           </div>
-          <div className="flex-1 flex justify-end">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleTheme}
-              className="rounded-full transition-all hover:scale-105"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-          </div>
+          
+          <nav className="hidden md:flex items-center gap-6">
+            <a href="#text-tools" className="hover:opacity-80 transition-opacity font-medium">
+              Text Tools
+            </a>
+            <a href="#html-tools" className="hover:opacity-80 transition-opacity font-medium">
+              HTML Tools
+            </a>
+            <a href="#number-tools" className="hover:opacity-80 transition-opacity font-medium">
+              Number Tools
+            </a>
+          </nav>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="hover:bg-primary-foreground/10 text-primary-foreground"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </Button>
         </div>
       </div>
     </header>
