@@ -16,7 +16,8 @@ export const Header = () => {
           <div className="flex items-center gap-3">
             <Sparkles className="h-8 w-8" />
             <div>
-              <h1 className="text-2xl font-bold tracking-tight">TEXT CRAFT</h1>
+              <h1 className="text-2xl font-bold tracking-tight">TextCraft</h1>
+              <p className="text-xs opacity-90">Made with love at creative fuel 💜</p>
             </div>
           </div>
           

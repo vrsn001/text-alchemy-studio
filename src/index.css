@@ -9,42 +9,42 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Material Design 3 Color System */
-    --background: 210 25% 98%;
-    --foreground: 210 15% 15%;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 15% 15%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 15% 15%;
+    --popover-foreground: 240 10% 3.9%;
 
-    /* Primary - Orange/Red inspired by textfixer */
-    --primary: 14 90% 53%;
+    /* Primary - Vibrant Purple (Material Design 3) */
+    --primary: 262 52% 47%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 14 90% 48%;
+    --primary-hover: 262 52% 42%;
     
-    /* M3 Secondary - Soft Cyan */
-    --secondary: 190 50% 92%;
-    --secondary-foreground: 186 85% 25%;
+    /* M3 Secondary - Light Purple */
+    --secondary: 262 25% 95%;
+    --secondary-foreground: 262 52% 20%;
 
     /* M3 Surface variants */
-    --muted: 210 25% 96%;
-    --muted-foreground: 210 10% 45%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-    --accent: 186 80% 88%;
-    --accent-foreground: 186 85% 30%;
+    --accent: 262 47% 85%;
+    --accent-foreground: 262 52% 20%;
 
-    --destructive: 0 80% 55%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 92%;
-    --ring: 186 85% 40%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 262 52% 47%;
 
     /* M3 Elevation & Surfaces */
     --surface-1: 0 0% 100%;
-    --surface-2: 210 25% 98%;
-    --surface-3: 210 25% 96%;
+    --surface-2: 262 20% 99%;
+    --surface-3: 262 20% 97%;
     
     /* M3 Elevation Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -52,7 +52,7 @@ All colors MUST be HSL.
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08);
 
-    --radius: 0.75rem;
+    --radius: 12px;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -65,38 +65,38 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 210 20% 8%;
-    --foreground: 210 15% 95%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 210 20% 10%;
-    --card-foreground: 210 15% 95%;
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 210 20% 10%;
-    --popover-foreground: 210 15% 95%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 14 90% 58%;
+    --primary: 262 47% 65%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 14 90% 63%;
+    --primary-hover: 262 47% 70%;
 
-    --secondary: 190 30% 20%;
-    --secondary-foreground: 186 80% 80%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 20% 15%;
-    --muted-foreground: 210 10% 60%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 186 50% 20%;
-    --accent-foreground: 186 80% 85%;
+    --accent: 262 47% 25%;
+    --accent-foreground: 262 47% 85%;
 
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 210 20% 20%;
-    --input: 210 20% 15%;
-    --ring: 186 85% 50%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 262 47% 65%;
 
-    --surface-1: 210 20% 10%;
-    --surface-2: 210 20% 12%;
-    --surface-3: 210 20% 15%;
+    --surface-1: 240 10% 8%;
+    --surface-2: 240 10% 10%;
+    --surface-3: 240 10% 12%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;

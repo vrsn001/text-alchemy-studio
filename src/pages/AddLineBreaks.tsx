@@ -1,27 +1,23 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Download, Copy } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 const AddLineBreaks = () => {
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
   const [mode, setMode] = useState("paragraph");
-  const { toast } = useToast();
 
   const handleAddLineBreaks = () => {
     if (!inputText.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter some text first.",
-        variant: "destructive",
-      });
+      toast.error("Please enter some text first.");
       return;
     }
 
@@ -35,15 +31,13 @@ const AddLineBreaks = () => {
     }
 
     setOutputText(result);
+    toast.success("Line breaks added successfully!");
   };
 
   const handleCopy = () => {
     if (!outputText) return;
     navigator.clipboard.writeText(outputText);
-    toast({
-      title: "Copied!",
-      description: "Text copied to clipboard.",
-    });
+    toast.success("Text copied to clipboard!");
   };
 
   const handleDownload = () => {
@@ -57,10 +51,7 @@ const AddLineBreaks = () => {
     element.click();
     document.body.removeChild(element);
     
-    toast({
-      title: "Downloaded!",
-      description: "Text file downloaded successfully.",
-    });
+    toast.success("Text file downloaded successfully!");
   };
 
   const handleClear = () => {
@@ -74,6 +65,13 @@ const AddLineBreaks = () => {
       
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
+          <Breadcrumb 
+            items={[
+              { label: "Tools", href: "/" },
+              { label: "Add Line Breaks" }
+            ]} 
+          />
+          
           <h1 className="text-4xl font-bold text-primary mb-4">
             Add Line Breaks
           </h1>
