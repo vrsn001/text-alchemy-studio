@@ -17,13 +17,75 @@ import {
   Wand2,
   Text as TextIcon
 } from "lucide-react";
+import { useEffect, useCallback, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    axis: 'x',
+    loop: false,
+    dragFree: false,
+    containScroll: 'trimSnaps'
+  });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const sections = ['home', 'text', 'html', 'favorites'];
+
+  const scrollToSection = useCallback((index: number) => {
+    if (emblaApi) emblaApi.scrollTo(index);
+  }, [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    const index = emblaApi.selectedScrollSnap();
+    setSelectedIndex(index);
+    
+    // Update URL hash based on section
+    const sectionId = sections[index];
+    if (sectionId === 'home') {
+      navigate('/', { replace: true });
+    } else {
+      const hashMap: Record<string, string> = {
+        text: '#text-tools',
+        html: '#html-tools',
+        favorites: '#favorites'
+      };
+      navigate(hashMap[sectionId] || '/', { replace: true });
+    }
+  }, [emblaApi, navigate, sections]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  // Sync with hash navigation
+  useEffect(() => {
+    const hash = location.hash;
+    let targetIndex = 0;
+    
+    if (hash === '#text-tools') targetIndex = 1;
+    else if (hash === '#html-tools') targetIndex = 2;
+    else if (hash === '#favorites') targetIndex = 3;
+    
+    if (targetIndex !== selectedIndex && emblaApi) {
+      emblaApi.scrollTo(targetIndex);
+    }
+  }, [location.hash, emblaApi, selectedIndex]);
+
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <Header />
       
-      <main className="container mx-auto px-4 py-8">
+      {/* Desktop View */}
+      <main className="hidden md:block container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           {/* Hero Section */}
           <div className="mb-12">
@@ -163,6 +225,145 @@ const Index = () => {
           </div>
         </div>
       </main>
+
+      {/* Mobile View with Swipe Gestures */}
+      <div className="md:hidden overflow-hidden" ref={emblaRef}>
+        <div className="flex touch-pan-y">
+          {/* Home Section */}
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+            <div className="max-w-6xl mx-auto">
+              <div className="mb-8">
+                <h1 className="text-3xl font-bold text-primary mb-4">
+                  Free Online Tools - TextCraft
+                </h1>
+                <p className="text-base text-foreground leading-relaxed mb-4">
+                  Use these <strong>free online tools</strong> to fix text, convert text to HTML, remove line breaks, 
+                  generate random words, and more.
+                </p>
+                
+                <div className="bg-muted/50 p-4 rounded-lg">
+                  <h2 className="text-lg font-semibold text-foreground mb-2">
+                    What Are Some Online Tools You Can Use?
+                  </h2>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Convert text to HTML paragraphs, alphabetize text, remove line breaks, generate random words, 
+                    reverse text, or repeat text.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-muted/30 p-4 rounded-lg text-center">
+                <p className="text-sm text-muted-foreground mb-2">
+                  <strong>Swipe left</strong> to explore tool categories →
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  All tools are free to use and require no registration.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Text Tools Section */}
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-2xl font-bold text-primary mb-6">Text Tools</h2>
+              
+              <div className="space-y-6">
+                <Card className="p-4 bg-card">
+                  <h3 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">
+                    Most Popular
+                  </h3>
+                  <div className="space-y-1">
+                    <ToolLink
+                      icon={Scissors}
+                      title="Add Line Breaks"
+                      description="Add line breaks to scrunched-up text."
+                      href="/tools/add-line-breaks"
+                    />
+                    <ToolLink
+                      icon={Wand2}
+                      title="Random Word Generator"
+                      description="Generate random words for brainstorming."
+                    />
+                    <ToolLink
+                      icon={ArrowDownAZ}
+                      title="Alphabetical Order"
+                      description="Alphabetize text content."
+                    />
+                  </div>
+                </Card>
+
+                <Card className="p-4 bg-card">
+                  <h3 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">
+                    Fun Tools
+                  </h3>
+                  <div className="space-y-1">
+                    <ToolLink
+                      icon={RotateCcw}
+                      title="Reverse Text"
+                      description="Reverse text and characters."
+                    />
+                    <ToolLink
+                      icon={Repeat}
+                      title="Repeat Text"
+                      description="Repeat text multiple times."
+                    />
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
+
+          {/* HTML Tools Section */}
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-2xl font-bold text-primary mb-6">HTML Tools</h2>
+              
+              <Card className="p-4 bg-card">
+                <h3 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">
+                  HTML Conversion
+                </h3>
+                <div className="space-y-1">
+                  <ToolLink
+                    icon={FileText}
+                    title="Text to HTML"
+                    description="Convert plain text to HTML paragraphs."
+                  />
+                  <ToolLink
+                    icon={Type}
+                    title="HTML Encoder"
+                    description="Encode special characters for HTML."
+                  />
+                  <ToolLink
+                    icon={Hash}
+                    title="HTML Decoder"
+                    description="Decode HTML entities to text."
+                  />
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Favorites Section */}
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-2xl font-bold text-primary mb-6">Favorites</h2>
+              
+              <Card className="p-4 bg-card">
+                <div className="text-center py-8">
+                  <Sparkles className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    No Favorites Yet
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Star your favorite tools for quick access
+                  </p>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <Footer />
       <BottomNav />

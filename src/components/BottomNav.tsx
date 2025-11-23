@@ -19,10 +19,9 @@ export const BottomNav = () => {
 
   const handleNavClick = (href: string, id: string) => {
     if (href.startsWith("#")) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      // On mobile, the swipe carousel will handle navigation via URL change
+      // No need to manually scroll
+      window.location.hash = href;
     }
   };
 
