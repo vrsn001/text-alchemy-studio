@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { BottomNav } from "@/components/BottomNav";
+import { FAB } from "@/components/FAB";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -60,7 +62,7 @@ const AddLineBreaks = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -198,6 +200,8 @@ const AddLineBreaks = () => {
       </main>
 
       <Footer />
+      <BottomNav />
+      <FAB />
     </div>
   );
 };

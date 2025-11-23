@@ -1,5 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { BottomNav } from "@/components/BottomNav";
+import { FAB } from "@/components/FAB";
 import { ToolLink } from "@/components/ToolLink";
 import { Card } from "@/components/ui/card";
 import { 
@@ -18,7 +20,7 @@ import {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -163,6 +165,8 @@ const Index = () => {
       </main>
 
       <Footer />
+      <BottomNav />
+      <FAB />
     </div>
   );
 };
