@@ -28,7 +28,9 @@ const Index = () => {
     axis: 'x',
     loop: false,
     dragFree: false,
-    containScroll: 'trimSnaps'
+    containScroll: 'trimSnaps',
+    skipSnaps: false,
+    inViewThreshold: 0.7
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -127,16 +129,19 @@ const Index = () => {
                   icon={Wand2}
                   title="Random Word Generator"
                   description="Generate a list of random words. Great tool for brainstorming ideas."
+                  href="/tools/random-words"
                 />
                 <ToolLink
                   icon={ArrowDownAZ}
                   title="Alphabetical Order"
                   description="Alphabetize all sorts of text content with this tool."
+                  href="/tools/alphabetical-order"
                 />
                 <ToolLink
                   icon={FileText}
                   title="Text to HTML"
                   description="Automatically change plain text into HTML paragraphs."
+                  href="/tools/text-to-html"
                 />
               </div>
             </Card>
@@ -151,6 +156,7 @@ const Index = () => {
                   icon={RotateCcw}
                   title="Reverse Text"
                   description="Reverse the text and characters in your content."
+                  href="/tools/reverse-text"
                 />
                 <ToolLink
                   icon={Wand2}
@@ -182,16 +188,19 @@ const Index = () => {
                   icon={Type}
                   title="UPPERCASE Converter"
                   description="Convert all text to uppercase letters."
+                  href="/tools/case-converter"
                 />
                 <ToolLink
                   icon={Type}
                   title="lowercase converter"
                   description="Convert all text to lowercase letters."
+                  href="/tools/case-converter"
                 />
                 <ToolLink
                   icon={Type}
                   title="Title Case Converter"
                   description="Capitalize the first letter of each word."
+                  href="/tools/case-converter"
                 />
               </div>
               <div className="space-y-1">
@@ -199,11 +208,13 @@ const Index = () => {
                   icon={Type}
                   title="Sentence case converter"
                   description="Capitalize the first letter of each sentence."
+                  href="/tools/case-converter"
                 />
                 <ToolLink
                   icon={Hash}
                   title="Word Counter"
                   description="Count words, characters, sentences, and paragraphs."
+                  href="/tools/word-counter"
                 />
                 <ToolLink
                   icon={AlignLeft}
@@ -227,8 +238,8 @@ const Index = () => {
       </main>
 
       {/* Mobile View with Swipe Gestures */}
-      <div className="md:hidden overflow-hidden" ref={emblaRef}>
-        <div className="flex touch-pan-y">
+      <div className="md:hidden overflow-hidden touch-pan-y" ref={emblaRef}>
+        <div className="flex" style={{ touchAction: 'pan-y pinch-zoom' }}>
           {/* Home Section */}
           <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
             <div className="max-w-6xl mx-auto">
@@ -284,11 +295,13 @@ const Index = () => {
                       icon={Wand2}
                       title="Random Word Generator"
                       description="Generate random words for brainstorming."
+                      href="/tools/random-words"
                     />
                     <ToolLink
                       icon={ArrowDownAZ}
                       title="Alphabetical Order"
                       description="Alphabetize text content."
+                      href="/tools/alphabetical-order"
                     />
                   </div>
                 </Card>
@@ -302,11 +315,13 @@ const Index = () => {
                       icon={RotateCcw}
                       title="Reverse Text"
                       description="Reverse text and characters."
+                      href="/tools/reverse-text"
                     />
                     <ToolLink
-                      icon={Repeat}
-                      title="Repeat Text"
-                      description="Repeat text multiple times."
+                      icon={Hash}
+                      title="Word Counter"
+                      description="Count words and characters."
+                      href="/tools/word-counter"
                     />
                   </div>
                 </Card>
@@ -328,16 +343,13 @@ const Index = () => {
                     icon={FileText}
                     title="Text to HTML"
                     description="Convert plain text to HTML paragraphs."
+                    href="/tools/text-to-html"
                   />
                   <ToolLink
                     icon={Type}
-                    title="HTML Encoder"
-                    description="Encode special characters for HTML."
-                  />
-                  <ToolLink
-                    icon={Hash}
-                    title="HTML Decoder"
-                    description="Decode HTML entities to text."
+                    title="Case Converter"
+                    description="Convert text case (upper, lower, title, sentence)."
+                    href="/tools/case-converter"
                   />
                 </div>
               </Card>
