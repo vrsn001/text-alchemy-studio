@@ -119,6 +119,15 @@ All colors MUST be HSL.
     touch-action: manipulation;
     -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 
@@ -130,5 +139,23 @@ All colors MUST be HSL.
   
   .transition-m3-long {
     transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  /* Safe area support for notched phones */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  @media (max-width: 768px) {
+    html, body {
+      overflow-x: hidden;
+      position: relative;
+      width: 100%;
+    }
   }
 }

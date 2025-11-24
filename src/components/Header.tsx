@@ -10,14 +10,14 @@ export const Header = () => {
   };
 
   return (
-    <header className="bg-primary text-primary-foreground shadow-md">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
-          <div className="flex items-center gap-3">
-            <Sparkles className="h-8 w-8" />
+    <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-40 safe-area-top">
+      <div className="container mx-auto px-3 md:px-4">
+        <div className="flex items-center justify-between py-3 md:py-4">
+          <div className="flex items-center gap-2 md:gap-3">
+            <Sparkles className="h-6 w-6 md:h-8 md:w-8" />
             <div>
-              <h1 className="text-2xl font-bold tracking-tight">TextCraft</h1>
-              <p className="text-xs opacity-90">Made with love at creative fuel 💜</p>
+              <h1 className="text-xl md:text-2xl font-bold tracking-tight">TextCraft</h1>
+              <p className="text-[10px] md:text-xs opacity-90 hidden sm:block">Made with love at creative fuel 💜</p>
             </div>
           </div>
           

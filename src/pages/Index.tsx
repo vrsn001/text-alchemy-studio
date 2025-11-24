@@ -83,7 +83,7 @@ const Index = () => {
   }, [location.hash, emblaApi, selectedIndex]);
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
       <Header />
       
       {/* Desktop View */}
@@ -188,10 +188,10 @@ const Index = () => {
       </main>
 
       {/* Mobile View with Swipe Gestures */}
-      <div className="md:hidden overflow-hidden touch-pan-y" ref={emblaRef}>
-        <div className="flex" style={{ touchAction: 'pan-y pinch-zoom' }}>
+      <div className="md:hidden w-full overflow-hidden" ref={emblaRef}>
+        <div className="flex w-full">
           {/* Home Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
             <div className="max-w-6xl mx-auto">
               <div className="mb-8">
                 <h1 className="text-3xl font-bold text-primary mb-4">
@@ -225,7 +225,7 @@ const Index = () => {
           </div>
 
           {/* Text Tools Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-bold text-primary mb-6">Text Tools</h2>
               
@@ -286,7 +286,7 @@ const Index = () => {
           </div>
 
           {/* HTML Tools Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-bold text-primary mb-6">HTML Tools</h2>
               
@@ -307,7 +307,7 @@ const Index = () => {
           </div>
 
           {/* Favorites Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-8">
+          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-bold text-primary mb-6">Favorites</h2>
               
