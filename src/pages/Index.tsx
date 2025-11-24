@@ -146,68 +146,16 @@ const Index = () => {
               </div>
             </Card>
 
-            {/* Fun Text Tools */}
+            {/* Text Case Tools */}
             <Card className="p-6 bg-card hover:shadow-lg transition-all">
               <h3 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border">
-                Fun Text Tools
+                Text Case Tools
               </h3>
               <div className="space-y-1">
                 <ToolLink
-                  icon={RotateCcw}
-                  title="Reverse Text"
-                  description="Reverse the text and characters in your content."
-                  href="/tools/reverse-text"
-                />
-                <ToolLink
-                  icon={Wand2}
-                  title="Made-up Word Generator"
-                  description="Generate creative made-up words and names."
-                />
-                <ToolLink
-                  icon={Repeat}
-                  title="Repeat Text Generator"
-                  description="Repeat any text multiple times easily."
-                />
-                <ToolLink
-                  icon={TextIcon}
-                  title="Tiny Text Generator"
-                  description="Convert your text to tiny characters."
-                />
-              </div>
-            </Card>
-          </div>
-
-          {/* Text Changing Tools */}
-          <Card className="p-6 bg-card hover:shadow-lg transition-all mb-12">
-            <h3 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border">
-              Text Changing Tools
-            </h3>
-            <div className="grid md:grid-cols-2 gap-x-8">
-              <div className="space-y-1">
-                <ToolLink
                   icon={Type}
-                  title="UPPERCASE Converter"
-                  description="Convert all text to uppercase letters."
-                  href="/tools/case-converter"
-                />
-                <ToolLink
-                  icon={Type}
-                  title="lowercase converter"
-                  description="Convert all text to lowercase letters."
-                  href="/tools/case-converter"
-                />
-                <ToolLink
-                  icon={Type}
-                  title="Title Case Converter"
-                  description="Capitalize the first letter of each word."
-                  href="/tools/case-converter"
-                />
-              </div>
-              <div className="space-y-1">
-                <ToolLink
-                  icon={Type}
-                  title="Sentence case converter"
-                  description="Capitalize the first letter of each sentence."
+                  title="Case Converter"
+                  description="Convert text to uppercase, lowercase, title case, or sentence case."
                   href="/tools/case-converter"
                 />
                 <ToolLink
@@ -217,13 +165,15 @@ const Index = () => {
                   href="/tools/word-counter"
                 />
                 <ToolLink
-                  icon={AlignLeft}
-                  title="Line Counter"
-                  description="Count the number of lines in your text."
+                  icon={RotateCcw}
+                  title="Reverse Text"
+                  description="Reverse the text and characters in your content."
+                  href="/tools/reverse-text"
                 />
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
+
 
           {/* Additional Info */}
           <div className="bg-muted/30 p-6 rounded-lg text-center">
@@ -308,9 +258,15 @@ const Index = () => {
 
                 <Card className="p-4 bg-card">
                   <h3 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">
-                    Fun Tools
+                    More Tools
                   </h3>
                   <div className="space-y-1">
+                    <ToolLink
+                      icon={Type}
+                      title="Case Converter"
+                      description="Convert text case formats."
+                      href="/tools/case-converter"
+                    />
                     <ToolLink
                       icon={RotateCcw}
                       title="Reverse Text"
@@ -344,12 +300,6 @@ const Index = () => {
                     title="Text to HTML"
                     description="Convert plain text to HTML paragraphs."
                     href="/tools/text-to-html"
-                  />
-                  <ToolLink
-                    icon={Type}
-                    title="Case Converter"
-                    description="Convert text case (upper, lower, title, sentence)."
-                    href="/tools/case-converter"
                   />
                 </div>
               </Card>
