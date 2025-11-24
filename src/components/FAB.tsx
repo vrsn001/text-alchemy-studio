@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const favoriteTools = [
   { icon: Scissors, label: "Line Breaks", href: "/tools/add-line-breaks" },
-  { icon: Hash, label: "Word Counter", href: "#" },
-  { icon: Type, label: "Case Convert", href: "#" },
-  { icon: Wand2, label: "Random Words", href: "#" },
+  { icon: Hash, label: "Word Counter", href: "/tools/word-counter" },
+  { icon: Type, label: "Case Convert", href: "/tools/case-converter" },
+  { icon: Wand2, label: "Random Words", href: "/tools/random-words" },
 ];
 
 export const FAB = () => {
@@ -24,7 +24,7 @@ export const FAB = () => {
       )}
 
       {/* FAB Menu Items */}
-      <div className="fixed bottom-24 right-4 z-50 flex flex-col-reverse gap-3 md:hidden">
+      <div className="fixed bottom-24 right-3 z-50 flex flex-col-reverse gap-2 md:hidden">
         {favoriteTools.map((tool, index) => {
           const Icon = tool.icon;
           return (
@@ -64,7 +64,7 @@ export const FAB = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed bottom-20 right-4 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-xl flex items-center justify-center z-50 md:hidden transition-all duration-300 hover:scale-110 active:scale-95 relative overflow-hidden group",
+          "fixed bottom-20 right-3 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-xl flex items-center justify-center z-50 md:hidden transition-all duration-300 hover:scale-110 active:scale-95 relative overflow-hidden group",
           isOpen && "rotate-45"
         )}
         aria-label="Quick access to favorite tools"

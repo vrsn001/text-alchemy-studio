@@ -62,10 +62,10 @@ const AddLineBreaks = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
       <Header />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-3 md:px-4 py-6 md:py-8">
         <div className="max-w-4xl mx-auto">
           <Breadcrumb 
             items={[
