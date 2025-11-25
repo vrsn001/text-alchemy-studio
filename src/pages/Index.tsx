@@ -3,334 +3,73 @@ import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { FAB } from "@/components/FAB";
 import { ToolLink } from "@/components/ToolLink";
-import { Card } from "@/components/ui/card";
-import { 
-  Type, 
-  Sparkles, 
-  ArrowDownAZ, 
-  RotateCcw, 
-  AlignLeft,
-  Scissors,
-  Hash,
-  FileText,
-  Repeat,
-  Wand2,
-  Text as TextIcon
-} from "lucide-react";
-import { useEffect, useCallback, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Scissors, Hash, ArrowUpDown, FileCode, ArrowLeftRight, Type } from "lucide-react";
+import { PullToRefresh } from "@/components/PullToRefresh";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 const Index = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
-    axis: 'x',
-    loop: false,
-    dragFree: false,
-    containScroll: 'trimSnaps',
-    skipSnaps: false,
-    inViewThreshold: 0.7
-  });
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [refreshKey, setRefreshKey] = useState(0);
 
-  const sections = ['home', 'text', 'html', 'favorites'];
+  const handleRefresh = async () => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setRefreshKey(prev => prev + 1);
+    toast.success("Tools refreshed!");
+  };
 
-  const scrollToSection = useCallback((index: number) => {
-    if (emblaApi) emblaApi.scrollTo(index);
-  }, [emblaApi]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    const index = emblaApi.selectedScrollSnap();
-    setSelectedIndex(index);
-    
-    // Update URL hash based on section
-    const sectionId = sections[index];
-    if (sectionId === 'home') {
-      navigate('/', { replace: true });
-    } else {
-      const hashMap: Record<string, string> = {
-        text: '#text-tools',
-        html: '#html-tools',
-        favorites: '#favorites'
-      };
-      navigate(hashMap[sectionId] || '/', { replace: true });
-    }
-  }, [emblaApi, navigate, sections]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on('select', onSelect);
-    return () => {
-      emblaApi.off('select', onSelect);
-    };
-  }, [emblaApi, onSelect]);
-
-  // Sync with hash navigation
-  useEffect(() => {
-    const hash = location.hash;
-    let targetIndex = 0;
-    
-    if (hash === '#text-tools') targetIndex = 1;
-    else if (hash === '#html-tools') targetIndex = 2;
-    else if (hash === '#favorites') targetIndex = 3;
-    
-    if (targetIndex !== selectedIndex && emblaApi) {
-      emblaApi.scrollTo(targetIndex);
-    }
-  }, [location.hash, emblaApi, selectedIndex]);
+  const tools = [
+    { icon: Scissors, title: "Add Line Breaks", description: "Add line breaks after every character", href: "/tools/add-line-breaks" },
+    { icon: Hash, title: "Random Word Generator", description: "Generate random words for your projects", href: "/tools/random-words" },
+    { icon: ArrowUpDown, title: "Alphabetical Order", description: "Sort text lines alphabetically", href: "/tools/alphabetical-order" },
+    { icon: FileCode, title: "Text to HTML", description: "Convert plain text to HTML paragraphs", href: "/tools/text-to-html" },
+    { icon: ArrowLeftRight, title: "Reverse Text", description: "Reverse all characters in your text", href: "/tools/reverse-text" },
+    { icon: Hash, title: "Word Counter", description: "Count words, characters, and more", href: "/tools/word-counter" },
+    { icon: Type, title: "Case Converter", description: "Convert text to different cases", href: "/tools/case-converter" },
+  ];
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
-      <Header />
-      
-      {/* Desktop View */}
-      <main className="hidden md:block container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Hero Section */}
-          <div className="mb-12">
-            <h1 className="text-4xl font-bold text-primary mb-4">
-              Free Online Tools - Text Craft Web Tools
+    <PullToRefresh onRefresh={handleRefresh}>
+      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
+        <Header />
+        
+        <main className="container mx-auto px-3 md:px-4 py-6 md:py-8" key={refreshKey}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8 md:mb-12"
+          >
+            <h1 className="text-4xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-float">
+              TextCraft
             </h1>
-            <p className="text-lg text-foreground leading-relaxed mb-6">
-              Use these <strong>free online tools</strong> to fix text, convert text to HTML, remove line breaks, 
-              generate random words, and do many other tasks quickly with these web tools.
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
+              Transform your text instantly with powerful online tools
             </p>
-            
-            <div className="bg-muted/50 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold text-foreground mb-3">
-                What Are Some Online Tools You Can Use?
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                You can, for example, use the online sentence counter, convert text to HTML paragraphs, alphabetize text, 
-                or remove line breaks from incorrectly formatted text. You can do fun things like generate random words, 
-                reverse text, or repeat text.
-              </p>
+          </motion.div>
+
+          <section id="text-tools">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">Text Tools</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {tools.map((tool, index) => (
+                <motion.div
+                  key={tool.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index, duration: 0.3 }}
+                >
+                  <ToolLink {...tool} />
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </section>
+        </main>
 
-          {/* Tool Categories */}
-          <div id="text-tools" className="grid md:grid-cols-2 gap-8 mb-12">
-            {/* Most Popular Text Tools */}
-            <Card className="p-6 bg-card hover:shadow-lg transition-all">
-              <h3 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border">
-                Most Popular Text Tools
-              </h3>
-              <div className="space-y-1">
-                <ToolLink
-                  icon={Scissors}
-                  title="Add Line Breaks"
-                  description="Add line breaks to scrunched-up text to make it more readable."
-                  href="/tools/add-line-breaks"
-                />
-                <ToolLink
-                  icon={Wand2}
-                  title="Random Word Generator"
-                  description="Generate a list of random words. Great tool for brainstorming ideas."
-                  href="/tools/random-words"
-                />
-                <ToolLink
-                  icon={ArrowDownAZ}
-                  title="Alphabetical Order"
-                  description="Alphabetize all sorts of text content with this tool."
-                  href="/tools/alphabetical-order"
-                />
-                <ToolLink
-                  icon={FileText}
-                  title="Text to HTML"
-                  description="Automatically change plain text into HTML paragraphs."
-                  href="/tools/text-to-html"
-                />
-              </div>
-            </Card>
-
-            {/* Text Case Tools */}
-            <Card className="p-6 bg-card hover:shadow-lg transition-all">
-              <h3 className="text-xl font-bold text-foreground mb-4 pb-3 border-b border-border">
-                Text Case Tools
-              </h3>
-              <div className="space-y-1">
-                <ToolLink
-                  icon={Type}
-                  title="Case Converter"
-                  description="Convert text to uppercase, lowercase, title case, or sentence case."
-                  href="/tools/case-converter"
-                />
-                <ToolLink
-                  icon={Hash}
-                  title="Word Counter"
-                  description="Count words, characters, sentences, and paragraphs."
-                  href="/tools/word-counter"
-                />
-                <ToolLink
-                  icon={RotateCcw}
-                  title="Reverse Text"
-                  description="Reverse the text and characters in your content."
-                  href="/tools/reverse-text"
-                />
-              </div>
-            </Card>
-          </div>
-
-
-          {/* Additional Info */}
-          <div className="bg-muted/30 p-6 rounded-lg text-center">
-            <p className="text-muted-foreground mb-2">
-              There are also plenty of tools if you need to <strong>fix text formatting online</strong>.
-            </p>
-            <p className="text-sm text-muted-foreground">
-              All tools are free to use and require no registration.
-            </p>
-          </div>
-        </div>
-      </main>
-
-      {/* Mobile View with Swipe Gestures */}
-      <div className="md:hidden w-full overflow-hidden" ref={emblaRef}>
-        <div className="flex w-full">
-          {/* Home Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
-            <div className="max-w-6xl mx-auto">
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold text-primary mb-4">
-                  Free Online Tools - TextCraft
-                </h1>
-                <p className="text-base text-foreground leading-relaxed mb-4">
-                  Use these <strong>free online tools</strong> to fix text, convert text to HTML, remove line breaks, 
-                  generate random words, and more.
-                </p>
-                
-                <div className="bg-muted/50 p-4 rounded-lg">
-                  <h2 className="text-lg font-semibold text-foreground mb-2">
-                    What Are Some Online Tools You Can Use?
-                  </h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Convert text to HTML paragraphs, alphabetize text, remove line breaks, generate random words, 
-                    reverse text, or repeat text.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-muted/30 p-4 rounded-lg text-center">
-                <p className="text-sm text-muted-foreground mb-2">
-                  <strong>Swipe left</strong> to explore tool categories →
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  All tools are free to use and require no registration.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Text Tools Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-bold text-primary mb-6">Text Tools</h2>
-              
-              <div className="space-y-6">
-                <Card className="p-4 bg-card">
-                  <h3 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">
-                    Most Popular
-                  </h3>
-                  <div className="space-y-1">
-                    <ToolLink
-                      icon={Scissors}
-                      title="Add Line Breaks"
-                      description="Add line breaks to scrunched-up text."
-                      href="/tools/add-line-breaks"
-                    />
-                    <ToolLink
-                      icon={Wand2}
-                      title="Random Word Generator"
-                      description="Generate random words for brainstorming."
-                      href="/tools/random-words"
-                    />
-                    <ToolLink
-                      icon={ArrowDownAZ}
-                      title="Alphabetical Order"
-                      description="Alphabetize text content."
-                      href="/tools/alphabetical-order"
-                    />
-                  </div>
-                </Card>
-
-                <Card className="p-4 bg-card">
-                  <h3 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">
-                    More Tools
-                  </h3>
-                  <div className="space-y-1">
-                    <ToolLink
-                      icon={Type}
-                      title="Case Converter"
-                      description="Convert text case formats."
-                      href="/tools/case-converter"
-                    />
-                    <ToolLink
-                      icon={RotateCcw}
-                      title="Reverse Text"
-                      description="Reverse text and characters."
-                      href="/tools/reverse-text"
-                    />
-                    <ToolLink
-                      icon={Hash}
-                      title="Word Counter"
-                      description="Count words and characters."
-                      href="/tools/word-counter"
-                    />
-                  </div>
-                </Card>
-              </div>
-            </div>
-          </div>
-
-          {/* HTML Tools Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-bold text-primary mb-6">HTML Tools</h2>
-              
-              <Card className="p-4 bg-card">
-                <h3 className="text-lg font-bold text-foreground mb-3 pb-2 border-b border-border">
-                  HTML Conversion
-                </h3>
-                <div className="space-y-1">
-                  <ToolLink
-                    icon={FileText}
-                    title="Text to HTML"
-                    description="Convert plain text to HTML paragraphs."
-                    href="/tools/text-to-html"
-                  />
-                </div>
-              </Card>
-            </div>
-          </div>
-
-          {/* Favorites Section */}
-          <div className="flex-[0_0_100%] min-w-0 px-4 py-6 pb-24">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-bold text-primary mb-6">Favorites</h2>
-              
-              <Card className="p-4 bg-card">
-                <div className="text-center py-8">
-                  <Sparkles className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    No Favorites Yet
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Star your favorite tools for quick access
-                  </p>
-                </div>
-              </Card>
-            </div>
-          </div>
-        </div>
+        <Footer />
+        <BottomNav />
+        <FAB />
       </div>
-
-      <Footer />
-      <BottomNav />
-      <FAB />
-    </div>
+    </PullToRefresh>
   );
 };
 
