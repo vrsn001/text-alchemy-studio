@@ -40,7 +40,7 @@ const Index = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-8 md:mb-12"
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-float">
+            <h1 className="text-4xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               TextCraft
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
@@ -48,10 +48,44 @@ const Index = () => {
             </p>
           </motion.div>
 
-          <section id="text-tools">
+          <section id="text-tools" className="scroll-mt-20">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">Text Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {tools.map((tool, index) => (
+                <motion.div
+                  key={tool.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index, duration: 0.3 }}
+                >
+                  <ToolLink {...tool} />
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          <section id="html-tools" className="scroll-mt-20 mt-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">HTML Tools</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.3 }}
+              >
+                <ToolLink 
+                  icon={FileCode} 
+                  title="Text to HTML" 
+                  description="Convert plain text to HTML paragraphs" 
+                  href="/tools/text-to-html" 
+                />
+              </motion.div>
+            </div>
+          </section>
+
+          <section id="favorites" className="scroll-mt-20 mt-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">Favorites</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {tools.slice(0, 4).map((tool, index) => (
                 <motion.div
                   key={tool.title}
                   initial={{ opacity: 0, y: 20 }}

@@ -13,14 +13,20 @@ export const BottomNav = () => {
   const location = useLocation();
   
   const isActive = (href: string) => {
-    if (href === "/") return location.pathname === "/";
+    // Only home path should be active when on "/"
+    if (href === "/") {
+      return location.pathname === "/" && !location.hash;
+    }
+    // Hash navigation for other items
     return location.hash === href;
   };
 
-  const handleNavClick = (href: string, id: string) => {
+  const handleNavClick = (href: string) => {
     if (href.startsWith("#")) {
-      // On mobile, the swipe carousel will handle navigation via URL change
-      // No need to manually scroll
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       window.location.hash = href;
     }
   };
@@ -35,7 +41,7 @@ export const BottomNav = () => {
           return item.href.startsWith("#") ? (
             <button
               key={item.id}
-              onClick={() => handleNavClick(item.href, item.id)}
+              onClick={() => handleNavClick(item.href)}
               className={cn(
                 "flex flex-col items-center justify-center flex-1 h-full relative overflow-hidden group transition-all duration-300",
                 active ? "text-primary" : "text-muted-foreground"

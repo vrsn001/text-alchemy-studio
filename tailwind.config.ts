@@ -65,7 +65,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Roboto', 'system-ui', 'sans-serif'],
+        sans: ['Google Sans Flex', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'sm': 'var(--shadow-sm)',
@@ -153,7 +153,6 @@ export default {
         "fade-up": "fade-up 0.6s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
         "shimmer": "shimmer 3s ease-in-out infinite",
-        "float": "float 3s ease-in-out infinite",
       },
     },
   },
