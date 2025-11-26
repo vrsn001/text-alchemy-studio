@@ -33,10 +33,10 @@ export const TextToolCard = ({
   };
 
   return (
-    <Card className="p-6 bg-card shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-border/50">
-      <div className="mb-4">
-        <h3 className="text-xl font-semibold text-foreground mb-1">{title}</h3>
-        <p className="text-sm text-muted-foreground">{description}</p>
+    <Card className="p-6 bg-surface-1 elevation-2 hover:elevation-4 transition-all duration-200 ease-out border border-border/50 rounded-2xl state-layer">
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold text-foreground mb-2">{title}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
       </div>
 
       <div className="space-y-4">

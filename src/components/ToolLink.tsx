@@ -1,5 +1,6 @@
 import { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 interface ToolLinkProps {
   icon: LucideIcon;
@@ -10,36 +11,38 @@ interface ToolLinkProps {
 }
 
 export const ToolLink = ({ icon: Icon, title, description, href, onClick }: ToolLinkProps) => {
+  const baseClasses = cn(
+    "flex items-start gap-4 p-5 rounded-2xl text-left w-full group",
+    "bg-surface-1 elevation-1 hover:elevation-3 active:elevation-1",
+    "transition-all duration-200 ease-out",
+    "state-layer",
+    "border border-border/50"
+  );
+
   const content = (
     <>
-      <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-m3 mt-0.5">
-        <Icon className="h-4 w-4 text-primary" />
+      <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/15 group-hover:scale-105 transition-all duration-200 mt-0.5 flex-shrink-0">
+        <Icon className="h-6 w-6 text-primary" />
       </div>
-      <div className="flex-1">
-        <h4 className="font-medium text-foreground group-hover:text-primary transition-m3">
+      <div className="flex-1 min-w-0">
+        <h4 className="font-semibold text-base text-foreground group-hover:text-primary transition-colors duration-200 mb-1">
           {title}
         </h4>
-        <p className="text-sm text-muted-foreground mt-0.5">{description}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
       </div>
     </>
   );
 
   if (href) {
     return (
-      <Link
-        to={href}
-        className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/50 transition-m3 text-left w-full group"
-      >
+      <Link to={href} className={baseClasses}>
         {content}
       </Link>
     );
   }
 
   return (
-    <button
-      onClick={onClick}
-      className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent/50 transition-m3 text-left w-full group"
-    >
+    <button onClick={onClick} className={baseClasses}>
       {content}
     </button>
   );
