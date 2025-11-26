@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { useState } from "react";
+import { SplashScreen } from "@/components/SplashScreen";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import Index from "./pages/Index";
 import AddLineBreaks from "./pages/AddLineBreaks";
@@ -19,11 +20,24 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [showSplash, setShowSplash] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+    // Only show loading screen after splash for first-time visitors
+    const hasVisited = localStorage.getItem("hasVisitedBefore");
+    if (hasVisited) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+  };
 
   return (
     <>
-      {isLoading && <LoadingScreen onLoadComplete={() => setIsLoading(false)} />}
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+      {!showSplash && isLoading && <LoadingScreen onLoadComplete={() => setIsLoading(false)} />}
       <QueryClientProvider client={queryClient}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <TooltipProvider>
