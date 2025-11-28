@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/9e6dae97-f66b-4e5f-bf8b-0c4cc52fdaaa
+**URL**: https://textstudio.netlify.app/
 
 ## How can I edit this code?
 
