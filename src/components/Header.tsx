@@ -10,25 +10,34 @@ export const Header = () => {
   };
 
   return (
-    <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-40 safe-area-top">
+    <header className="bg-primary text-primary-foreground sticky top-0 z-[100] safe-area-top backdrop-blur-md bg-primary/95 transition-all duration-300 ease-out shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)]">
       <div className="container mx-auto px-3 md:px-4">
-        <div className="flex items-center justify-between py-3 md:py-4">
-          <div className="flex items-center gap-2 md:gap-3">
-            <Sparkles className="h-6 w-6 md:h-8 md:w-8" />
+        <div className="flex items-center justify-between h-14 md:h-16">
+          <a href="/" className="flex items-center gap-2 md:gap-3 group">
+            <Sparkles className="h-6 w-6 md:h-8 md:w-8 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
             <div>
               <h1 className="text-xl md:text-2xl font-bold tracking-tight">TextCraft</h1>
               <p className="text-[10px] md:text-xs opacity-90 hidden sm:block">Made with love at creative fuel 💜</p>
             </div>
-          </div>
+          </a>
           
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#text-tools" className="hover:opacity-80 transition-opacity font-medium">
+          <nav className="hidden md:flex items-center gap-1" role="navigation" aria-label="Main navigation">
+            <a 
+              href="#text-tools" 
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-primary-foreground/15 active:scale-95"
+            >
               Text Tools
             </a>
-            <a href="#html-tools" className="hover:opacity-80 transition-opacity font-medium">
+            <a 
+              href="#html-tools" 
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-primary-foreground/15 active:scale-95"
+            >
               HTML Tools
             </a>
-            <a href="#number-tools" className="hover:opacity-80 transition-opacity font-medium">
+            <a 
+              href="#number-tools" 
+              className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-primary-foreground/15 active:scale-95"
+            >
               Number Tools
             </a>
           </nav>
@@ -37,13 +46,13 @@ export const Header = () => {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="hover:bg-primary-foreground/10 text-primary-foreground"
-            aria-label="Toggle theme"
+            className="hover:bg-primary-foreground/15 text-primary-foreground transition-all duration-200 active:scale-90"
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
           >
             {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
+              <Sun className="h-5 w-5 transition-transform duration-300 hover:rotate-45" />
             ) : (
-              <Moon className="h-5 w-5" />
+              <Moon className="h-5 w-5 transition-transform duration-300 hover:-rotate-12" />
             )}
           </Button>
         </div>

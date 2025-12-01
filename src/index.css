@@ -126,8 +126,20 @@ All colors MUST be HSL.
 }
 
 @layer base {
-  * {
+  /* CSS Reset for cross-browser consistency */
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -135,15 +147,48 @@ All colors MUST be HSL.
     touch-action: manipulation;
     -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: transparent;
-    overscroll-behavior: none;
+    overscroll-behavior-y: contain;
     position: relative;
     width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
+    line-height: 1.5;
   }
 
   #root {
     width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Semantic HTML improvements */
+  main {
+    flex: 1;
+  }
+
+  img, video, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  button, input, textarea, select {
+    font: inherit;
+  }
+
+  /* Focus visible for accessibility */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Remove default focus for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 }
 
