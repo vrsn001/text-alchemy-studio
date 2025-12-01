@@ -80,70 +80,61 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-            opacity: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-            opacity: "1",
-          },
+          from: { height: "0", opacity: "0" },
+          to: { height: "var(--radix-accordion-content-height)", opacity: "1" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-            opacity: "1",
-          },
-          to: {
-            height: "0",
-            opacity: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+          to: { height: "0", opacity: "0" },
         },
         "fade-in": {
-          "0%": {
-            opacity: "0",
-            transform: "translateY(10px)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateY(0)",
-          },
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "fade-up": {
-          "0%": {
-            opacity: "0",
-            transform: "translateY(20px)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translateY(0)",
-          },
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "scale-in": {
-          "0%": {
-            transform: "scale(0.95)",
-            opacity: "0",
-          },
-          "100%": {
-            transform: "scale(1)",
-            opacity: "1",
-          },
+          "0%": { transform: "scale(0.95)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
         },
         "shimmer": {
-          "0%": {
-            backgroundPosition: "-1000px 0",
-          },
-          "100%": {
-            backgroundPosition: "1000px 0",
-          },
+          "0%": { backgroundPosition: "-1000px 0" },
+          "100%": { backgroundPosition: "1000px 0" },
         },
         "float": {
-          "0%, 100%": {
-            transform: "translateY(0px)",
-          },
-          "50%": {
-            transform: "translateY(-10px)",
-          },
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        // Micro-interaction feedback animations
+        "success-pulse": {
+          "0%": { transform: "scale(1)", boxShadow: "0 0 0 0 hsl(var(--primary) / 0.4)" },
+          "50%": { transform: "scale(1.02)", boxShadow: "0 0 0 8px hsl(var(--primary) / 0)" },
+          "100%": { transform: "scale(1)", boxShadow: "0 0 0 0 hsl(var(--primary) / 0)" },
+        },
+        "bounce-subtle": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(-2deg)" },
+          "75%": { transform: "rotate(2deg)" },
+        },
+        "check-mark": {
+          "0%": { strokeDashoffset: "50", opacity: "0" },
+          "50%": { opacity: "1" },
+          "100%": { strokeDashoffset: "0", opacity: "1" },
+        },
+        "slide-up": {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "press": {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(0.97)" },
+          "100%": { transform: "scale(1)" },
         },
       },
       animation: {
@@ -153,6 +144,12 @@ export default {
         "fade-up": "fade-up 0.6s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
         "shimmer": "shimmer 3s ease-in-out infinite",
+        "success-pulse": "success-pulse 0.4s ease-out",
+        "bounce-subtle": "bounce-subtle 0.3s ease-out",
+        "wiggle": "wiggle 0.3s ease-in-out",
+        "check-mark": "check-mark 0.3s ease-out forwards",
+        "slide-up": "slide-up 0.2s ease-out",
+        "press": "press 0.15s ease-out",
       },
     },
   },

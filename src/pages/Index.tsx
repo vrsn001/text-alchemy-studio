@@ -30,14 +30,14 @@ const Index = () => {
 
   return (
     <PullToRefresh onRefresh={handleRefresh}>
-      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
+      <div className="min-h-screen min-h-[100dvh] flex flex-col bg-background pb-20 md:pb-0 overflow-x-hidden">
         <Header />
         
-        <main className="container mx-auto px-3 md:px-4 py-6 md:py-8" key={refreshKey}>
-          <motion.div
+        <main className="flex-1 container mx-auto px-3 md:px-4 py-6 md:py-8" key={refreshKey}>
+          <motion.header
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, ease: [0.2, 0, 0, 1] }}
             className="text-center mb-8 md:mb-12"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
@@ -46,31 +46,35 @@ const Index = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
               Transform your text instantly with powerful online tools
             </p>
-          </motion.div>
+          </motion.header>
 
-          <section id="text-tools" className="scroll-mt-20">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">Text Tools</h2>
+          <section id="text-tools" className="scroll-mt-24" aria-labelledby="text-tools-heading">
+            <h2 id="text-tools-heading" className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+              Text Tools
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {tools.map((tool, index) => (
-                <motion.div
+                <motion.article
                   key={tool.title}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index, duration: 0.3 }}
+                  transition={{ delay: 0.05 * index, duration: 0.3, ease: [0.2, 0, 0, 1] }}
                 >
                   <ToolLink {...tool} />
-                </motion.div>
+                </motion.article>
               ))}
             </div>
           </section>
 
-          <section id="html-tools" className="scroll-mt-20 mt-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">HTML Tools</h2>
+          <section id="html-tools" className="scroll-mt-24 mt-12" aria-labelledby="html-tools-heading">
+            <h2 id="html-tools-heading" className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+              HTML Tools
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              <motion.div
+              <motion.article
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.3 }}
+                transition={{ delay: 0.1, duration: 0.3, ease: [0.2, 0, 0, 1] }}
               >
                 <ToolLink 
                   icon={FileCode} 
@@ -78,22 +82,24 @@ const Index = () => {
                   description="Convert plain text to HTML paragraphs" 
                   href="/tools/text-to-html" 
                 />
-              </motion.div>
+              </motion.article>
             </div>
           </section>
 
-          <section id="favorites" className="scroll-mt-20 mt-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">Favorites</h2>
+          <section id="favorites" className="scroll-mt-24 mt-12" aria-labelledby="favorites-heading">
+            <h2 id="favorites-heading" className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+              Favorites
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {tools.slice(0, 4).map((tool, index) => (
-                <motion.div
-                  key={tool.title}
+                <motion.article
+                  key={`fav-${tool.title}`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index, duration: 0.3 }}
+                  transition={{ delay: 0.05 * index, duration: 0.3, ease: [0.2, 0, 0, 1] }}
                 >
                   <ToolLink {...tool} />
-                </motion.div>
+                </motion.article>
               ))}
             </div>
           </section>

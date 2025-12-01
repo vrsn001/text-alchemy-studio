@@ -1,14 +1,15 @@
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Copy, RotateCcw, Download, Undo2, Redo2, Trash2 } from "lucide-react";
+import { Copy, Download, Undo2, Redo2, Trash2, Check, Sparkles } from "lucide-react";
 import { toast } from "sonner";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { triggerHaptic } from "@/utils/haptics";
 import { saveToolState, loadToolState } from "@/utils/storage";
 import { downloadAsText } from "@/utils/download";
 import { useUndoRedo } from "@/hooks/useUndoRedo";
+import { cn } from "@/lib/utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -42,6 +43,8 @@ export const EnhancedTextToolCard = ({
   const { state: inputValue, setState: setInputValue, undo, redo, canUndo, canRedo, reset } = useUndoRedo(loadToolState(toolId));
   const [outputValue, setOutputValue] = useState("");
   const [showClearDialog, setShowClearDialog] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isTransforming, setIsTransforming] = useState(false);
 
   // Live update effect
   useEffect(() => {
@@ -63,26 +66,35 @@ export const EnhancedTextToolCard = ({
     return () => clearTimeout(timer);
   }, [inputValue, toolId]);
 
-  const handleTransform = () => {
+  const handleTransform = useCallback(() => {
     if (!inputValue.trim()) {
       setOutputValue("");
       return;
     }
+    setIsTransforming(true);
     triggerHaptic('light');
-    setOutputValue(transformFunction(inputValue));
-  };
+    
+    // Brief delay to show transformation feedback
+    setTimeout(() => {
+      setOutputValue(transformFunction(inputValue));
+      setIsTransforming(false);
+      triggerHaptic('success');
+    }, 150);
+  }, [inputValue, transformFunction]);
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(outputValue);
+      setCopied(true);
       triggerHaptic('success');
-      toast.success("Copied to clipboard!", {
-        duration: 2000,
-      });
+      toast.success("Copied to clipboard!", { duration: 2000 });
+      
+      // Reset copied state after animation
+      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       toast.error("Failed to copy");
     }
-  };
+  }, [outputValue]);
 
   const handleDownload = () => {
     downloadAsText(outputValue, downloadFilename);
@@ -161,11 +173,21 @@ export const EnhancedTextToolCard = ({
               {!liveUpdate && (
                 <Button
                   onClick={handleTransform}
-                  className="flex-1 bg-primary hover:bg-primary-hover text-primary-foreground transition-m3 shadow-md relative overflow-hidden group"
+                  disabled={isTransforming || !inputValue.trim()}
+                  className={cn(
+                    "flex-1 bg-primary hover:bg-primary-hover text-primary-foreground transition-all duration-200 shadow-md relative overflow-hidden group",
+                    isTransforming && "animate-success-pulse"
+                  )}
                 >
-                  <span className="relative z-10">{buttonText}</span>
+                  <motion.span 
+                    className="relative z-10 flex items-center gap-2"
+                    animate={isTransforming ? { scale: [1, 1.05, 1] } : {}}
+                  >
+                    {isTransforming && <Sparkles className="h-4 w-4 animate-wiggle" />}
+                    {buttonText}
+                  </motion.span>
                   <motion.div
-                    className="absolute inset-0 bg-white/20"
+                    className="absolute inset-0 bg-primary-foreground/20"
                     initial={{ scale: 0, opacity: 0 }}
                     whileTap={{ scale: 2, opacity: 1 }}
                     transition={{ duration: 0.4 }}
@@ -176,8 +198,9 @@ export const EnhancedTextToolCard = ({
                 onClick={handleClear}
                 variant="outline"
                 size="icon"
-                className="transition-m3 hover:bg-destructive hover:text-destructive-foreground"
+                className="transition-all duration-200 hover:bg-destructive hover:text-destructive-foreground active:scale-95"
                 title="Clear all"
+                aria-label="Clear all text"
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -200,22 +223,49 @@ export const EnhancedTextToolCard = ({
                       readOnly
                       className="min-h-[120px] resize-none bg-muted border-border"
                     />
-                    <div className="absolute top-2 right-2 flex gap-1">
+                    <div className="absolute top-2 right-2 flex gap-1.5">
                       <Button
                         onClick={handleCopy}
                         size="icon"
                         variant="outline"
-                        className="transition-m3 bg-background/80 backdrop-blur-sm hover:bg-background"
+                        className={cn(
+                          "transition-all duration-200 bg-background/90 backdrop-blur-sm hover:bg-background active:scale-95",
+                          copied && "bg-green-500/10 border-green-500/50 text-green-600"
+                        )}
                         title="Copy to clipboard"
+                        aria-label="Copy to clipboard"
                       >
-                        <Copy className="h-4 w-4" />
+                        <AnimatePresence mode="wait">
+                          {copied ? (
+                            <motion.div
+                              key="check"
+                              initial={{ scale: 0, rotate: -45 }}
+                              animate={{ scale: 1, rotate: 0 }}
+                              exit={{ scale: 0, rotate: 45 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <Check className="h-4 w-4 text-green-600" />
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="copy"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              exit={{ scale: 0 }}
+                              transition={{ duration: 0.15 }}
+                            >
+                              <Copy className="h-4 w-4" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </Button>
                       <Button
                         onClick={handleDownload}
                         size="icon"
                         variant="outline"
-                        className="transition-m3 bg-background/80 backdrop-blur-sm hover:bg-background"
+                        className="transition-all duration-200 bg-background/90 backdrop-blur-sm hover:bg-background active:scale-95"
                         title="Download as file"
+                        aria-label="Download as file"
                       >
                         <Download className="h-4 w-4" />
                       </Button>
