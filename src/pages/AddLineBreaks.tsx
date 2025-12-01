@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
@@ -9,17 +9,55 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Download, Copy } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Download, Copy, Eye, Code, Check } from "lucide-react";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
 import { triggerHaptic } from "@/utils/haptics";
 import { downloadAsText } from "@/utils/download";
+
+// URL regex pattern to detect links
+const URL_REGEX = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/g;
 
 const AddLineBreaks = () => {
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
   const [mode, setMode] = useState("paragraph");
+  const [copied, setCopied] = useState(false);
+  const [outputView, setOutputView] = useState<"preview" | "raw">("preview");
+
+  // Parse text and convert URLs to clickable links
+  const renderTextWithLinks = useMemo(() => {
+    if (!outputText) return null;
+    
+    const parts = outputText.split(URL_REGEX);
+    
+    return parts.map((part, index) => {
+      if (URL_REGEX.test(part)) {
+        // Reset the regex lastIndex
+        URL_REGEX.lastIndex = 0;
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:text-primary-hover underline underline-offset-2 transition-colors duration-200 break-all"
+          >
+            {part}
+          </a>
+        );
+      }
+      // Preserve line breaks in the text
+      return part.split('\n').map((line, lineIndex, arr) => (
+        <span key={`${index}-${lineIndex}`}>
+          {line}
+          {lineIndex < arr.length - 1 && <br />}
+        </span>
+      ));
+    });
+  }, [outputText]);
 
   const handleAddLineBreaks = () => {
     if (!inputText.trim()) {
@@ -42,8 +80,10 @@ const AddLineBreaks = () => {
   const handleCopy = async () => {
     if (!outputText) return;
     await navigator.clipboard.writeText(outputText);
+    setCopied(true);
     triggerHaptic('success');
     toast.success("Text copied to clipboard!");
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDownload = () => {
@@ -149,35 +189,89 @@ const AddLineBreaks = () => {
               </Card>
             </motion.div>
 
-            {outputText && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <Card className="p-6 backdrop-blur-sm border-border/50">
-                  <h2 className="text-2xl font-bold text-foreground mb-4">
-                    Text with Newly Added Line Breaks
-                  </h2>
+            <AnimatePresence>
+              {outputText && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                >
+                  <Card className="p-6 backdrop-blur-sm border-border/50">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-2xl font-bold text-foreground">
+                        Text with Newly Added Line Breaks
+                      </h2>
+                      <Tabs value={outputView} onValueChange={(v) => setOutputView(v as "preview" | "raw")}>
+                        <TabsList className="h-9">
+                          <TabsTrigger value="preview" className="gap-1.5 text-xs px-3">
+                            <Eye className="h-3.5 w-3.5" />
+                            Preview
+                          </TabsTrigger>
+                          <TabsTrigger value="raw" className="gap-1.5 text-xs px-3">
+                            <Code className="h-3.5 w-3.5" />
+                            Raw
+                          </TabsTrigger>
+                        </TabsList>
+                      </Tabs>
+                    </div>
 
-                  <Textarea
-                    value={outputText}
-                    readOnly
-                    className="min-h-[200px] mb-4 bg-muted/50"
-                  />
+                    {outputView === "preview" ? (
+                      <div className="min-h-[200px] max-h-[400px] overflow-y-auto p-4 rounded-lg bg-muted/50 border border-border mb-4 text-foreground leading-relaxed whitespace-pre-wrap">
+                        {renderTextWithLinks}
+                      </div>
+                    ) : (
+                      <Textarea
+                        value={outputText}
+                        readOnly
+                        className="min-h-[200px] mb-4 bg-muted/50"
+                      />
+                    )}
 
-                  <div className="flex gap-3">
-                    <Button onClick={handleCopy} variant="outline">
-                      <Copy className="h-4 w-4 mr-2" />
-                      Copy to Clipboard
-                    </Button>
-                    <Button onClick={handleDownload} variant="outline">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download New Text
-                    </Button>
-                  </div>
-                </Card>
-              </motion.div>
-            )}
+                    <div className="flex gap-3">
+                      <Button 
+                        onClick={handleCopy} 
+                        variant="outline"
+                        className="transition-all duration-200 active:scale-95"
+                      >
+                        <AnimatePresence mode="wait">
+                          {copied ? (
+                            <motion.span
+                              key="check"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              exit={{ scale: 0 }}
+                              className="flex items-center gap-2"
+                            >
+                              <Check className="h-4 w-4 text-green-600" />
+                              Copied!
+                            </motion.span>
+                          ) : (
+                            <motion.span
+                              key="copy"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              exit={{ scale: 0 }}
+                              className="flex items-center gap-2"
+                            >
+                              <Copy className="h-4 w-4" />
+                              Copy to Clipboard
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </Button>
+                      <Button 
+                        onClick={handleDownload} 
+                        variant="outline"
+                        className="transition-all duration-200 active:scale-95"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download New Text
+                      </Button>
+                    </div>
+                  </Card>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </main>
 
