@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { FAB } from "@/components/FAB";
 import { ToolLink } from "@/components/ToolLink";
-import { Scissors, Hash, ArrowUpDown, FileCode, ArrowLeftRight, Type } from "lucide-react";
+import { Scissors, Hash, ArrowUpDown, FileCode, ArrowLeftRight, Type, Link2 } from "lucide-react";
 import { PullToRefresh } from "@/components/PullToRefresh";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -19,6 +19,7 @@ const Index = () => {
   };
 
   const tools = [
+    { icon: Link2, title: "Link Manager", description: "Validate, detect duplicates & manage URLs", href: "/tools/link-manager" },
     { icon: Scissors, title: "Add Line Breaks", description: "Add line breaks after every character", href: "/tools/add-line-breaks" },
     { icon: Hash, title: "Random Word Generator", description: "Generate random words for your projects", href: "/tools/random-words" },
     { icon: ArrowUpDown, title: "Alphabetical Order", description: "Sort text lines alphabetically", href: "/tools/alphabetical-order" },
