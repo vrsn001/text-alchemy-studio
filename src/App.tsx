@@ -15,6 +15,7 @@ import ReverseText from "./pages/ReverseText";
 import TextToHtml from "./pages/TextToHtml";
 import WordCounter from "./pages/WordCounter";
 import CaseConverter from "./pages/CaseConverter";
+import LinkManager from "./pages/LinkManager";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => {
                 <Route path="/tools/text-to-html" element={<TextToHtml />} />
                 <Route path="/tools/word-counter" element={<WordCounter />} />
                 <Route path="/tools/case-converter" element={<CaseConverter />} />
+                <Route path="/tools/link-manager" element={<LinkManager />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
