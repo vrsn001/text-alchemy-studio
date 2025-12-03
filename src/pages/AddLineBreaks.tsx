@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Copy, Eye, Code, Check } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Download, Copy, Eye, Code, Check, ListOrdered } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
@@ -26,6 +27,7 @@ const AddLineBreaks = () => {
   const [mode, setMode] = useState("paragraph");
   const [copied, setCopied] = useState(false);
   const [outputView, setOutputView] = useState<"preview" | "raw">("preview");
+  const [addNumbers, setAddNumbers] = useState(false);
 
   // Parse text and convert URLs to clickable links
   const renderTextWithLinks = useMemo(() => {
@@ -66,10 +68,56 @@ const AddLineBreaks = () => {
     }
 
     let result = "";
-    if (mode === "paragraph") {
-      result = inputText.replace(/\n/g, "\n\n");
-    } else {
-      result = inputText.replace(/\.\s+/g, ".\n\n");
+    
+    switch (mode) {
+      case "paragraph":
+        result = inputText.replace(/\n/g, "\n\n");
+        break;
+      case "sentence":
+        result = inputText.replace(/\.\s+/g, ".\n\n");
+        break;
+      case "urls": {
+        // Extract all URLs and separate them with line breaks
+        const urls = inputText.match(URL_REGEX) || [];
+        const nonUrlText = inputText.replace(URL_REGEX, '\n[URL_PLACEHOLDER]\n');
+        const parts = nonUrlText.split('[URL_PLACEHOLDER]');
+        
+        if (urls.length > 0) {
+          // If user only pasted URLs, just list them
+          const isOnlyUrls = inputText.trim().split(/\s+/).every(part => URL_REGEX.test(part));
+          URL_REGEX.lastIndex = 0;
+          
+          if (isOnlyUrls || urls.length > parts.filter(p => p.trim()).length) {
+            result = urls.map((url, i) => addNumbers ? `${i + 1}. ${url}` : url).join('\n');
+          } else {
+            // Mix of text and URLs - put URLs on their own lines
+            let urlIndex = 0;
+            result = parts.map(part => {
+              const trimmed = part.trim();
+              if (urlIndex < urls.length) {
+                const url = urls[urlIndex++];
+                return trimmed ? `${trimmed}\n${addNumbers ? `${urlIndex}. ` : ''}${url}` : (addNumbers ? `${urlIndex}. ` : '') + url;
+              }
+              return trimmed;
+            }).filter(Boolean).join('\n');
+          }
+        } else {
+          result = inputText;
+          toast.info("No URLs found in the text.");
+        }
+        break;
+      }
+      case "each-line":
+        result = inputText.split('\n').filter(line => line.trim()).join('\n\n');
+        break;
+      default:
+        result = inputText;
+    }
+
+    // If addNumbers is enabled and mode is not 'urls' (which handles it separately), add numbers to each line
+    if (addNumbers && mode !== "urls") {
+      const lines = result.split('\n').filter(line => line.trim());
+      result = lines.map((line, i) => `${i + 1}. ${line}`).join('\n');
     }
 
     setOutputText(result);
@@ -145,7 +193,7 @@ const AddLineBreaks = () => {
                   Choose how you want linebreaks added to your text using the options below.
                 </p>
 
-                <RadioGroup value={mode} onValueChange={setMode} className="mb-6">
+                <RadioGroup value={mode} onValueChange={setMode} className="mb-4">
                   <div className="flex items-start space-x-2 mb-3">
                     <RadioGroupItem value="paragraph" id="paragraph" />
                     <div className="flex-1">
@@ -158,7 +206,7 @@ const AddLineBreaks = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-2">
+                  <div className="flex items-start space-x-2 mb-3">
                     <RadioGroupItem value="sentence" id="sentence" />
                     <div className="flex-1">
                       <Label htmlFor="sentence" className="font-semibold cursor-pointer">
@@ -169,7 +217,45 @@ const AddLineBreaks = () => {
                       </p>
                     </div>
                   </div>
+
+                  <div className="flex items-start space-x-2 mb-3">
+                    <RadioGroupItem value="urls" id="urls" />
+                    <div className="flex-1">
+                      <Label htmlFor="urls" className="font-semibold cursor-pointer">
+                        Break after each URL
+                      </Label>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        (extract and list all URLs on separate lines)
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-2">
+                    <RadioGroupItem value="each-line" id="each-line" />
+                    <div className="flex-1">
+                      <Label htmlFor="each-line" className="font-semibold cursor-pointer">
+                        Add extra line break after each line
+                      </Label>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        (double-space existing lines)
+                      </p>
+                    </div>
+                  </div>
                 </RadioGroup>
+
+                <div className="flex items-center space-x-2 mb-6 p-3 rounded-lg bg-muted/50 border border-border">
+                  <Checkbox 
+                    id="addNumbers" 
+                    checked={addNumbers} 
+                    onCheckedChange={(checked) => setAddNumbers(checked === true)}
+                  />
+                  <div className="flex items-center gap-2">
+                    <ListOrdered className="h-4 w-4 text-muted-foreground" />
+                    <Label htmlFor="addNumbers" className="cursor-pointer font-medium">
+                      Add numbers in front of each line/URL
+                    </Label>
+                  </div>
+                </div>
 
                 <Textarea
                   value={inputText}
