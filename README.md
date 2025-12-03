@@ -4,7 +4,9 @@ A beautiful, fast, and powerful online text manipulation toolbox — perfect for
 
 **Live App**: [https://textstudio.netlify.app](https://textstudio.netlify.app)
 
-![TextStudio Preview](https://res.cloudinary.com/dw2fgruha/image/upload/v1728880000/textstudio-banner.png)
+<img width="2732" height="2048" alt="textstudio netlify app_(iPad Pro)" src="https://github.com/user-attachments/assets/fa6371c1-d94e-44b1-9468-56c280f03d96" />
+
+
 
 ## What Can You Do?
 
