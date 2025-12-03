@@ -115,8 +115,14 @@ const AddLineBreaks = () => {
 
     // If addNumbers is enabled and mode is not 'urls' (which handles it separately), add numbers to each line
     if (addNumbers && mode !== "urls") {
-      const lines = result.split('\n').filter(line => line.trim());
-      result = lines.map((line, i) => `${i + 1}. ${line}`).join('\n');
+      const lines = result.split('\n');
+      let lineNumber = 1;
+      result = lines.map(line => {
+        if (line.trim()) {
+          return `${lineNumber++}. ${line}`;
+        }
+        return line; // Preserve empty lines for paragraph spacing
+      }).join('\n');
     }
 
     setOutputText(result);
