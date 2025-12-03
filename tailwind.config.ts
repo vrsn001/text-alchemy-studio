@@ -164,7 +164,7 @@ export default {
   					opacity: '1'
   				}
   			},
-  			'shimmer': {
+  			shimmer: {
   				'0%': {
   					backgroundPosition: '-1000px 0'
   				},
@@ -172,7 +172,7 @@ export default {
   					backgroundPosition: '1000px 0'
   				}
   			},
-  			'float': {
+  			float: {
   				'0%, 100%': {
   					transform: 'translateY(0px)'
   				},
@@ -202,7 +202,7 @@ export default {
   					transform: 'translateY(-4px)'
   				}
   			},
-  			'wiggle': {
+  			wiggle: {
   				'0%, 100%': {
   					transform: 'rotate(0deg)'
   				},
@@ -236,7 +236,7 @@ export default {
   					transform: 'translateY(0)'
   				}
   			},
-  			'press': {
+  			press: {
   				'0%': {
   					transform: 'scale(1)'
   				},
@@ -254,13 +254,13 @@ export default {
   			'fade-in': 'fade-in 0.5s ease-out',
   			'fade-up': 'fade-up 0.6s ease-out',
   			'scale-in': 'scale-in 0.3s ease-out',
-  			'shimmer': 'shimmer 3s ease-in-out infinite',
+  			shimmer: 'shimmer 3s ease-in-out infinite',
   			'success-pulse': 'success-pulse 0.4s ease-out',
   			'bounce-subtle': 'bounce-subtle 0.3s ease-out',
-  			'wiggle': 'wiggle 0.3s ease-in-out',
+  			wiggle: 'wiggle 0.3s ease-in-out',
   			'check-mark': 'check-mark 0.3s ease-out forwards',
   			'slide-up': 'slide-up 0.2s ease-out',
-  			'press': 'press 0.15s ease-out'
+  			press: 'press 0.15s ease-out'
   		}
   	}
   },
