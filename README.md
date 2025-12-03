@@ -45,3 +45,5 @@ git clone https://github.com/yourusername/your-repo-name.git
 cd your-repo-name
 npm install
 npm run dev
+
+Made with ❤️ for people who hate messy text
