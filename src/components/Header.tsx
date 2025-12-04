@@ -14,10 +14,10 @@ export const Header = () => {
       <div className="container mx-auto px-3 md:px-4">
         <div className="flex items-center justify-between h-14 md:h-16">
           <a href="/" className="flex items-center gap-2 md:gap-3 group">
-            <Sparkles className="h-6 w-6 md:h-8 md:w-8 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+            <Sparkles className="h-7 w-7 md:h-9 md:w-9 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
             <div>
               <h1 className="text-xl md:text-2xl font-bold tracking-tight">TextCraft</h1>
-              <p className="text-[10px] md:text-xs opacity-90 hidden sm:block">Made with love at creative fuel 💜</p>
+              <p className="text-[10px] md:text-xs opacity-80 hidden sm:block font-medium">Made with 💜 at Creative Fuel</p>
             </div>
           </a>
           
