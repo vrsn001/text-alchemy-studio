@@ -1,13 +1,13 @@
-import { Star, X, Scissors, Hash, Type, Wand2 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { MaterialIcon } from "./MaterialIcon";
 
 const favoriteTools = [
-  { icon: Scissors, label: "Line Breaks", href: "/tools/add-line-breaks" },
-  { icon: Hash, label: "Word Counter", href: "/tools/word-counter" },
-  { icon: Type, label: "Case Convert", href: "/tools/case-converter" },
-  { icon: Wand2, label: "Random Words", href: "/tools/random-words" },
+  { icon: "wrap_text", label: "Line Breaks", href: "/tools/add-line-breaks" },
+  { icon: "tag", label: "Word Counter", href: "/tools/word-counter" },
+  { icon: "text_fields", label: "Case Convert", href: "/tools/case-converter" },
+  { icon: "shuffle", label: "Random Words", href: "/tools/random-words" },
 ];
 
 export const FAB = () => {
@@ -26,7 +26,6 @@ export const FAB = () => {
       {/* FAB Menu Items */}
       <div className="fixed bottom-24 right-3 z-50 flex flex-col-reverse gap-2 md:hidden">
         {favoriteTools.map((tool, index) => {
-          const Icon = tool.icon;
           return (
             <Link
               key={tool.label}
@@ -53,7 +52,7 @@ export const FAB = () => {
               >
                 {/* Ripple Effect */}
                 <div className="absolute inset-0 bg-primary/20 scale-0 group-active:scale-100 transition-transform duration-300 rounded-full" />
-                <Icon className="h-5 w-5" />
+                <MaterialIcon name={tool.icon} size="sm" />
               </button>
             </Link>
           );
@@ -72,11 +71,11 @@ export const FAB = () => {
         {/* Ripple Effect */}
         <div className="absolute inset-0 bg-white/20 scale-0 group-active:scale-100 transition-transform duration-300 rounded-full" />
         
-        {isOpen ? (
-          <X className="h-6 w-6 transition-transform duration-300" />
-        ) : (
-          <Star className="h-6 w-6 transition-transform duration-300" />
-        )}
+        <MaterialIcon 
+          name={isOpen ? "close" : "star"} 
+          filled={!isOpen}
+          className="text-[24px] transition-transform duration-300" 
+        />
       </button>
     </>
   );

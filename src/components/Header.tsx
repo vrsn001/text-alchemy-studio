@@ -1,6 +1,6 @@
-import { Sparkles, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { MaterialIcon } from "./MaterialIcon";
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -14,7 +14,11 @@ export const Header = () => {
       <div className="container mx-auto px-3 md:px-4">
         <div className="flex items-center justify-between h-14 md:h-16">
           <a href="/" className="flex items-center gap-2 md:gap-3 group">
-            <Sparkles className="h-7 w-7 md:h-9 md:w-9 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+            <MaterialIcon 
+              name="auto_awesome" 
+              filled 
+              className="text-[28px] md:text-[36px] transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" 
+            />
             <div>
               <h1 className="text-xl md:text-2xl font-bold tracking-tight">TextCraft</h1>
               <p className="text-[10px] md:text-xs opacity-80 hidden sm:block font-medium">Made with 💜 at Creative Fuel</p>
@@ -49,11 +53,10 @@ export const Header = () => {
             className="hover:bg-primary-foreground/15 text-primary-foreground transition-all duration-200 active:scale-90"
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
           >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5 transition-transform duration-300 hover:rotate-45" />
-            ) : (
-              <Moon className="h-5 w-5 transition-transform duration-300 hover:-rotate-12" />
-            )}
+            <MaterialIcon 
+              name={theme === "dark" ? "light_mode" : "dark_mode"} 
+              className="text-[20px] transition-transform duration-300 hover:rotate-12" 
+            />
           </Button>
         </div>
       </div>
