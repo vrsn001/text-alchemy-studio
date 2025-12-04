@@ -1,12 +1,12 @@
-import { Home, Type, Hash, Star } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { MaterialIcon } from "./MaterialIcon";
 
 const navItems = [
-  { icon: Home, label: "Home", href: "/", id: "home" },
-  { icon: Type, label: "Text Tools", href: "#text-tools", id: "text" },
-  { icon: Hash, label: "HTML Tools", href: "#html-tools", id: "html" },
-  { icon: Star, label: "Favorites", href: "#favorites", id: "favorites" },
+  { icon: "home", label: "Home", href: "/", id: "home" },
+  { icon: "text_fields", label: "Text Tools", href: "#text-tools", id: "text" },
+  { icon: "code", label: "HTML Tools", href: "#html-tools", id: "html" },
+  { icon: "star", label: "Favorites", href: "#favorites", id: "favorites" },
 ];
 
 export const BottomNav = () => {
@@ -39,7 +39,6 @@ export const BottomNav = () => {
     >
       <div className="flex items-center justify-around h-16 px-2">
         {navItems.map((item) => {
-          const Icon = item.icon;
           const active = isActive(item.href);
           
           const buttonContent = (
@@ -61,9 +60,11 @@ export const BottomNav = () => {
               />
               
               <div className="relative flex flex-col items-center justify-center">
-                <Icon 
+                <MaterialIcon 
+                  name={item.icon}
+                  filled={active}
                   className={cn(
-                    "h-5 w-5 mb-0.5 transition-all duration-200 ease-out",
+                    "text-[20px] mb-0.5 transition-all duration-200 ease-out",
                     active ? "scale-110 text-primary" : "group-active:scale-90"
                   )} 
                 />

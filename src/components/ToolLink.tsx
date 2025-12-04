@@ -1,17 +1,17 @@
-import { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { MaterialIcon } from "./MaterialIcon";
 
-interface ToolLinkProps {
-  icon: LucideIcon;
+export interface ToolLinkProps {
+  icon: string;
   title: string;
   description: string;
   href?: string;
   onClick?: () => void;
 }
 
-export const ToolLink = ({ icon: Icon, title, description, href, onClick }: ToolLinkProps) => {
+export const ToolLink = ({ icon, title, description, href, onClick }: ToolLinkProps) => {
   const baseClasses = cn(
     "flex items-start gap-4 p-5 rounded-2xl text-left w-full group",
     "bg-surface-1 elevation-1 hover:elevation-3 active:elevation-1",
@@ -30,7 +30,7 @@ export const ToolLink = ({ icon: Icon, title, description, href, onClick }: Tool
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
-        <Icon className="h-6 w-6 text-primary" aria-hidden="true" />
+        <MaterialIcon name={icon} className="text-primary" />
       </motion.div>
       
       {/* Content */}
@@ -49,19 +49,7 @@ export const ToolLink = ({ icon: Icon, title, description, href, onClick }: Tool
         initial={{ x: -4 }}
         whileHover={{ x: 0 }}
       >
-        <svg 
-          width="20" 
-          height="20" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="m9 18 6-6-6-6"/>
-        </svg>
+        <MaterialIcon name="chevron_right" size="sm" />
       </motion.div>
     </>
   );

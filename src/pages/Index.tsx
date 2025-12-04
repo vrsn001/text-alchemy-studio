@@ -3,12 +3,11 @@ import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { FAB } from "@/components/FAB";
 import { ToolLink } from "@/components/ToolLink";
-import { Scissors, Hash, ArrowUpDown, FileCode, ArrowLeftRight, Type, Link2, Sparkles } from "lucide-react";
+import { MaterialIcon } from "@/components/MaterialIcon";
 import { PullToRefresh } from "@/components/PullToRefresh";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-
 const Index = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -33,14 +32,14 @@ const Index = () => {
   };
 
   const tools = [
-    { icon: Link2, title: "Link Manager", description: "Validate, detect duplicates & manage URLs", href: "/tools/link-manager" },
-    { icon: Scissors, title: "Add Line Breaks", description: "Add line breaks after every character", href: "/tools/add-line-breaks" },
-    { icon: Hash, title: "Random Word Generator", description: "Generate random words for your projects", href: "/tools/random-words" },
-    { icon: ArrowUpDown, title: "Alphabetical Order", description: "Sort text lines alphabetically", href: "/tools/alphabetical-order" },
-    { icon: FileCode, title: "Text to HTML", description: "Convert plain text to HTML paragraphs", href: "/tools/text-to-html" },
-    { icon: ArrowLeftRight, title: "Reverse Text", description: "Reverse all characters in your text", href: "/tools/reverse-text" },
-    { icon: Hash, title: "Word Counter", description: "Count words, characters, and more", href: "/tools/word-counter" },
-    { icon: Type, title: "Case Converter", description: "Convert text to different cases", href: "/tools/case-converter" },
+    { icon: "link", title: "Link Manager", description: "Validate, detect duplicates & manage URLs", href: "/tools/link-manager" },
+    { icon: "wrap_text", title: "Add Line Breaks", description: "Add line breaks after every character", href: "/tools/add-line-breaks" },
+    { icon: "shuffle", title: "Random Word Generator", description: "Generate random words for your projects", href: "/tools/random-words" },
+    { icon: "sort_by_alpha", title: "Alphabetical Order", description: "Sort text lines alphabetically", href: "/tools/alphabetical-order" },
+    { icon: "code", title: "Text to HTML", description: "Convert plain text to HTML paragraphs", href: "/tools/text-to-html" },
+    { icon: "swap_horiz", title: "Reverse Text", description: "Reverse all characters in your text", href: "/tools/reverse-text" },
+    { icon: "tag", title: "Word Counter", description: "Count words, characters, and more", href: "/tools/word-counter" },
+    { icon: "text_fields", title: "Case Converter", description: "Convert text to different cases", href: "/tools/case-converter" },
   ];
 
   return (
@@ -71,7 +70,11 @@ const Index = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-3 md:mb-4 flex items-center justify-center gap-3">
               <span className="text-foreground">Text</span>
               <span className="relative inline-flex items-center justify-center">
-                <Sparkles className="h-10 w-10 md:h-14 md:w-14 text-primary drop-shadow-[0_0_12px_hsl(174,84%,40%)]" />
+                <MaterialIcon 
+                  name="auto_awesome" 
+                  filled 
+                  className="text-[40px] md:text-[56px] text-primary drop-shadow-[0_0_12px_hsl(174,84%,40%)]" 
+                />
               </span>
               <span className="text-primary">Craft</span>
             </h1>
@@ -109,7 +112,7 @@ const Index = () => {
                 transition={{ delay: 0.1, duration: 0.3, ease: [0.2, 0, 0, 1] }}
               >
                 <ToolLink 
-                  icon={FileCode} 
+                  icon="code" 
                   title="Text to HTML" 
                   description="Convert plain text to HTML paragraphs" 
                   href="/tools/text-to-html" 
