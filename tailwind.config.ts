@@ -98,6 +98,28 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+  		transitionTimingFunction: {
+  			'm3-standard': 'var(--m3-easing-standard)',
+  			'm3-standard-decelerate': 'var(--m3-easing-standard-decelerate)',
+  			'm3-standard-accelerate': 'var(--m3-easing-standard-accelerate)',
+  			'm3-emphasized': 'var(--m3-easing-emphasized)',
+  			'm3-emphasized-decelerate': 'var(--m3-easing-emphasized-decelerate)',
+  			'm3-emphasized-accelerate': 'var(--m3-easing-emphasized-accelerate)',
+  		},
+  		transitionDuration: {
+  			'm3-short1': 'var(--m3-duration-short1)',
+  			'm3-short2': 'var(--m3-duration-short2)',
+  			'm3-short3': 'var(--m3-duration-short3)',
+  			'm3-short4': 'var(--m3-duration-short4)',
+  			'm3-medium1': 'var(--m3-duration-medium1)',
+  			'm3-medium2': 'var(--m3-duration-medium2)',
+  			'm3-medium3': 'var(--m3-duration-medium3)',
+  			'm3-medium4': 'var(--m3-duration-medium4)',
+  			'm3-long1': 'var(--m3-duration-long1)',
+  			'm3-long2': 'var(--m3-duration-long2)',
+  			'm3-long3': 'var(--m3-duration-long3)',
+  			'm3-long4': 'var(--m3-duration-long4)',
+  		},
   		keyframes: {
   			'accordion-down': {
   				from: {

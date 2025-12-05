@@ -11,6 +11,33 @@ All colors MUST be HSL.
 :root {
   --font-google: "Roboto Flex", "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, monospace;
+
+  /* M3 Motion Tokens - Easing Curves */
+  --m3-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --m3-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --m3-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --m3-easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --m3-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+  --m3-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+  --m3-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* M3 Motion Tokens - Durations */
+  --m3-duration-short1: 50ms;
+  --m3-duration-short2: 100ms;
+  --m3-duration-short3: 150ms;
+  --m3-duration-short4: 200ms;
+  --m3-duration-medium1: 250ms;
+  --m3-duration-medium2: 300ms;
+  --m3-duration-medium3: 350ms;
+  --m3-duration-medium4: 400ms;
+  --m3-duration-long1: 450ms;
+  --m3-duration-long2: 500ms;
+  --m3-duration-long3: 550ms;
+  --m3-duration-long4: 600ms;
+  --m3-duration-extra-long1: 700ms;
+  --m3-duration-extra-long2: 800ms;
+  --m3-duration-extra-long3: 900ms;
+  --m3-duration-extra-long4: 1000ms;
 }
 
 /* Custom class for fine-tuned variable font control */
@@ -255,14 +282,63 @@ All colors MUST be HSL.
   }
 }
 
-/* Material Design 3 Animation Tokens */
+/* Material Design 3 Motion System */
 @layer utilities {
+  /* M3 Standard Transitions - For most UI interactions */
   .transition-m3 {
-    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+    transition-timing-function: var(--m3-easing-standard);
+    transition-duration: var(--m3-duration-medium2);
+  }
+  
+  .transition-m3-short {
+    transition-timing-function: var(--m3-easing-standard);
+    transition-duration: var(--m3-duration-short4);
+  }
+  
+  .transition-m3-long {
+    transition-timing-function: var(--m3-easing-standard);
+    transition-duration: var(--m3-duration-long2);
   }
 
-  .transition-m3-long {
-    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+  /* M3 Emphasized Transitions - For important UI changes */
+  .transition-m3-emphasized {
+    transition-timing-function: var(--m3-easing-emphasized);
+    transition-duration: var(--m3-duration-medium4);
+  }
+  
+  .transition-m3-emphasized-decelerate {
+    transition-timing-function: var(--m3-easing-emphasized-decelerate);
+    transition-duration: var(--m3-duration-medium4);
+  }
+  
+  .transition-m3-emphasized-accelerate {
+    transition-timing-function: var(--m3-easing-emphasized-accelerate);
+    transition-duration: var(--m3-duration-short4);
+  }
+
+  /* M3 Container Transform - For expanding/collapsing */
+  .transition-m3-container {
+    transition: transform var(--m3-duration-medium2) var(--m3-easing-emphasized),
+                opacity var(--m3-duration-short4) var(--m3-easing-standard);
+  }
+
+  /* M3 Fade Transitions */
+  .transition-m3-fade-in {
+    transition: opacity var(--m3-duration-short4) var(--m3-easing-standard-decelerate);
+  }
+  
+  .transition-m3-fade-out {
+    transition: opacity var(--m3-duration-short3) var(--m3-easing-standard-accelerate);
+  }
+
+  /* M3 Slide Transitions */
+  .transition-m3-slide {
+    transition: transform var(--m3-duration-medium2) var(--m3-easing-emphasized-decelerate);
+  }
+
+  /* M3 Scale Transitions */
+  .transition-m3-scale {
+    transition: transform var(--m3-duration-medium1) var(--m3-easing-emphasized);
   }
 
   /* Glass morphism effect */
