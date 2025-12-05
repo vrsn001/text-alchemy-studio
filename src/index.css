@@ -1,4 +1,4 @@
-/* Material Design 3 Typography - Open Sans & Source Code Pro */
+/* Material Design 3 Typography - Roboto Flex Variable Font & Source Code Pro */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +6,22 @@
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
+
+/* Google Sans Flex / Roboto Flex Variable Font Configuration */
+:root {
+  --font-google: "Roboto Flex", "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom class for fine-tuned variable font control */
+.google-sans-flex {
+  font-family: var(--font-google);
+  font-optical-sizing: auto;
+  font-variation-settings:
+    "slnt" 0,
+    "wdth" 100,
+    "GRAD" 0;
+}
 
 @layer base {
   :root {
@@ -89,7 +105,7 @@ All colors MUST be HSL.
     --chart-5: 200 80% 50%;
     --sidebar: 180 20% 98%;
     
-    --font-sans: 'Open Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-sans: 'Roboto Flex', 'Google Sans Flex', ui-sans-serif, system-ui, -apple-system, sans-serif;
     --font-mono: 'Source Code Pro', ui-monospace, SFMono-Regular, monospace;
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.04);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
