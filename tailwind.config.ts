@@ -64,9 +64,10 @@ export default {
   				ring: 'hsl(var(--sidebar-ring))'
   			}
   		},
-		fontFamily: {
+	fontFamily: {
 			sans: [
-				'Open Sans',
+				'Roboto Flex',
+				'Google Sans Flex',
 				'ui-sans-serif',
 				'system-ui',
 				'-apple-system',
