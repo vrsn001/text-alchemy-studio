@@ -1,10 +1,7 @@
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { MaterialIcon } from "./MaterialIcon";
-import { lazy, Suspense } from "react";
-
-// Lazy load ThemePicker to avoid blocking initial render
-const ThemePicker = lazy(() => import("./ThemePicker").then(mod => ({ default: mod.ThemePicker })));
+import { ThemePicker } from "./ThemePicker";
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -51,13 +48,7 @@ export const Header = () => {
           </nav>
 
           <div className="flex items-center gap-1">
-            <Suspense fallback={
-              <Button variant="ghost" size="icon" className="hover:bg-primary-foreground/15 text-primary-foreground">
-                <MaterialIcon name="palette" className="text-[20px]" />
-              </Button>
-            }>
-              <ThemePicker />
-            </Suspense>
+            <ThemePicker />
             
             <Button
               variant="ghost"
