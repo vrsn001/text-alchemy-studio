@@ -5,7 +5,6 @@ import { FAB } from "@/components/FAB";
 import { ToolLink } from "@/components/ToolLink";
 import { MaterialIcon } from "@/components/MaterialIcon";
 import { PullToRefresh } from "@/components/PullToRefresh";
-import { StackCards } from "@/components/StackCards";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
@@ -140,13 +139,6 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Stack Cards Animation Section */}
-          <section className="mt-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground text-center">
-              Explore TextCraft Features
-            </h2>
-            <StackCards />
-          </section>
         </main>
 
         <Footer />
