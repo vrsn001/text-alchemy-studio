@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
 
 interface MeshGradientBackgroundProps {
   className?: string;
@@ -8,21 +7,63 @@ interface MeshGradientBackgroundProps {
 
 export function MeshGradientBackground({ className }: MeshGradientBackgroundProps) {
   return (
-    <div className={`fixed inset-0 -z-10 ${className || ''}`}>
-      <ShaderGradientCanvas
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-        }}
-      >
-        <ShaderGradient
-          control="query"
-          urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=off&bgColor1=%23000000&bgColor2=%23000000&brightness=1.2&cAzimuthAngle=180&cDistance=3.6&cPolarAngle=90&cameraZoom=1&color1=%23893bdc&color2=%231f0e3d&color3=%23000000&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&gizmoHelper=hide&grain=on&lightType=3d&pixelDensity=1&positionX=-1.4&positionY=0&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=10&rotationZ=50&shader=defaults&type=waterPlane&uAmplitude=0&uDensity=1.2&uFrequency=5.5&uSpeed=0.2&uStrength=3&uTime=0&wireframe=false"
+    <div className={`fixed inset-0 -z-10 overflow-hidden ${className || ''}`}>
+      {/* Animated mesh gradient using CSS */}
+      <div className="absolute inset-0 bg-background">
+        {/* Purple blob */}
+        <div 
+          className="absolute w-[600px] h-[600px] rounded-full opacity-30 blur-[120px] animate-pulse"
+          style={{
+            background: 'radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)',
+            top: '-10%',
+            left: '-10%',
+            animation: 'float1 15s ease-in-out infinite'
+          }}
         />
-      </ShaderGradientCanvas>
+        
+        {/* Pink blob */}
+        <div 
+          className="absolute w-[500px] h-[500px] rounded-full opacity-25 blur-[100px]"
+          style={{
+            background: 'radial-gradient(circle, hsl(280, 80%, 50%) 0%, transparent 70%)',
+            top: '20%',
+            right: '-5%',
+            animation: 'float2 18s ease-in-out infinite'
+          }}
+        />
+        
+        {/* Blue blob */}
+        <div 
+          className="absolute w-[450px] h-[450px] rounded-full opacity-20 blur-[80px]"
+          style={{
+            background: 'radial-gradient(circle, hsl(220, 80%, 50%) 0%, transparent 70%)',
+            bottom: '10%',
+            left: '20%',
+            animation: 'float3 20s ease-in-out infinite'
+          }}
+        />
+        
+        {/* Dark overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/80" />
+      </div>
+      
+      <style>{`
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -30px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-40px, 20px) scale(1.05); }
+          66% { transform: translate(30px, -30px) scale(0.9); }
+        }
+        @keyframes float3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(20px, 30px) scale(1.08); }
+          66% { transform: translate(-30px, -20px) scale(0.92); }
+        }
+      `}</style>
     </div>
   );
 }
