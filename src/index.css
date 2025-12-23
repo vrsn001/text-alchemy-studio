@@ -338,11 +338,11 @@
   /* Stacking Cards Container */
   .stack-container {
     position: relative;
-    height: auto;
-    padding: 2rem 0;
+    min-height: 400vh;
   }
 
   .category-card {
+    position: -webkit-sticky;
     position: sticky;
     top: 100px;
     height: 70vh;
@@ -350,8 +350,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  /* Z-index ordering - first card on top */
+  .category-card:nth-child(1) { z-index: 40; }
+  .category-card:nth-child(2) { z-index: 30; }
+  .category-card:nth-child(3) { z-index: 20; }
+  .category-card:nth-child(4) { z-index: 10; }
+
+  /* Scale transforms for stacking effect */
+  .category-card:nth-child(1) { transform: scale(1); }
+  .category-card:nth-child(2) { transform: scale(0.95); }
+  .category-card:nth-child(3) { transform: scale(0.90); }
+  .category-card:nth-child(4) { transform: scale(0.85); }
 
   .card-content {
     width: 85%;
@@ -367,12 +378,6 @@
     transition: all 0.5s ease;
   }
 
-  /* Stack scaling effect */
-  .category-card:nth-child(1) .card-content { transform: scale(1); z-index: 5; }
-  .category-card:nth-child(2) .card-content { transform: scale(0.95); z-index: 4; }
-  .category-card:nth-child(3) .card-content { transform: scale(0.90); z-index: 3; }
-  .category-card:nth-child(4) .card-content { transform: scale(0.85); z-index: 2; }
-
   /* Mobile adjustments for stacking cards */
   @media (max-width: 768px) {
     .category-card {
@@ -386,10 +391,10 @@
       padding: 1.5rem;
     }
     
-    .category-card:nth-child(1) .card-content { transform: scale(1); }
-    .category-card:nth-child(2) .card-content { transform: scale(0.96); }
-    .category-card:nth-child(3) .card-content { transform: scale(0.92); }
-    .category-card:nth-child(4) .card-content { transform: scale(0.88); }
+    .category-card:nth-child(1) { transform: scale(1); }
+    .category-card:nth-child(2) { transform: scale(0.96); }
+    .category-card:nth-child(3) { transform: scale(0.92); }
+    .category-card:nth-child(4) { transform: scale(0.88); }
   }
 
   /* Infinite Brand Scroll */
