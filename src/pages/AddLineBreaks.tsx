@@ -4,11 +4,12 @@ import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { FAB } from "@/components/FAB";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { Card } from "@/components/ui/card";
+import { LiquidGlassCard, LiquidGlassWideItem } from "@/components/ui/liquid-glass";
+import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Download, Copy, Eye, Code, Check, ListOrdered } from "lucide-react";
 import { toast } from "sonner";
@@ -17,6 +18,7 @@ import { PageTransition } from "@/components/PageTransition";
 import { triggerHaptic } from "@/utils/haptics";
 import { downloadAsText } from "@/utils/download";
 import { MeshGradientBackground } from "@/components/MeshGradientBackground";
+import { Sparkles } from "@/components/ui/sparkles";
 
 // URL regex pattern to detect links
 const URL_REGEX = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/g;
@@ -153,13 +155,42 @@ const AddLineBreaks = () => {
     triggerHaptic('medium');
   };
 
+  const modeOptions = [
+    {
+      value: "paragraph",
+      title: "Convert line breaks to paragraph breaks",
+      description: "For text containing single line breaks"
+    },
+    {
+      value: "sentence",
+      title: "Add a paragraph break after sentences",
+      description: "For text with absolutely no line breaks"
+    },
+    {
+      value: "urls",
+      title: "Break after each URL",
+      description: "Extract and list all URLs on separate lines"
+    },
+    {
+      value: "each-line",
+      title: "Add extra line break after each line",
+      description: "Double-space existing lines"
+    }
+  ];
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden relative">
         <MeshGradientBackground />
+        
+        {/* Sparkles background */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <Sparkles color="#a855f7" density={80} speed={0.4} opacity={0.3} size={1.2} />
+        </div>
+        
         <Header />
         
-        <main className="container mx-auto px-3 md:px-4 py-6 md:py-8">
+        <main className="container mx-auto px-3 md:px-4 py-6 md:py-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <Breadcrumb 
               items={[
@@ -190,138 +221,80 @@ const AddLineBreaks = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-            <Card className="p-6 md:p-8 mb-8 elevation-2 bg-card border-0 rounded-2xl">
-                <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
-                  Add Line Breaks Tool
-                </h2>
-                
-                <p className="text-muted-foreground text-sm md:text-base mb-6">
-                  Choose how you want linebreaks added to your text using the options below.
-                </p>
+              <GradientBorderCard variant="purple" className="mb-8">
+                <LiquidGlassCard blur="xl" className="p-6 md:p-8">
+                  <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
+                    Add Line Breaks Tool
+                  </h2>
+                  
+                  <p className="text-muted-foreground text-sm md:text-base mb-6">
+                    Choose how you want linebreaks added to your text using the options below.
+                  </p>
 
-                <div className="space-y-3 mb-6">
-                  <RadioGroup value={mode} onValueChange={setMode} className="space-y-2">
-                    <label 
-                      htmlFor="paragraph" 
-                      className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-m3 ${
-                        mode === 'paragraph' 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50 hover:bg-accent/50'
-                      }`}
-                    >
-                      <RadioGroupItem value="paragraph" id="paragraph" className="mt-0.5" />
-                      <div className="flex-1">
-                        <span className="font-medium text-foreground block">
-                          Convert line breaks to paragraph breaks
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          For text containing single line breaks
-                        </span>
-                      </div>
-                    </label>
-                    
-                    <label 
-                      htmlFor="sentence" 
-                      className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-m3 ${
-                        mode === 'sentence' 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50 hover:bg-accent/50'
-                      }`}
-                    >
-                      <RadioGroupItem value="sentence" id="sentence" className="mt-0.5" />
-                      <div className="flex-1">
-                        <span className="font-medium text-foreground block">
-                          Add a paragraph break after sentences
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          For text with absolutely no line breaks
-                        </span>
-                      </div>
-                    </label>
+                  <div className="space-y-3 mb-6">
+                    <RadioGroup value={mode} onValueChange={setMode} className="space-y-2">
+                      {modeOptions.map((option) => (
+                        <LiquidGlassWideItem
+                          key={option.value}
+                          active={mode === option.value}
+                          onClick={() => setMode(option.value)}
+                          className="cursor-pointer"
+                        >
+                          <RadioGroupItem value={option.value} id={option.value} className="mt-0.5" />
+                          <div className="flex-1">
+                            <span className="font-medium block">
+                              {option.title}
+                            </span>
+                            <span className="text-sm opacity-70">
+                              {option.description}
+                            </span>
+                          </div>
+                        </LiquidGlassWideItem>
+                      ))}
+                    </RadioGroup>
+                  </div>
 
-                    <label 
-                      htmlFor="urls" 
-                      className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-m3 ${
-                        mode === 'urls' 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50 hover:bg-accent/50'
-                      }`}
-                    >
-                      <RadioGroupItem value="urls" id="urls" className="mt-0.5" />
-                      <div className="flex-1">
-                        <span className="font-medium text-foreground block">
-                          Break after each URL
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          Extract and list all URLs on separate lines
-                        </span>
-                      </div>
-                    </label>
+                  <LiquidGlassWideItem
+                    active={addNumbers}
+                    onClick={() => setAddNumbers(!addNumbers)}
+                    className="mb-6 cursor-pointer"
+                  >
+                    <Checkbox 
+                      id="addNumbers" 
+                      checked={addNumbers} 
+                      onCheckedChange={(checked) => setAddNumbers(checked === true)}
+                      className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                    />
+                    <ListOrdered className="h-5 w-5 text-primary" />
+                    <span className="font-medium">
+                      Add numbers in front of each line/URL
+                    </span>
+                  </LiquidGlassWideItem>
 
-                    <label 
-                      htmlFor="each-line" 
-                      className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-m3 ${
-                        mode === 'each-line' 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50 hover:bg-accent/50'
-                      }`}
-                    >
-                      <RadioGroupItem value="each-line" id="each-line" className="mt-0.5" />
-                      <div className="flex-1">
-                        <span className="font-medium text-foreground block">
-                          Add extra line break after each line
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          Double-space existing lines
-                        </span>
-                      </div>
-                    </label>
-                  </RadioGroup>
-                </div>
-
-                <label 
-                  htmlFor="addNumbers"
-                  className={`flex items-center gap-3 p-4 mb-6 rounded-xl border-2 cursor-pointer transition-m3 ${
-                    addNumbers 
-                      ? 'border-primary bg-primary/5' 
-                      : 'border-border hover:border-primary/50 hover:bg-accent/50'
-                  }`}
-                >
-                  <Checkbox 
-                    id="addNumbers" 
-                    checked={addNumbers} 
-                    onCheckedChange={(checked) => setAddNumbers(checked === true)}
-                    className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  <Textarea
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder="Paste your text here..."
+                    className="min-h-[180px] mb-5 rounded-xl border-2 border-border/50 focus:border-primary bg-background/50 backdrop-blur-sm resize-y text-base"
                   />
-                  <ListOrdered className="h-5 w-5 text-primary" />
-                  <span className="font-medium text-foreground">
-                    Add numbers in front of each line/URL
-                  </span>
-                </label>
 
-                <Textarea
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Paste your text here..."
-                  className="min-h-[180px] mb-5 rounded-xl border-2 border-border focus:border-primary bg-background resize-y text-base"
-                />
-
-                <div className="flex gap-3">
-                  <Button 
-                    onClick={handleAddLineBreaks} 
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 h-11 font-medium elevation-1 transition-m3 active:scale-[0.98]"
-                  >
-                    Add Line Breaks
-                  </Button>
-                  <Button 
-                    onClick={handleClear} 
-                    variant="outline"
-                    className="rounded-full px-6 h-11 font-medium border-2 hover:bg-accent transition-m3 active:scale-[0.98]"
-                  >
-                    Clear
-                  </Button>
-                </div>
-              </Card>
+                  <div className="flex gap-3">
+                    <Button 
+                      onClick={handleAddLineBreaks} 
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full px-6 h-11 font-medium shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all duration-300 active:scale-[0.98]"
+                    >
+                      Add Line Breaks
+                    </Button>
+                    <Button 
+                      onClick={handleClear} 
+                      variant="outline"
+                      className="rounded-full px-6 h-11 font-medium border-2 border-border/50 hover:bg-accent/50 backdrop-blur-sm transition-all duration-300 active:scale-[0.98]"
+                    >
+                      Clear
+                    </Button>
+                  </div>
+                </LiquidGlassCard>
+              </GradientBorderCard>
             </motion.div>
 
             <AnimatePresence>
@@ -331,85 +304,87 @@ const AddLineBreaks = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  <Card className="p-6 md:p-8 elevation-2 bg-card border-0 rounded-2xl">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
-                      <h2 className="text-xl md:text-2xl font-semibold text-foreground">
-                        Output
-                      </h2>
-                      <Tabs value={outputView} onValueChange={(v) => setOutputView(v as "preview" | "raw")}>
-                        <TabsList className="h-10 p-1 bg-muted/30 rounded-full">
-                          <TabsTrigger 
-                            value="preview" 
-                            className="gap-1.5 text-sm px-4 rounded-full data-[state=active]:bg-card data-[state=active]:elevation-1"
-                          >
-                            <Eye className="h-4 w-4" />
-                            Preview
-                          </TabsTrigger>
-                          <TabsTrigger 
-                            value="raw" 
-                            className="gap-1.5 text-sm px-4 rounded-full data-[state=active]:bg-card data-[state=active]:elevation-1"
-                          >
-                            <Code className="h-4 w-4" />
-                            Raw
-                          </TabsTrigger>
-                        </TabsList>
-                      </Tabs>
-                    </div>
-
-                    {outputView === "preview" ? (
-                      <div className="min-h-[200px] max-h-[400px] overflow-y-auto p-4 md:p-5 rounded-xl bg-background border-2 border-border mb-5 text-foreground leading-relaxed whitespace-pre-wrap font-mono text-sm">
-                        {renderTextWithLinks}
+                  <GradientBorderCard variant="pink">
+                    <LiquidGlassCard blur="lg" className="p-6 md:p-8">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                        <h2 className="text-xl md:text-2xl font-semibold text-foreground">
+                          Output
+                        </h2>
+                        <Tabs value={outputView} onValueChange={(v) => setOutputView(v as "preview" | "raw")}>
+                          <TabsList className="h-10 p-1 bg-black/10 dark:bg-white/10 backdrop-blur-sm rounded-full">
+                            <TabsTrigger 
+                              value="preview" 
+                              className="gap-1.5 text-sm px-4 rounded-full data-[state=active]:bg-white/90 dark:data-[state=active]:bg-black/50 data-[state=active]:shadow-sm"
+                            >
+                              <Eye className="h-4 w-4" />
+                              Preview
+                            </TabsTrigger>
+                            <TabsTrigger 
+                              value="raw" 
+                              className="gap-1.5 text-sm px-4 rounded-full data-[state=active]:bg-white/90 dark:data-[state=active]:bg-black/50 data-[state=active]:shadow-sm"
+                            >
+                              <Code className="h-4 w-4" />
+                              Raw
+                            </TabsTrigger>
+                          </TabsList>
+                        </Tabs>
                       </div>
-                    ) : (
-                      <Textarea
-                        value={outputText}
-                        readOnly
-                        className="min-h-[200px] mb-5 rounded-xl border-2 border-border bg-background font-mono text-sm"
-                      />
-                    )}
 
-                    <div className="flex flex-wrap gap-3">
-                      <Button 
-                        onClick={handleCopy} 
-                        variant="outline"
-                        className="rounded-full px-5 h-10 font-medium border-2 hover:bg-accent transition-m3 active:scale-[0.98]"
-                      >
-                        <AnimatePresence mode="wait">
-                          {copied ? (
-                            <motion.span
-                              key="check"
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              exit={{ scale: 0 }}
-                              className="flex items-center gap-2"
-                            >
-                              <Check className="h-4 w-4 text-primary" />
-                              Copied!
-                            </motion.span>
-                          ) : (
-                            <motion.span
-                              key="copy"
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              exit={{ scale: 0 }}
-                              className="flex items-center gap-2"
-                            >
-                              <Copy className="h-4 w-4" />
-                              Copy
-                            </motion.span>
-                          )}
-                        </AnimatePresence>
-                      </Button>
-                      <Button 
-                        onClick={handleDownload} 
-                        variant="outline"
-                        className="rounded-full px-5 h-10 font-medium border-2 hover:bg-accent transition-m3 active:scale-[0.98]"
-                      >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download
-                      </Button>
-                    </div>
-                  </Card>
+                      {outputView === "preview" ? (
+                        <div className="min-h-[200px] max-h-[400px] overflow-y-auto p-4 md:p-5 rounded-xl bg-background/50 backdrop-blur-sm border border-border/50 mb-5 text-foreground leading-relaxed whitespace-pre-wrap font-mono text-sm">
+                          {renderTextWithLinks}
+                        </div>
+                      ) : (
+                        <Textarea
+                          value={outputText}
+                          readOnly
+                          className="min-h-[200px] mb-5 rounded-xl border border-border/50 bg-background/50 backdrop-blur-sm font-mono text-sm"
+                        />
+                      )}
+
+                      <div className="flex flex-wrap gap-3">
+                        <Button 
+                          onClick={handleCopy} 
+                          variant="outline"
+                          className="rounded-full px-5 h-10 font-medium border border-border/50 hover:bg-accent/50 backdrop-blur-sm transition-all duration-300 active:scale-[0.98]"
+                        >
+                          <AnimatePresence mode="wait">
+                            {copied ? (
+                              <motion.span
+                                key="check"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0 }}
+                                className="flex items-center gap-2"
+                              >
+                                <Check className="h-4 w-4 text-primary" />
+                                Copied!
+                              </motion.span>
+                            ) : (
+                              <motion.span
+                                key="copy"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                exit={{ scale: 0 }}
+                                className="flex items-center gap-2"
+                              >
+                                <Copy className="h-4 w-4" />
+                                Copy
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                        </Button>
+                        <Button 
+                          onClick={handleDownload} 
+                          variant="outline"
+                          className="rounded-full px-5 h-10 font-medium border border-border/50 hover:bg-accent/50 backdrop-blur-sm transition-all duration-300 active:scale-[0.98]"
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </Button>
+                      </div>
+                    </LiquidGlassCard>
+                  </GradientBorderCard>
                 </motion.div>
               )}
             </AnimatePresence>
