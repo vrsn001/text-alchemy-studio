@@ -25,11 +25,11 @@ const Index = () => {
       tools: [
         { icon: "fa-arrow-up", color: "text-purple-accent", name: "UPPERCASE", desc: "ALL CAPS", href: "/tools/case-converter" },
         { icon: "fa-arrow-down", color: "text-blue-accent", name: "lowercase", desc: "all lowercase", href: "/tools/case-converter" },
-        { icon: "fa-heading", color: "text-green-accent", name: "Title Case", desc: "Each Word Capitalized", href: "/tools/case-converter" },
+        { icon: "fa-h", color: "text-red-accent", name: "Title Case", desc: "Each Word Capitalized", href: "/tools/case-converter" },
         { icon: "fa-paragraph", color: "text-yellow-accent", name: "Sentence case", desc: "First word only", href: "/tools/case-converter" },
-        { icon: "fa-code", color: "text-orange-accent", name: "camelCase", desc: "For variables", href: "/tools/case-converter" },
-        { icon: "fa-brackets-curly", color: "text-pink-accent", name: "PascalCase", desc: "For classes", href: "/tools/case-converter" },
-        { icon: "fa-underscore", color: "text-cyan-accent", name: "snake_case", desc: "With underscores", href: "/tools/case-converter" },
+        { icon: "fa-terminal", color: "text-orange-accent", name: "camelCase", desc: "For variables", href: "/tools/case-converter" },
+        { icon: "fa-p", color: "text-pink-accent", name: "PascalCase", desc: "For classes", href: "/tools/case-converter" },
+        { icon: "fa-underline", color: "text-cyan-accent", name: "snake_case", desc: "With underscores", href: "/tools/case-converter" },
         { icon: "fa-minus", color: "text-red-accent", name: "kebab-case", desc: "With hyphens", href: "/tools/case-converter" },
       ]
     },
@@ -37,16 +37,16 @@ const Index = () => {
       id: "modify",
       title: "Text Modifications",
       subtitle: "Edit and manipulate text",
-      icon: "fa-edit",
+      icon: "fa-pen-to-square",
       gradient: "gradient-overlay-pink",
       iconGradient: "from-pink-500 to-red-500",
       tools: [
-        { icon: "fa-exchange-alt", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
+        { icon: "fa-right-left", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
         { icon: "fa-compress", color: "text-blue-accent", name: "Remove Spaces", desc: "No whitespace", href: "/tools/add-line-breaks" },
-        { icon: "fa-cut", color: "text-green-accent", name: "Trim Whitespace", desc: "Remove edges", href: "/tools/add-line-breaks" },
+        { icon: "fa-scissors", color: "text-green-accent", name: "Trim Whitespace", desc: "Remove edges", href: "/tools/add-line-breaks" },
         { icon: "fa-quote-right", color: "text-yellow-accent", name: "Add Quotes", desc: "Wrap in quotes", href: "/tools/add-line-breaks" },
         { icon: "fa-eraser", color: "text-red-accent", name: "Remove Quotes", desc: "Strip quotes", href: "/tools/add-line-breaks" },
-        { icon: "fa-align-justify", color: "text-orange-accent", name: "Remove Line Breaks", desc: "Single line", href: "/tools/add-line-breaks" },
+        { icon: "fa-bars", color: "text-orange-accent", name: "Remove Line Breaks", desc: "Single line", href: "/tools/add-line-breaks" },
       ]
     },
     {
@@ -58,10 +58,10 @@ const Index = () => {
       iconGradient: "from-blue-500 to-purple-600",
       tools: [
         { icon: "fa-lock", color: "text-purple-accent", name: "Base64 Encode", desc: "Encode to Base64", href: "/tools/text-to-html" },
-        { icon: "fa-unlock", color: "text-blue-accent", name: "Base64 Decode", desc: "Decode from Base64", href: "/tools/text-to-html" },
+        { icon: "fa-lock-open", color: "text-blue-accent", name: "Base64 Decode", desc: "Decode from Base64", href: "/tools/text-to-html" },
         { icon: "fa-link", color: "text-green-accent", name: "URL Encode", desc: "For URLs", href: "/tools/text-to-html" },
-        { icon: "fa-unlink", color: "text-yellow-accent", name: "URL Decode", desc: "Decode URLs", href: "/tools/text-to-html" },
-        { icon: "fa-file-code", color: "text-orange-accent", name: "HTML Entities", desc: "Escape HTML", href: "/tools/text-to-html" },
+        { icon: "fa-link-slash", color: "text-yellow-accent", name: "URL Decode", desc: "Decode URLs", href: "/tools/text-to-html" },
+        { icon: "fa-code", color: "text-orange-accent", name: "HTML Entities", desc: "Escape HTML", href: "/tools/text-to-html" },
       ]
     },
     {
@@ -74,8 +74,8 @@ const Index = () => {
       tools: [
         { icon: "fa-list-ol", color: "text-purple-accent", name: "Add Line Numbers", desc: "Number lines", href: "/tools/add-line-breaks" },
         { icon: "fa-list-ul", color: "text-blue-accent", name: "Add Bullets", desc: "Bullet points", href: "/tools/add-line-breaks" },
-        { icon: "fa-copy", color: "text-green-accent", name: "Remove Duplicates", desc: "Unique lines", href: "/tools/add-line-breaks" },
-        { icon: "fa-sort-alpha-down", color: "text-yellow-accent", name: "Sort Lines A-Z", desc: "Alphabetical", href: "/tools/alphabetical-order" },
+        { icon: "fa-clone", color: "text-green-accent", name: "Remove Duplicates", desc: "Unique lines", href: "/tools/add-line-breaks" },
+        { icon: "fa-arrow-down-a-z", color: "text-yellow-accent", name: "Sort Lines A-Z", desc: "Alphabetical", href: "/tools/alphabetical-order" },
       ]
     },
   ];
