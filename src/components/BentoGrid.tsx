@@ -2,7 +2,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { SlotItemMapArray, utils } from "swapy";
 import { DragHandle, SwapyItem, SwapyLayout, SwapySlot } from "@/components/ui/swapy";
-import { Heart, PlusCircle, Type, ArrowUpDown, Code, List, Sparkles, FileText, Hash, Github } from "lucide-react";
+import { Heart, PlusCircle, Type, ArrowUpDown, Code, List, Sparkles, FileText, Hash, Github, Loader2 } from "lucide-react";
+
+interface GitHubContributor {
+  id: number;
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  contributions: number;
+}
 
 export function ProjectViewsCard() {
   return (
@@ -93,6 +101,21 @@ export function LogoCard() {
 }
 
 export function UserTrustCard() {
+  const [contributors, setContributors] = useState<GitHubContributor[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://api.github.com/repos/vrsn001/text-alchemy-studio/contributors')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setContributors(data.slice(0, 5));
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 p-6 border border-white/10">
       <DragHandle />
@@ -112,17 +135,38 @@ export function UserTrustCard() {
         rel="noopener noreferrer"
         className="flex -space-x-2 mt-4 hover:opacity-80 transition-opacity"
       >
-        {['🧑‍💻', '👨‍💻', '👩‍💻', '🧑‍🔧'].map((emoji, i) => (
-          <div 
-            key={i} 
-            className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-background flex items-center justify-center text-xs"
-          >
-            {emoji}
-          </div>
-        ))}
-        <div className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center">
-          <PlusCircle className="w-4 h-4 text-muted-foreground" />
-        </div>
+        {loading ? (
+          <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" />
+        ) : contributors.length > 0 ? (
+          <>
+            {contributors.map((contributor) => (
+              <img 
+                key={contributor.id}
+                src={contributor.avatar_url}
+                alt={contributor.login}
+                title={`${contributor.login} (${contributor.contributions} contributions)`}
+                className="w-8 h-8 rounded-full border-2 border-background object-cover"
+              />
+            ))}
+            <div className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center">
+              <PlusCircle className="w-4 h-4 text-muted-foreground" />
+            </div>
+          </>
+        ) : (
+          <>
+            {['🧑‍💻', '👨‍💻', '👩‍💻', '🧑‍🔧'].map((emoji, i) => (
+              <div 
+                key={i} 
+                className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-background flex items-center justify-center text-xs"
+              >
+                {emoji}
+              </div>
+            ))}
+            <div className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center">
+              <PlusCircle className="w-4 h-4 text-muted-foreground" />
+            </div>
+          </>
+        )}
       </a>
       
       <a 
