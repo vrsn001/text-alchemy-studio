@@ -137,11 +137,19 @@ const Index = () => {
                 <br />
                 <span className="gradient-text">Instantly</span>
               </h2>
-              <p className="text-muted-foreground text-lg mb-2">
-                Cooked by Lakshy Rohilla
+              <p className="text-muted-foreground text-lg mb-2 flex items-center justify-center gap-1.5">
+                Made with <span className="text-red-500">❤️</span> by{" "}
+                <a 
+                  href="https://www.linkedin.com/in/lakshayrohilla/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-medium text-foreground hover:text-purple-400 transition-colors underline-offset-2 hover:underline"
+                >
+                  Lakshay Rohilla
+                </a>
               </p>
               <p className="text-muted-foreground text-sm">
-                Brewed at Creative Fuel &lt;3
+                at Creative Fuel
               </p>
             </motion.div>
           </section>
