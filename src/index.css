@@ -534,6 +534,12 @@
       conic-gradient(from var(--border-angle), rgba(71, 85, 105, 0.48) 80%, #6366f1 86%, #a5b4fc 90%, #6366f1 94%, rgba(71, 85, 105, 0.48)) border-box;
     border: 1px solid transparent;
     animation: border-rotate 4s linear infinite;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .animated-border:hover {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4), 0 0 60px rgba(99, 102, 241, 0.2);
+    transform: translateY(-2px);
   }
 
   .animated-border-purple {
@@ -543,6 +549,12 @@
       conic-gradient(from var(--border-angle), rgba(107, 33, 168, 0.48) 80%, #a855f7 86%, #d8b4fe 90%, #a855f7 94%, rgba(107, 33, 168, 0.48)) border-box;
     border: 1px solid transparent;
     animation: border-rotate 4s linear infinite;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .animated-border-purple:hover {
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.4), 0 0 60px rgba(168, 85, 247, 0.2);
+    transform: translateY(-2px);
   }
 
   .animated-border-pink {
@@ -552,6 +564,12 @@
       conic-gradient(from var(--border-angle), rgba(168, 33, 107, 0.48) 80%, #ec4899 86%, #f9a8d4 90%, #ec4899 94%, rgba(168, 33, 107, 0.48)) border-box;
     border: 1px solid transparent;
     animation: border-rotate 4s linear infinite;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .animated-border-pink:hover {
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4), 0 0 60px rgba(236, 72, 153, 0.2);
+    transform: translateY(-2px);
   }
 
   @keyframes border-rotate {
