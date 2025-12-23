@@ -1,167 +1,249 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
-import { FAB } from "@/components/FAB";
-import { ToolLink } from "@/components/ToolLink";
-import { MaterialIcon } from "@/components/MaterialIcon";
-import { PullToRefresh } from "@/components/PullToRefresh";
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 const Index = () => {
-  const [refreshKey, setRefreshKey] = useState(0);
+  const brandItems = [
+    { icon: "fa-bolt", color: "text-purple-accent", text: "Lightning Fast" },
+    { icon: "fa-shield-alt", color: "text-green-accent", text: "100% Private" },
+    { icon: "fa-magic", color: "text-pink-accent", text: "40+ Tools" },
+    { icon: "fa-mobile-alt", color: "text-blue-accent", text: "Mobile Friendly" },
+    { icon: "fa-code", color: "text-orange-accent", text: "Developer Tools" },
+    { icon: "fa-paint-brush", color: "text-yellow-accent", text: "Beautiful Design" },
+  ];
 
-  const handleRefresh = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setRefreshKey(prev => prev + 1);
-    toast.success("Tools refreshed!");
-  };
-
-  const tools = [
-    { icon: "link", title: "Link Manager", description: "Validate, detect duplicates & manage URLs", href: "/tools/link-manager" },
-    { icon: "wrap_text", title: "Add Line Breaks", description: "Add line breaks after every character", href: "/tools/add-line-breaks" },
-    { icon: "shuffle", title: "Random Word Generator", description: "Generate random words for your projects", href: "/tools/random-words" },
-    { icon: "sort_by_alpha", title: "Alphabetical Order", description: "Sort text lines alphabetically", href: "/tools/alphabetical-order" },
-    { icon: "code", title: "Text to HTML", description: "Convert plain text to HTML paragraphs", href: "/tools/text-to-html" },
-    { icon: "swap_horiz", title: "Reverse Text", description: "Reverse all characters in your text", href: "/tools/reverse-text" },
-    { icon: "tag", title: "Word Counter", description: "Count words, characters, and more", href: "/tools/word-counter" },
-    { icon: "text_fields", title: "Case Converter", description: "Convert text to different cases", href: "/tools/case-converter" },
+  const categories = [
+    {
+      id: "case",
+      title: "Case Transformations",
+      subtitle: "Change text casing styles",
+      icon: "fa-text-height",
+      gradient: "gradient-overlay-purple",
+      iconGradient: "from-purple-500 to-pink-500",
+      tools: [
+        { icon: "fa-arrow-up", color: "text-purple-accent", name: "UPPERCASE", desc: "ALL CAPS", href: "/tools/case-converter" },
+        { icon: "fa-arrow-down", color: "text-blue-accent", name: "lowercase", desc: "all lowercase", href: "/tools/case-converter" },
+        { icon: "fa-heading", color: "text-green-accent", name: "Title Case", desc: "Each Word Capitalized", href: "/tools/case-converter" },
+        { icon: "fa-paragraph", color: "text-yellow-accent", name: "Sentence case", desc: "First word only", href: "/tools/case-converter" },
+        { icon: "fa-code", color: "text-orange-accent", name: "camelCase", desc: "For variables", href: "/tools/case-converter" },
+        { icon: "fa-brackets-curly", color: "text-pink-accent", name: "PascalCase", desc: "For classes", href: "/tools/case-converter" },
+        { icon: "fa-underscore", color: "text-cyan-accent", name: "snake_case", desc: "With underscores", href: "/tools/case-converter" },
+        { icon: "fa-minus", color: "text-red-accent", name: "kebab-case", desc: "With hyphens", href: "/tools/case-converter" },
+      ]
+    },
+    {
+      id: "modify",
+      title: "Text Modifications",
+      subtitle: "Edit and manipulate text",
+      icon: "fa-edit",
+      gradient: "gradient-overlay-pink",
+      iconGradient: "from-pink-500 to-red-500",
+      tools: [
+        { icon: "fa-exchange-alt", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
+        { icon: "fa-compress", color: "text-blue-accent", name: "Remove Spaces", desc: "No whitespace", href: "/tools/add-line-breaks" },
+        { icon: "fa-cut", color: "text-green-accent", name: "Trim Whitespace", desc: "Remove edges", href: "/tools/add-line-breaks" },
+        { icon: "fa-quote-right", color: "text-yellow-accent", name: "Add Quotes", desc: "Wrap in quotes", href: "/tools/add-line-breaks" },
+        { icon: "fa-eraser", color: "text-red-accent", name: "Remove Quotes", desc: "Strip quotes", href: "/tools/add-line-breaks" },
+        { icon: "fa-align-justify", color: "text-orange-accent", name: "Remove Line Breaks", desc: "Single line", href: "/tools/add-line-breaks" },
+      ]
+    },
+    {
+      id: "encode",
+      title: "Encoding & Decoding",
+      subtitle: "Convert between formats",
+      icon: "fa-code",
+      gradient: "gradient-overlay-blue",
+      iconGradient: "from-blue-500 to-purple-600",
+      tools: [
+        { icon: "fa-lock", color: "text-purple-accent", name: "Base64 Encode", desc: "Encode to Base64", href: "/tools/text-to-html" },
+        { icon: "fa-unlock", color: "text-blue-accent", name: "Base64 Decode", desc: "Decode from Base64", href: "/tools/text-to-html" },
+        { icon: "fa-link", color: "text-green-accent", name: "URL Encode", desc: "For URLs", href: "/tools/text-to-html" },
+        { icon: "fa-unlink", color: "text-yellow-accent", name: "URL Decode", desc: "Decode URLs", href: "/tools/text-to-html" },
+        { icon: "fa-file-code", color: "text-orange-accent", name: "HTML Entities", desc: "Escape HTML", href: "/tools/text-to-html" },
+      ]
+    },
+    {
+      id: "format",
+      title: "Formatting Tools",
+      subtitle: "Structure your text",
+      icon: "fa-list",
+      gradient: "gradient-overlay-green",
+      iconGradient: "from-green-500 to-yellow-500",
+      tools: [
+        { icon: "fa-list-ol", color: "text-purple-accent", name: "Add Line Numbers", desc: "Number lines", href: "/tools/add-line-breaks" },
+        { icon: "fa-list-ul", color: "text-blue-accent", name: "Add Bullets", desc: "Bullet points", href: "/tools/add-line-breaks" },
+        { icon: "fa-copy", color: "text-green-accent", name: "Remove Duplicates", desc: "Unique lines", href: "/tools/add-line-breaks" },
+        { icon: "fa-sort-alpha-down", color: "text-yellow-accent", name: "Sort Lines A-Z", desc: "Alphabetical", href: "/tools/alphabetical-order" },
+      ]
+    },
   ];
 
   return (
-    <PullToRefresh onRefresh={handleRefresh}>
-      <div className="min-h-screen min-h-[100dvh] flex flex-col bg-background pb-20 md:pb-0 overflow-x-hidden">
+    <div className="min-h-screen min-h-[100dvh] flex flex-col bg-background pb-20 md:pb-0 overflow-x-hidden">
+      {/* Blur Vignette Effect */}
+      <div className="blur-vignette"></div>
+      
+      {/* Main Container */}
+      <div className="relative z-10">
         <Header />
         
-        {/* Hero Section with Gradient */}
-        <section className="relative overflow-hidden py-16 md:py-20" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-          {/* Background blur circles */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
-          </div>
-          
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <motion.div 
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.2, 0, 0, 1] }}
-            >
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-md">
-                Transform Your Text Instantly
-              </h1>
-              <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-                The ultimate text manipulation toolkit for developers, writers, and creators
-              </p>
-              
-              {/* Glass badges */}
-              <div className="flex justify-center flex-wrap gap-3">
-                <motion.div 
-                  className="px-6 py-3 rounded-lg backdrop-blur-md border border-white/20"
-                  style={{ background: 'rgba(255, 255, 255, 0.1)' }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                >
-                  <span className="text-white flex items-center gap-2">
-                    <MaterialIcon name="bolt" className="text-[18px]" />
-                    Lightning Fast
-                  </span>
-                </motion.div>
-                <motion.div 
-                  className="px-6 py-3 rounded-lg backdrop-blur-md border border-white/20"
-                  style={{ background: 'rgba(255, 255, 255, 0.1)' }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.4 }}
-                >
-                  <span className="text-white flex items-center gap-2">
-                    <MaterialIcon name="shield" className="text-[18px]" />
-                    100% Private
-                  </span>
-                </motion.div>
-                <motion.div 
-                  className="px-6 py-3 rounded-lg backdrop-blur-md border border-white/20"
-                  style={{ background: 'rgba(255, 255, 255, 0.1)' }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.4 }}
-                >
-                  <span className="text-white flex items-center gap-2">
-                    <MaterialIcon name="auto_fix_high" className="text-[18px]" />
-                    8+ Transformations
-                  </span>
-                </motion.div>
-              </div>
-            </motion.div>
+        {/* Hero Section */}
+        <section className="px-6 py-16 text-center">
+          <motion.h2 
+            className="text-4xl md:text-6xl font-bold text-foreground mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Transform Your Text
+            <br />
+            <span className="gradient-text">Instantly</span>
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground text-lg mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Professional text tools with a beautiful interface
+          </motion.p>
+        </section>
+
+        {/* Infinite Brand Scroll */}
+        <section className="mb-16">
+          <div className="infinity-scroll">
+            <div className="infinity-scroll-inner">
+              {/* Duplicate for seamless loop */}
+              {[...brandItems, ...brandItems].map((item, index) => (
+                <div key={index} className="brand-item">
+                  <div className="liquid-glass px-6 py-3 rounded-xl flex items-center">
+                    <i className={`fas ${item.icon} ${item.color} mr-2`}></i>
+                    <span className="text-foreground font-medium">{item.text}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
-        
-        <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-12" key={refreshKey}>
-          <section id="text-tools" className="scroll-mt-24" aria-labelledby="text-tools-heading">
-            <h2 id="text-tools-heading" className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-              Text Tools
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {tools.map((tool, index) => (
-                <motion.article
-                  key={tool.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * index, duration: 0.3, ease: [0.2, 0, 0, 1] }}
-                >
-                  <ToolLink {...tool} />
-                </motion.article>
-              ))}
-            </div>
-          </section>
 
-          <section id="html-tools" className="scroll-mt-24 mt-12" aria-labelledby="html-tools-heading">
-            <h2 id="html-tools-heading" className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-              HTML Tools
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              <motion.article
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.3, ease: [0.2, 0, 0, 1] }}
-              >
-                <ToolLink 
-                  icon="code" 
-                  title="Text to HTML" 
-                  description="Convert plain text to HTML paragraphs" 
-                  href="/tools/text-to-html" 
-                />
-              </motion.article>
+        {/* Stacking Categories */}
+        <div className="stack-container">
+          {categories.map((category, categoryIndex) => (
+            <div key={category.id} className="category-card">
+              <div className={`card-content ${category.gradient}`}>
+                {/* Category Header */}
+                <div className="flex items-center mb-6">
+                  <div className={`w-12 h-12 bg-gradient-to-br ${category.iconGradient} rounded-xl flex items-center justify-center mr-4`}>
+                    <i className={`fas ${category.icon} text-white text-xl`}></i>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-foreground">{category.title}</h3>
+                    <p className="text-muted-foreground">{category.subtitle}</p>
+                  </div>
+                </div>
+                
+                {/* Tools Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 overflow-y-auto max-h-[calc(100%-120px)]">
+                  {category.tools.map((tool, toolIndex) => (
+                    <motion.div
+                      key={tool.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: categoryIndex * 0.1 + toolIndex * 0.05 }}
+                    >
+                      <Link to={tool.href}>
+                        <div className="tool-item p-4 rounded-xl">
+                          <i className={`fas ${tool.icon} ${tool.color} text-2xl mb-2`}></i>
+                          <h4 className="text-foreground font-semibold text-sm">{tool.name}</h4>
+                          <p className="text-muted-foreground text-xs mt-1">{tool.desc}</p>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </section>
+          ))}
+        </div>
 
-          <section id="favorites" className="scroll-mt-24 mt-12" aria-labelledby="favorites-heading">
-            <h2 id="favorites-heading" className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-              Favorites
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {tools.slice(0, 4).map((tool, index) => (
-                <motion.article
-                  key={`fav-${tool.title}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * index, duration: 0.3, ease: [0.2, 0, 0, 1] }}
-                >
-                  <ToolLink {...tool} />
-                </motion.article>
-              ))}
+        {/* Workspace Section */}
+        <section className="px-6 py-16 max-w-7xl mx-auto">
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* Input Area */}
+            <div className="liquid-glass rounded-3xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center">
+                  <i className="fas fa-edit text-muted-foreground mr-2"></i>
+                  <span className="text-foreground font-semibold">Input</span>
+                </div>
+                <div className="flex space-x-2">
+                  <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
+                    Sample
+                  </button>
+                  <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
+                    Clear
+                  </button>
+                </div>
+              </div>
+              <textarea
+                className="textarea-glass w-full h-80 rounded-2xl p-4 text-sm"
+                placeholder="Enter your text here..."
+              />
+              {/* Stats Row */}
+              <div className="grid grid-cols-3 gap-3 mt-4">
+                <div className="liquid-glass rounded-xl p-3 text-center">
+                  <p className="text-xs text-muted-foreground">Characters</p>
+                  <p className="text-lg font-bold text-foreground">0</p>
+                </div>
+                <div className="liquid-glass rounded-xl p-3 text-center">
+                  <p className="text-xs text-muted-foreground">Words</p>
+                  <p className="text-lg font-bold text-foreground">0</p>
+                </div>
+                <div className="liquid-glass rounded-xl p-3 text-center">
+                  <p className="text-xs text-muted-foreground">Lines</p>
+                  <p className="text-lg font-bold text-foreground">0</p>
+                </div>
+              </div>
             </div>
-          </section>
-        </main>
+
+            {/* Output Area */}
+            <div className="liquid-glass rounded-3xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center">
+                  <i className="fas fa-file-export text-muted-foreground mr-2"></i>
+                  <span className="text-foreground font-semibold">Output</span>
+                </div>
+                <div className="flex space-x-2">
+                  <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
+                    <i className="fas fa-copy mr-1"></i> Copy
+                  </button>
+                  <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
+                    <i className="fas fa-download mr-1"></i> Download
+                  </button>
+                </div>
+              </div>
+              <textarea
+                className="textarea-glass w-full h-80 rounded-2xl p-4 text-sm"
+                placeholder="Transformed text will appear here..."
+                readOnly
+              />
+            </div>
+          </motion.div>
+        </section>
 
         <Footer />
-        <BottomNav />
-        <FAB />
       </div>
-    </PullToRefresh>
+      
+      <BottomNav />
+    </div>
   );
 };
 

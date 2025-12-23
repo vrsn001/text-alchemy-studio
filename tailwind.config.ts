@@ -66,7 +66,7 @@ export default {
   		},
 	fontFamily: {
 			sans: [
-				'Google Sans Flex',
+				'Inter',
 				'ui-sans-serif',
 				'system-ui',
 				'-apple-system',
