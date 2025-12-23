@@ -5,6 +5,7 @@ import { FAB } from "@/components/FAB";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { EnhancedTextToolCard } from "@/components/EnhancedTextToolCard";
 import { PageTransition } from "@/components/PageTransition";
+import { MeshGradientBackground } from "@/components/MeshGradientBackground";
 
 const ReverseText = () => {
   const transformFunction = (input: string): string => {
@@ -14,7 +15,8 @@ const ReverseText = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
+      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden relative">
+        <MeshGradientBackground />
         <Header />
         
         <main className="container mx-auto px-3 md:px-4 py-6 md:py-8 max-w-4xl">

@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
+import { MeshGradientBackground } from "@/components/MeshGradientBackground";
 
 const WordCounter = () => {
   const [text, setText] = useState("");
@@ -49,7 +50,8 @@ const WordCounter = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
+      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden relative">
+        <MeshGradientBackground />
         <Header />
         
         <main className="container mx-auto px-3 md:px-4 py-6 md:py-8 max-w-4xl">
