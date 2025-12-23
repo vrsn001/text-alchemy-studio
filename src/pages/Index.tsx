@@ -4,6 +4,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ReactLenis } from "lenis/react";
+import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   const brandItems = [
@@ -162,10 +163,25 @@ const Index = () => {
                           transition={{ delay: toolIndex * 0.05 }}
                         >
                           <Link to={tool.href}>
-                            <div className="tool-item p-4 rounded-xl h-full">
-                              <i className={`fas ${tool.icon} ${tool.color} text-2xl mb-2`}></i>
-                              <h4 className="text-foreground font-semibold text-sm">{tool.name}</h4>
-                              <p className="text-muted-foreground text-xs mt-1">{tool.desc}</p>
+                            <div className="group relative cursor-pointer p-4 rounded-xl h-full overflow-hidden tool-item">
+                              {/* Default State */}
+                              <div className="translate-y-0 group-hover:-translate-y-full group-hover:opacity-0 transition-all duration-300">
+                                <i className={`fas ${tool.icon} ${tool.color} text-2xl mb-2`}></i>
+                                <h4 className="text-foreground font-semibold text-sm">{tool.name}</h4>
+                                <p className="text-muted-foreground text-xs mt-1">{tool.desc}</p>
+                              </div>
+                              
+                              {/* Hover State */}
+                              <div className="flex flex-col items-start justify-center absolute inset-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-white font-semibold text-sm">{tool.name}</span>
+                                  <ArrowRight className="w-4 h-4 text-white" />
+                                </div>
+                                <p className="text-white/80 text-xs">{tool.desc}</p>
+                              </div>
+                              
+                              {/* Expanding Circle Background */}
+                              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-gradient-to-br ${category.iconGradient} scale-0 group-hover:scale-[20] transition-transform duration-500 ease-out`}></div>
                             </div>
                           </Link>
                         </motion.div>
