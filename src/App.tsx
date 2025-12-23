@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 import { SplashScreen } from "@/components/SplashScreen";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import SmoothFollower from "@/components/SmoothFollower";
 import Index from "./pages/Index";
 import AddLineBreaks from "./pages/AddLineBreaks";
 import RandomWords from "./pages/RandomWords";
@@ -42,6 +43,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <TooltipProvider>
+            <SmoothFollower />
             <Toaster />
             <Sonner />
             <BrowserRouter>
