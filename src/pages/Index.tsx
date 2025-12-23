@@ -19,6 +19,20 @@ const Index = () => {
 
   const categories = [
     {
+      id: "modify",
+      title: "Text Modifications",
+      subtitle: "Edit and manipulate text",
+      icon: "fa-pen-to-square",
+      gradient: "gradient-overlay-pink",
+      iconGradient: "from-pink-500 to-red-500",
+      tools: [
+        { icon: "fa-right-left", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
+        { icon: "fa-compress", color: "text-blue-accent", name: "Remove Spaces", desc: "No whitespace", href: "/tools/add-line-breaks" },
+        { icon: "fa-text-height", color: "text-green-accent", name: "Add Line Breaks", desc: "Break after characters", href: "/tools/add-line-breaks" },
+        { icon: "fa-bars", color: "text-orange-accent", name: "Remove Line Breaks", desc: "Single line", href: "/tools/add-line-breaks" },
+      ]
+    },
+    {
       id: "case",
       title: "Case Transformations",
       subtitle: "Change text casing styles",
@@ -34,20 +48,6 @@ const Index = () => {
         { icon: "fa-p", color: "text-pink-accent", name: "PascalCase", desc: "For classes", href: "/tools/case-converter" },
         { icon: "fa-underline", color: "text-cyan-accent", name: "snake_case", desc: "With underscores", href: "/tools/case-converter" },
         { icon: "fa-minus", color: "text-red-accent", name: "kebab-case", desc: "With hyphens", href: "/tools/case-converter" },
-      ]
-    },
-    {
-      id: "modify",
-      title: "Text Modifications",
-      subtitle: "Edit and manipulate text",
-      icon: "fa-pen-to-square",
-      gradient: "gradient-overlay-pink",
-      iconGradient: "from-pink-500 to-red-500",
-      tools: [
-        { icon: "fa-right-left", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
-        { icon: "fa-compress", color: "text-blue-accent", name: "Remove Spaces", desc: "No whitespace", href: "/tools/add-line-breaks" },
-        { icon: "fa-text-height", color: "text-green-accent", name: "Add Line Breaks", desc: "Break after characters", href: "/tools/add-line-breaks" },
-        { icon: "fa-bars", color: "text-orange-accent", name: "Remove Line Breaks", desc: "Single line", href: "/tools/add-line-breaks" },
       ]
     },
     {
