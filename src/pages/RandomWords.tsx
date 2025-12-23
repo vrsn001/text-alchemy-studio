@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
-import { FAB } from "@/components/FAB";
+
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { LiquidGlassCard } from "@/components/ui/liquid-glass";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
@@ -161,7 +161,7 @@ const RandomWords = () => {
 
         <Footer />
         <BottomNav />
-        <FAB />
+        
       </div>
     </PageTransition>
   );

@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
-import { FAB } from "@/components/FAB";
+
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { EnhancedTextToolCard } from "@/components/EnhancedTextToolCard";
 import { PageTransition } from "@/components/PageTransition";
@@ -47,7 +47,7 @@ const AlphabeticalOrder = () => {
 
         <Footer />
         <BottomNav />
-        <FAB />
+        
       </div>
     </PageTransition>
   );
