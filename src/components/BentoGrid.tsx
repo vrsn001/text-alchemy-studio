@@ -107,16 +107,33 @@ export function UserTrustCard() {
       </a>
       
       <a 
+        href="https://github.com/vrsn001/text-alchemy-studio/graphs/contributors" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="flex -space-x-2 mt-4 hover:opacity-80 transition-opacity"
+      >
+        {['🧑‍💻', '👨‍💻', '👩‍💻', '🧑‍🔧'].map((emoji, i) => (
+          <div 
+            key={i} 
+            className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-background flex items-center justify-center text-xs"
+          >
+            {emoji}
+          </div>
+        ))}
+        <div className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center">
+          <PlusCircle className="w-4 h-4 text-muted-foreground" />
+        </div>
+      </a>
+      
+      <a 
         href="https://github.com/vrsn001" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="flex items-center gap-2 mt-4 text-muted-foreground hover:text-foreground transition-colors"
+        className="flex items-center gap-2 mt-3 text-muted-foreground hover:text-foreground transition-colors"
       >
-        <Github className="w-5 h-5" />
-        <span className="text-sm">@vrsn001</span>
+        <Github className="w-4 h-4" />
+        <span className="text-xs">@vrsn001</span>
       </a>
-      
-      <p className="text-xs text-muted-foreground/60 mt-4">Star us on GitHub ⭐</p>
     </div>
   );
 }
