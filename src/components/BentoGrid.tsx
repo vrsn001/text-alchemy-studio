@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { SlotItemMapArray, utils } from "swapy";
 import { DragHandle, SwapyItem, SwapyLayout, SwapySlot } from "@/components/ui/swapy";
-import { Heart, PlusCircle, Type, ArrowUpDown, Code, List, Sparkles, FileText, Hash } from "lucide-react";
+import { Heart, PlusCircle, Type, ArrowUpDown, Code, List, Sparkles, FileText, Hash, Github } from "lucide-react";
 
 export function ProjectViewsCard() {
   return (
@@ -24,9 +24,15 @@ export function NewUsersCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 p-6 border border-white/10">
       <DragHandle />
-      <p className="text-muted-foreground text-sm">Daily Users</p>
-      <h2 className="text-3xl font-bold text-foreground mt-1">57K</h2>
-      <span className="text-green-400 text-sm">+10%</span>
+      <div className="flex items-center gap-2">
+        <p className="text-muted-foreground text-sm">Daily Users</p>
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+        </span>
+      </div>
+      <h2 className="text-3xl font-bold text-foreground mt-1">5+</h2>
+      <span className="text-green-400 text-sm">Live</span>
     </div>
   );
 }
@@ -90,24 +96,27 @@ export function UserTrustCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 p-6 border border-white/10">
       <DragHandle />
-      <p className="text-muted-foreground text-sm">Trusted By</p>
-      <h2 className="text-2xl font-bold text-foreground mt-1">500+ Users</h2>
+      <a 
+        href="https://github.com/vrsn001/text-alchemy-studio" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block hover:opacity-80 transition-opacity"
+      >
+        <p className="text-muted-foreground text-sm">Open Source</p>
+        <h2 className="text-xl font-bold text-foreground mt-1">Open to Contribute</h2>
+      </a>
       
-      <div className="flex -space-x-2 mt-4">
-        {[...Array(5)].map((_, i) => (
-          <div 
-            key={i} 
-            className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-background flex items-center justify-center text-xs font-bold text-white"
-          >
-            {String.fromCharCode(65 + i)}
-          </div>
-        ))}
-        <div className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center">
-          <PlusCircle className="w-4 h-4 text-muted-foreground" />
-        </div>
-      </div>
+      <a 
+        href="https://github.com/vrsn001" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 mt-4 text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <Github className="w-5 h-5" />
+        <span className="text-sm">@vrsn001</span>
+      </a>
       
-      <p className="text-xs text-muted-foreground/60 mt-4">Join our community...</p>
+      <p className="text-xs text-muted-foreground/60 mt-4">Star us on GitHub ⭐</p>
     </div>
   );
 }
