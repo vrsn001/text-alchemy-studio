@@ -66,7 +66,6 @@ export default {
   		},
 	fontFamily: {
 			sans: [
-				'Roboto Flex',
 				'Google Sans Flex',
 				'ui-sans-serif',
 				'system-ui',
