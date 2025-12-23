@@ -33,7 +33,7 @@ export const BottomNav = () => {
 
   return (
     <nav 
-      className="md:hidden fixed bottom-0 left-0 right-0 bg-surface-1/95 backdrop-blur-md border-t border-border/50 z-[100] safe-area-bottom shadow-[0_-4px_12px_-4px_rgba(0,0,0,0.1)]"
+      className="md:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-md border-t border-border z-[100] safe-area-bottom shadow-[0_-4px_12px_-4px_rgba(0,0,0,0.1)]"
       role="navigation"
       aria-label="Bottom navigation"
     >
