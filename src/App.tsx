@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 import { SplashScreen } from "@/components/SplashScreen";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import CanvasCursor from "@/components/CanvasCursor";
 import Index from "./pages/Index";
 import AddLineBreaks from "./pages/AddLineBreaks";
 import RandomWords from "./pages/RandomWords";
@@ -37,6 +38,7 @@ const App = () => {
 
   return (
     <>
+      <CanvasCursor />
       {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       {!showSplash && isLoading && <LoadingScreen onLoadComplete={() => setIsLoading(false)} />}
       <QueryClientProvider client={queryClient}>
