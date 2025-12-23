@@ -177,76 +177,7 @@ const Index = () => {
             ))}
           </section>
 
-          {/* Workspace Section */}
-          <section className="px-6 py-16 max-w-7xl mx-auto">
-            <motion.div
-              className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              {/* Input Area */}
-              <div className="liquid-glass rounded-3xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <i className="fas fa-edit text-muted-foreground mr-2"></i>
-                    <span className="text-foreground font-semibold">Input</span>
-                  </div>
-                  <div className="flex space-x-2">
-                    <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
-                      Sample
-                    </button>
-                    <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
-                      Clear
-                    </button>
-                  </div>
-                </div>
-                <textarea
-                  className="textarea-glass w-full h-80 rounded-2xl p-4 text-sm"
-                  placeholder="Enter your text here..."
-                />
-                {/* Stats Row */}
-                <div className="grid grid-cols-3 gap-3 mt-4">
-                  <div className="liquid-glass rounded-xl p-3 text-center">
-                    <p className="text-xs text-muted-foreground">Characters</p>
-                    <p className="text-lg font-bold text-foreground">0</p>
-                  </div>
-                  <div className="liquid-glass rounded-xl p-3 text-center">
-                    <p className="text-xs text-muted-foreground">Words</p>
-                    <p className="text-lg font-bold text-foreground">0</p>
-                  </div>
-                  <div className="liquid-glass rounded-xl p-3 text-center">
-                    <p className="text-xs text-muted-foreground">Lines</p>
-                    <p className="text-lg font-bold text-foreground">0</p>
-                  </div>
-                </div>
-              </div>
 
-              {/* Output Area */}
-              <div className="liquid-glass rounded-3xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <i className="fas fa-file-export text-muted-foreground mr-2"></i>
-                    <span className="text-foreground font-semibold">Output</span>
-                  </div>
-                  <div className="flex space-x-2">
-                    <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
-                      <i className="fas fa-copy mr-1"></i> Copy
-                    </button>
-                    <button className="glass-btn px-3 py-1.5 rounded-lg text-sm text-foreground">
-                      <i className="fas fa-download mr-1"></i> Download
-                    </button>
-                  </div>
-                </div>
-                <textarea
-                  className="textarea-glass w-full h-80 rounded-2xl p-4 text-sm"
-                  placeholder="Transformed text will appear here..."
-                  readOnly
-                />
-              </div>
-            </motion.div>
-          </section>
 
           {/* Footer */}
           <footer className="group">
