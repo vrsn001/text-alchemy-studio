@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
 import { triggerHaptic } from "@/utils/haptics";
 import { downloadAsText } from "@/utils/download";
+import { MeshGradientBackground } from "@/components/MeshGradientBackground";
 
 type CaseType = "upper" | "lower" | "title" | "sentence";
 
@@ -83,7 +84,8 @@ const CaseConverter = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
+      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden relative">
+        <MeshGradientBackground />
         <Header />
         
         <main className="container mx-auto px-3 md:px-4 py-6 md:py-8 max-w-4xl">
