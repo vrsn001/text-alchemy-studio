@@ -2,6 +2,7 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { MaterialIcon } from "./MaterialIcon";
 import { ThemePicker } from "./ThemePicker";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -36,13 +37,26 @@ export const Header = () => {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="hover:bg-muted text-muted-foreground hover:text-foreground transition-all duration-m3-short4 active:scale-90 rounded-lg"
+              className="relative hover:bg-muted text-muted-foreground hover:text-foreground transition-all duration-m3-short4 active:scale-90 rounded-lg overflow-hidden"
               aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
-              <MaterialIcon 
-                name={theme === "dark" ? "light_mode" : "dark_mode"} 
-                className="text-[20px] transition-transform duration-m3-medium2 hover:rotate-12" 
-              />
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={theme}
+                  initial={{ y: -30, opacity: 0, rotate: -90 }}
+                  animate={{ y: 0, opacity: 1, rotate: 0 }}
+                  exit={{ y: 30, opacity: 0, rotate: 90 }}
+                  transition={{
+                    duration: 0.3,
+                    ease: [0.4, 0, 0.2, 1]
+                  }}
+                >
+                  <MaterialIcon 
+                    name={theme === "dark" ? "light_mode" : "dark_mode"} 
+                    className="text-[20px]" 
+                  />
+                </motion.div>
+              </AnimatePresence>
             </Button>
             
             <a 
