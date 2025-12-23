@@ -525,4 +525,44 @@
   .gradient-overlay-green {
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(234, 179, 8, 0.1) 100%);
   }
+
+  /* Animated Gradient Border */
+  .animated-border {
+    --border-angle: 0deg;
+    background: 
+      linear-gradient(45deg, #080b11, #1e293b 50%, #172033) padding-box,
+      conic-gradient(from var(--border-angle), rgba(71, 85, 105, 0.48) 80%, #6366f1 86%, #a5b4fc 90%, #6366f1 94%, rgba(71, 85, 105, 0.48)) border-box;
+    border: 1px solid transparent;
+    animation: border-rotate 4s linear infinite;
+  }
+
+  .animated-border-purple {
+    --border-angle: 0deg;
+    background: 
+      linear-gradient(45deg, #0a0010, #1a0a2e 50%, #0f0520) padding-box,
+      conic-gradient(from var(--border-angle), rgba(107, 33, 168, 0.48) 80%, #a855f7 86%, #d8b4fe 90%, #a855f7 94%, rgba(107, 33, 168, 0.48)) border-box;
+    border: 1px solid transparent;
+    animation: border-rotate 4s linear infinite;
+  }
+
+  .animated-border-pink {
+    --border-angle: 0deg;
+    background: 
+      linear-gradient(45deg, #10050a, #2e0a1a 50%, #200510) padding-box,
+      conic-gradient(from var(--border-angle), rgba(168, 33, 107, 0.48) 80%, #ec4899 86%, #f9a8d4 90%, #ec4899 94%, rgba(168, 33, 107, 0.48)) border-box;
+    border: 1px solid transparent;
+    animation: border-rotate 4s linear infinite;
+  }
+
+  @keyframes border-rotate {
+    to {
+      --border-angle: 360deg;
+    }
+  }
+
+  @property --border-angle {
+    inherits: false;
+    initial-value: 0deg;
+    syntax: '<angle>';
+  }
 }
