@@ -139,8 +139,11 @@ const Index = () => {
                 <br />
                 <span className="gradient-text">Instantly</span>
               </h2>
-              <p className="text-muted-foreground text-lg mb-8">
-                Professional text tools with a beautiful interface. Scroll down! 👇
+              <p className="text-muted-foreground text-lg mb-2">
+                Cooked by Lakshy Rohilla
+              </p>
+              <p className="text-muted-foreground text-sm">
+                Brewed at Creative Fuel &lt;3
               </p>
             </motion.div>
           </section>
