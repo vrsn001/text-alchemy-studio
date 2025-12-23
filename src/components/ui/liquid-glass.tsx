@@ -7,10 +7,11 @@ interface LiquidGlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   blur?: "sm" | "md" | "lg" | "xl";
   opacity?: number;
+  variant?: "default" | "notification";
 }
 
 const LiquidGlassCard = React.forwardRef<HTMLDivElement, LiquidGlassCardProps>(
-  ({ className, children, blur = "xl", opacity = 0.15, ...props }, ref) => {
+  ({ className, children, blur = "xl", opacity = 0.15, variant = "default", ...props }, ref) => {
     const blurValues = {
       sm: "backdrop-blur-sm",
       md: "backdrop-blur-md",
@@ -22,8 +23,11 @@ const LiquidGlassCard = React.forwardRef<HTMLDivElement, LiquidGlassCardProps>(
       <div
         ref={ref}
         className={cn(
-          "relative overflow-hidden rounded-3xl border border-white/20",
+          "group relative overflow-hidden border border-white/20 transition-all duration-300",
           blurValues[blur],
+          variant === "notification" 
+            ? "rounded-[28px] hover:scale-[1.02]" 
+            : "rounded-3xl",
           className
         )}
         style={{
@@ -38,7 +42,7 @@ const LiquidGlassCard = React.forwardRef<HTMLDivElement, LiquidGlassCardProps>(
       >
         {/* Liquid highlight effect */}
         <div
-          className="pointer-events-none absolute inset-0 rounded-3xl"
+          className="pointer-events-none absolute inset-0 rounded-[inherit]"
           style={{
             background: `
               radial-gradient(
@@ -111,4 +115,66 @@ const LiquidGlassWideItem = React.forwardRef<HTMLDivElement, LiquidGlassWideItem
 
 LiquidGlassWideItem.displayName = "LiquidGlassWideItem";
 
-export { LiquidGlassCard, LiquidGlassItem, LiquidGlassWideItem };
+interface LiquidGlassNotificationProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  showDivider?: boolean;
+}
+
+const LiquidGlassNotification = React.forwardRef<HTMLDivElement, LiquidGlassNotificationProps>(
+  ({ className, children, showDivider = false, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "relative flex w-full items-start gap-3 p-3.5",
+          showDivider && "border-t border-white/10",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+LiquidGlassNotification.displayName = "LiquidGlassNotification";
+
+interface LiquidGlassAppIconProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  size?: "sm" | "md" | "lg";
+}
+
+const LiquidGlassAppIcon = React.forwardRef<HTMLDivElement, LiquidGlassAppIconProps>(
+  ({ className, children, size = "md", ...props }, ref) => {
+    const sizeClasses = {
+      sm: "h-8 w-8 rounded-lg",
+      md: "h-10 w-10 rounded-xl",
+      lg: "h-12 w-12 rounded-2xl",
+    };
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex shrink-0 items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg",
+          sizeClasses[size],
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+LiquidGlassAppIcon.displayName = "LiquidGlassAppIcon";
+
+export { 
+  LiquidGlassCard, 
+  LiquidGlassItem, 
+  LiquidGlassWideItem, 
+  LiquidGlassNotification,
+  LiquidGlassAppIcon 
+};
