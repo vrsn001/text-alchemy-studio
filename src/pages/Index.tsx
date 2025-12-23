@@ -180,8 +180,8 @@ const Index = () => {
                                 <p className="text-white/80 text-xs">{tool.desc}</p>
                               </div>
                               
-                              {/* Expanding Circle Background */}
-                              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-gradient-to-br ${category.iconGradient} scale-0 group-hover:scale-[20] transition-transform duration-500 ease-out`}></div>
+                              {/* Expanding Circle Background with Glow */}
+                              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-gradient-to-br ${category.iconGradient} scale-0 group-hover:scale-[20] transition-all duration-500 ease-out group-hover:shadow-[0_0_40px_rgba(168,85,247,0.6),0_0_80px_rgba(236,72,153,0.4)]`}></div>
                             </div>
                           </Link>
                         </motion.div>
