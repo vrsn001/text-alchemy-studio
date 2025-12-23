@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
-import { FAB } from "@/components/FAB";
+
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { LiquidGlassCard, LiquidGlassWideItem } from "@/components/ui/liquid-glass";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
@@ -201,7 +201,7 @@ const CaseConverter = () => {
 
         <Footer />
         <BottomNav />
-        <FAB />
+        
       </div>
     </PageTransition>
   );
