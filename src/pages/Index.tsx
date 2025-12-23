@@ -143,7 +143,7 @@ const Index = () => {
                   href="https://www.linkedin.com/in/lakshayrohilla/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="font-medium text-foreground hover:text-purple-400 transition-colors underline-offset-2 hover:underline"
+                  className="font-medium text-foreground hover:text-purple-400 transition-all duration-300 underline-offset-2 hover:underline hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.6)] inline-block"
                 >
                   Lakshay Rohilla
                 </a>
