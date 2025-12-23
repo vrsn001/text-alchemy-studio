@@ -83,6 +83,8 @@ const Index = () => {
     },
   ];
 
+  // Incremental top positions for stacking effect
+  const stackingTops = ["top-0", "top-4", "top-8", "top-12"];
 
   return (
     <ReactLenis root>
@@ -161,7 +163,7 @@ const Index = () => {
           </section>
 
           {/* Stacking Category Cards */}
-          <section className="stack-container w-full relative">
+          <section className="w-full pb-20 relative">
             {/* Sparkles Background */}
             <div className="fixed inset-0 pointer-events-none z-0">
               <Sparkles 
@@ -178,61 +180,63 @@ const Index = () => {
               <div 
                 key={category.id}
                 data-category={category.id}
-                className="category-card w-full"
+                className={`sm:sticky ${stackingTops[categoryIndex]} w-full`}
               >
-                <GradientBorderCard 
-                  variant={categoryIndex === 0 ? 'pink' : categoryIndex === 1 ? 'purple' : 'default'}
-                  className="w-[90%] md:w-[85%] max-w-6xl rounded-[32px]"
-                >
-                  <div className={`p-6 md:p-10 rounded-[32px] ${category.gradient}`}>
-                    {/* Category Header */}
-                    <div className="flex items-center mb-6">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${category.iconGradient} rounded-xl flex items-center justify-center mr-4`}>
-                        <i className={`fas ${category.icon} text-white text-xl`}></i>
+                <div className="w-full min-h-screen flex items-center justify-center py-8">
+                  <GradientBorderCard 
+                    variant={categoryIndex === 0 ? 'pink' : categoryIndex === 1 ? 'purple' : 'default'}
+                    className="w-[90%] md:w-[85%] max-w-6xl rounded-[32px]"
+                  >
+                    <div className={`p-6 md:p-10 rounded-[32px] ${category.gradient}`}>
+                      {/* Category Header */}
+                      <div className="flex items-center mb-6">
+                        <div className={`w-12 h-12 bg-gradient-to-br ${category.iconGradient} rounded-xl flex items-center justify-center mr-4`}>
+                          <i className={`fas ${category.icon} text-white text-xl`}></i>
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-foreground">{category.title}</h3>
+                          <p className="text-muted-foreground">{category.subtitle}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-2xl font-bold text-foreground">{category.title}</h3>
-                        <p className="text-muted-foreground">{category.subtitle}</p>
-                      </div>
-                    </div>
-                    
-                    {/* Tools Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                      {category.tools.map((tool, toolIndex) => (
-                        <motion.div
-                          key={tool.name}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: toolIndex * 0.05 }}
-                        >
-                          <Link to={tool.href}>
-                            <div className="group relative cursor-pointer p-4 rounded-xl h-full overflow-hidden tool-item">
-                              {/* Default State */}
-                              <div className="translate-y-0 group-hover:-translate-y-full group-hover:opacity-0 transition-all duration-300">
-                                <i className={`fas ${tool.icon} ${tool.color} text-2xl mb-2`}></i>
-                                <h4 className="text-foreground font-semibold text-sm">{tool.name}</h4>
-                                <p className="text-muted-foreground text-xs mt-1">{tool.desc}</p>
-                              </div>
-                              
-                              {/* Hover State */}
-                              <div className="flex flex-col items-start justify-center absolute inset-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <span className="text-white font-semibold text-sm">{tool.name}</span>
-                                  <ArrowRight className="w-4 h-4 text-white" />
+                      
+                      {/* Tools Grid */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                        {category.tools.map((tool, toolIndex) => (
+                          <motion.div
+                            key={tool.name}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: toolIndex * 0.05 }}
+                          >
+                            <Link to={tool.href}>
+                              <div className="group relative cursor-pointer p-4 rounded-xl h-full overflow-hidden tool-item">
+                                {/* Default State */}
+                                <div className="translate-y-0 group-hover:-translate-y-full group-hover:opacity-0 transition-all duration-300">
+                                  <i className={`fas ${tool.icon} ${tool.color} text-2xl mb-2`}></i>
+                                  <h4 className="text-foreground font-semibold text-sm">{tool.name}</h4>
+                                  <p className="text-muted-foreground text-xs mt-1">{tool.desc}</p>
                                 </div>
-                                <p className="text-white/80 text-xs">{tool.desc}</p>
+                                
+                                {/* Hover State */}
+                                <div className="flex flex-col items-start justify-center absolute inset-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-white font-semibold text-sm">{tool.name}</span>
+                                    <ArrowRight className="w-4 h-4 text-white" />
+                                  </div>
+                                  <p className="text-white/80 text-xs">{tool.desc}</p>
+                                </div>
+                                
+                                {/* Expanding Circle Background with Glow */}
+                                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-gradient-to-br ${category.iconGradient} scale-0 group-hover:scale-[20] transition-all duration-500 ease-out group-hover:shadow-[0_0_40px_rgba(168,85,247,0.6),0_0_80px_rgba(236,72,153,0.4)]`}></div>
                               </div>
-                              
-                              {/* Expanding Circle Background with Glow */}
-                              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-gradient-to-br ${category.iconGradient} scale-0 group-hover:scale-[20] transition-all duration-500 ease-out group-hover:shadow-[0_0_40px_rgba(168,85,247,0.6),0_0_80px_rgba(236,72,153,0.4)]`}></div>
-                            </div>
-                          </Link>
-                        </motion.div>
-                      ))}
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </GradientBorderCard>
+                  </GradientBorderCard>
+                </div>
               </div>
             ))}
           </section>
