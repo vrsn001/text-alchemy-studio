@@ -100,15 +100,27 @@ const Index = () => {
           
           {/* Hero Section - Sticky */}
           <section className="text-foreground h-screen w-full grid place-content-center sticky top-0 relative overflow-hidden">
-            {/* Sparkles Background */}
+            {/* Sparkles Background - Purple Layer */}
             <div className="absolute inset-0 z-0">
               <Sparkles 
                 className="w-full h-full"
                 color="#a855f7"
-                density={200}
+                density={150}
                 speed={0.5}
                 opacity={0.8}
                 size={1.2}
+              />
+            </div>
+            
+            {/* Sparkles Background - Pink Layer */}
+            <div className="absolute inset-0 z-0">
+              <Sparkles 
+                className="w-full h-full"
+                color="#ec4899"
+                density={100}
+                speed={0.3}
+                opacity={0.6}
+                size={1.5}
               />
             </div>
             
