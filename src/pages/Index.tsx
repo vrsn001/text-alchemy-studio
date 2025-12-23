@@ -99,9 +99,21 @@ const Index = () => {
           <Header />
           
           {/* Hero Section - Sticky */}
-          <section className="text-foreground h-screen w-full grid place-content-center sticky top-0">
+          <section className="text-foreground h-screen w-full grid place-content-center sticky top-0 relative overflow-hidden">
+            {/* Sparkles Background */}
+            <div className="absolute inset-0 z-0">
+              <Sparkles 
+                className="w-full h-full"
+                color="#a855f7"
+                density={200}
+                speed={0.5}
+                opacity={0.8}
+                size={1.2}
+              />
+            </div>
+            
             <motion.div
-              className="text-center px-8"
+              className="text-center px-8 relative z-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
