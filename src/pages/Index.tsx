@@ -7,7 +7,6 @@ import { ReactLenis } from "lenis/react";
 import { ArrowRight } from "lucide-react";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
-import { BentoGrid } from "@/components/BentoGrid";
 
 const Index = () => {
   const brandItems = [
@@ -132,22 +131,6 @@ const Index = () => {
                 ))}
               </div>
             </div>
-          </section>
-
-          {/* Bento Grid Section */}
-          <section className="w-full py-16 relative z-20">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-8"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                Drag & Arrange Your <span className="gradient-text">Dashboard</span>
-              </h2>
-              <p className="text-muted-foreground">Customize your workspace by dragging the cards</p>
-            </motion.div>
-            <BentoGrid />
           </section>
 
           {/* Stacking Category Cards */}
