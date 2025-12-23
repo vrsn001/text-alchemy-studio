@@ -44,9 +44,7 @@ const Index = () => {
       tools: [
         { icon: "fa-right-left", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
         { icon: "fa-compress", color: "text-blue-accent", name: "Remove Spaces", desc: "No whitespace", href: "/tools/add-line-breaks" },
-        { icon: "fa-scissors", color: "text-green-accent", name: "Trim Whitespace", desc: "Remove edges", href: "/tools/add-line-breaks" },
-        { icon: "fa-quote-right", color: "text-yellow-accent", name: "Add Quotes", desc: "Wrap in quotes", href: "/tools/add-line-breaks" },
-        { icon: "fa-eraser", color: "text-red-accent", name: "Remove Quotes", desc: "Strip quotes", href: "/tools/add-line-breaks" },
+        { icon: "fa-text-height", color: "text-green-accent", name: "Add Line Breaks", desc: "Break after characters", href: "/tools/add-line-breaks" },
         { icon: "fa-bars", color: "text-orange-accent", name: "Remove Line Breaks", desc: "Single line", href: "/tools/add-line-breaks" },
       ]
     },
