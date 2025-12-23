@@ -7,7 +7,7 @@ import { ReactLenis } from "lenis/react";
 import { ArrowRight } from "lucide-react";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
-import SpotlightCursor from "@/components/ui/spotlight-cursor";
+
 
 const Index = () => {
   const brandItems = [
@@ -97,8 +97,6 @@ const Index = () => {
         
         {/* Main Container */}
         <div className="relative z-10">
-          {/* Spotlight Cursor Effect */}
-          <SpotlightCursor config={{ spotlightSize: 250, glowColor: '168, 85, 247', spotlightIntensity: 0.9 }} />
           
           <Header />
           
