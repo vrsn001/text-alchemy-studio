@@ -8,27 +8,14 @@ import { PullToRefresh } from "@/components/PullToRefresh";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+
 const Index = () => {
   const [refreshKey, setRefreshKey] = useState(0);
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const handleRefresh = async () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     setRefreshKey(prev => prev + 1);
     toast.success("Tools refreshed!");
-  };
-
-  const formatGMT = (date: Date) => {
-    const gmtOffset = -date.getTimezoneOffset() / 60;
-    const sign = gmtOffset >= 0 ? '+' : '';
-    return `GMT${sign}${gmtOffset}`;
   };
 
   const tools = [
@@ -47,42 +34,72 @@ const Index = () => {
       <div className="min-h-screen min-h-[100dvh] flex flex-col bg-background pb-20 md:pb-0 overflow-x-hidden">
         <Header />
         
-        <main className="flex-1 container mx-auto px-3 md:px-4 py-6 md:py-8" key={refreshKey}>
-          {/* GMT Time Display */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="flex justify-center mb-4"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface-2 rounded-full text-sm font-mono text-muted-foreground border border-border">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              {currentTime.toLocaleTimeString('en-US', { hour12: false })} {formatGMT(currentTime)}
-            </div>
-          </motion.div>
-
-          <motion.header
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.2, 0, 0, 1] }}
-            className="text-center mb-8 md:mb-12"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold mb-3 md:mb-4 flex items-center justify-center gap-3">
-              <span className="text-foreground">Text</span>
-              <span className="relative inline-flex items-center justify-center">
-                <MaterialIcon 
-                  name="auto_awesome" 
-                  filled 
-                  className="text-[40px] md:text-[56px] text-primary drop-shadow-[0_0_12px_hsl(174,84%,40%)]" 
-                />
-              </span>
-              <span className="text-primary">Craft</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 font-medium">
-              Your creative toolkit for instant text transformation
-            </p>
-          </motion.header>
-
+        {/* Hero Section with Gradient */}
+        <section className="relative overflow-hidden py-16 md:py-20" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+          {/* Background blur circles */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+          </div>
+          
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div 
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.2, 0, 0, 1] }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-md">
+                Transform Your Text Instantly
+              </h1>
+              <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+                The ultimate text manipulation toolkit for developers, writers, and creators
+              </p>
+              
+              {/* Glass badges */}
+              <div className="flex justify-center flex-wrap gap-3">
+                <motion.div 
+                  className="px-6 py-3 rounded-lg backdrop-blur-md border border-white/20"
+                  style={{ background: 'rgba(255, 255, 255, 0.1)' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                >
+                  <span className="text-white flex items-center gap-2">
+                    <MaterialIcon name="bolt" className="text-[18px]" />
+                    Lightning Fast
+                  </span>
+                </motion.div>
+                <motion.div 
+                  className="px-6 py-3 rounded-lg backdrop-blur-md border border-white/20"
+                  style={{ background: 'rgba(255, 255, 255, 0.1)' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                >
+                  <span className="text-white flex items-center gap-2">
+                    <MaterialIcon name="shield" className="text-[18px]" />
+                    100% Private
+                  </span>
+                </motion.div>
+                <motion.div 
+                  className="px-6 py-3 rounded-lg backdrop-blur-md border border-white/20"
+                  style={{ background: 'rgba(255, 255, 255, 0.1)' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.4 }}
+                >
+                  <span className="text-white flex items-center gap-2">
+                    <MaterialIcon name="auto_fix_high" className="text-[18px]" />
+                    8+ Transformations
+                  </span>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
+        <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-12" key={refreshKey}>
           <section id="text-tools" className="scroll-mt-24" aria-labelledby="text-tools-heading">
             <h2 id="text-tools-heading" className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
               Text Tools
@@ -138,7 +155,6 @@ const Index = () => {
               ))}
             </div>
           </section>
-
         </main>
 
         <Footer />
