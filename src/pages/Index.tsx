@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ReactLenis } from "lenis/react";
 import { ArrowRight } from "lucide-react";
+import { Sparkles } from "@/components/ui/sparkles";
 
 const Index = () => {
   const brandItems = [
@@ -132,7 +133,19 @@ const Index = () => {
           </section>
 
           {/* Stacking Category Cards */}
-          <section className="w-full pb-20">
+          <section className="w-full pb-20 relative">
+            {/* Sparkles Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+              <Sparkles 
+                className="w-full h-full"
+                color="#a855f7"
+                density={150}
+                speed={0.8}
+                opacity={0.6}
+                size={1.5}
+              />
+            </div>
+            
             {categories.map((category, categoryIndex) => (
               <div 
                 key={category.id}
