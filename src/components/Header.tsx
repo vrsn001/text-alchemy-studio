@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import creativeFuelLogo from "@/assets/creative-fuel-logo.jpg";
+import creativeFuelLogo from "@/assets/creative-fuel-logo.png";
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -15,8 +15,8 @@ export const Header = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <a href="/" className="flex items-center space-x-3 group">
           {/* Creative Fuel Logo */}
-          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105">
-            <img src={creativeFuelLogo} alt="Creative Fuel" className="w-full h-full object-cover" />
+          <div className="w-10 h-10 rounded-full overflow-hidden shadow-lg ring-1 ring-border/20 transition-all duration-300 group-hover:scale-105 bg-white dark:bg-white/95">
+            <img src={creativeFuelLogo} alt="Creative Fuel" className="w-full h-full object-contain p-0.5" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">TextCraft</h1>
