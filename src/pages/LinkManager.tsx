@@ -7,17 +7,18 @@ import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { FAB } from "@/components/FAB";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { Card } from "@/components/ui/card";
+import { LiquidGlassCard } from "@/components/ui/liquid-glass";
+import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Link2, 
   ScanSearch, 
-  Sparkles,
+  Sparkles as SparklesIcon,
   AlertCircle,
   List,
   FileText
@@ -26,6 +27,8 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
 import { triggerHaptic } from "@/utils/haptics";
+import { MeshGradientBackground } from "@/components/MeshGradientBackground";
+import { Sparkles } from "@/components/ui/sparkles";
 
 import { useURLParser } from "@/hooks/useURLParser";
 import { URLStats } from "@/components/link-manager/URLStats";
@@ -75,7 +78,6 @@ const LinkManager = () => {
   }, [clear]);
   
   const handleSort = useCallback((type: 'alphabetical' | 'domain') => {
-    // Sorting is done in-place for now
     toast.success(`Sorted by ${type}`);
   }, []);
   
@@ -83,10 +85,17 @@ const LinkManager = () => {
   
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden">
+      <div className="min-h-screen bg-background pb-20 md:pb-0 overflow-x-hidden relative">
+        <MeshGradientBackground />
+        
+        {/* Sparkles background */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <Sparkles color="#a855f7" density={80} speed={0.4} opacity={0.3} size={1.2} />
+        </div>
+        
         <Header />
         
-        <main className="container mx-auto px-3 md:px-4 py-6 md:py-8">
+        <main className="container mx-auto px-3 md:px-4 py-6 md:py-8 relative z-10">
           <div className="max-w-4xl mx-auto">
             <Breadcrumb 
               items={[
@@ -100,8 +109,8 @@ const LinkManager = () => {
               animate={{ opacity: 1, y: 0 }}
               className="mb-6"
             >
-              <h1 className="text-4xl font-bold text-primary mb-4 flex items-center gap-3">
-                <Link2 className="h-10 w-10" />
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-4 flex items-center gap-3">
+                <Link2 className="h-10 w-10 text-purple-500" />
                 Link Manager
               </h1>
               <p className="text-lg text-foreground leading-relaxed">
@@ -115,92 +124,95 @@ const LinkManager = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <Card className="p-6 mb-6 backdrop-blur-sm border-border/50">
-                <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-                  <ScanSearch className="h-6 w-6" />
-                  Input Text
-                </h2>
-                
-                <Textarea
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Paste your text with URLs here...&#10;&#10;Example:&#10;Check out https://example.com and www.google.com&#10;Also visit bit.ly/example"
-                  className="min-h-[200px] mb-4 font-mono text-sm"
-                />
-                
-                {/* Options */}
-                <div className="flex flex-wrap gap-6 mb-4">
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="normalize"
-                      checked={normalizeForDuplicates}
-                      onCheckedChange={setNormalizeForDuplicates}
-                    />
-                    <Label htmlFor="normalize" className="text-sm cursor-pointer">
-                      Normalize URLs for duplicate detection
-                    </Label>
+              <GradientBorderCard variant="purple" className="mb-6">
+                <LiquidGlassCard blur="xl" className="p-6">
+                  <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                    <ScanSearch className="h-6 w-6" />
+                    Input Text
+                  </h2>
+                  
+                  <Textarea
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder="Paste your text with URLs here...&#10;&#10;Example:&#10;Check out https://example.com and www.google.com&#10;Also visit bit.ly/example"
+                    className="min-h-[200px] mb-4 font-mono text-sm bg-background/50 backdrop-blur-sm border-border/50"
+                  />
+                  
+                  {/* Options */}
+                  <div className="flex flex-wrap gap-6 mb-4">
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        id="normalize"
+                        checked={normalizeForDuplicates}
+                        onCheckedChange={setNormalizeForDuplicates}
+                      />
+                      <Label htmlFor="normalize" className="text-sm cursor-pointer">
+                        Normalize URLs for duplicate detection
+                      </Label>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        id="stripUtm"
+                        checked={stripUtm}
+                        onCheckedChange={setStripUtm}
+                      />
+                      <Label htmlFor="stripUtm" className="text-sm cursor-pointer">
+                        Strip UTM parameters
+                      </Label>
+                    </div>
                   </div>
                   
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      id="stripUtm"
-                      checked={stripUtm}
-                      onCheckedChange={setStripUtm}
-                    />
-                    <Label htmlFor="stripUtm" className="text-sm cursor-pointer">
-                      Strip UTM parameters
-                    </Label>
+                  {/* Progress */}
+                  <AnimatePresence>
+                    {isProcessing && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="mb-4"
+                      >
+                        <Progress value={progress} className="h-2 mb-2" />
+                        <p className="text-sm text-muted-foreground">{progressMessage}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  
+                  {/* Error */}
+                  <AnimatePresence>
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="mb-4 p-3 rounded-lg bg-destructive/10 border border-destructive/30 flex items-center gap-2 text-destructive"
+                      >
+                        <AlertCircle className="h-4 w-4 shrink-0" />
+                        <span className="text-sm">{error}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  
+                  <div className="flex gap-3">
+                    <Button 
+                      onClick={handleParse} 
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all duration-300"
+                      disabled={isProcessing}
+                    >
+                      <SparklesIcon className="h-4 w-4 mr-2" />
+                      {isProcessing ? "Processing..." : "Parse URLs"}
+                    </Button>
+                    <Button 
+                      onClick={handleClear} 
+                      variant="outline"
+                      className="backdrop-blur-sm border-border/50 hover:bg-accent/50"
+                      disabled={isProcessing}
+                    >
+                      Clear
+                    </Button>
                   </div>
-                </div>
-                
-                {/* Progress */}
-                <AnimatePresence>
-                  {isProcessing && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="mb-4"
-                    >
-                      <Progress value={progress} className="h-2 mb-2" />
-                      <p className="text-sm text-muted-foreground">{progressMessage}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                
-                {/* Error */}
-                <AnimatePresence>
-                  {error && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="mb-4 p-3 rounded-lg bg-destructive/10 border border-destructive/30 flex items-center gap-2 text-destructive"
-                    >
-                      <AlertCircle className="h-4 w-4 shrink-0" />
-                      <span className="text-sm">{error}</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                
-                <div className="flex gap-3">
-                  <Button 
-                    onClick={handleParse} 
-                    className="bg-primary hover:bg-primary-hover"
-                    disabled={isProcessing}
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    {isProcessing ? "Processing..." : "Parse URLs"}
-                  </Button>
-                  <Button 
-                    onClick={handleClear} 
-                    variant="outline"
-                    disabled={isProcessing}
-                  >
-                    Clear
-                  </Button>
-                </div>
-              </Card>
+                </LiquidGlassCard>
+              </GradientBorderCard>
             </motion.div>
             
             {/* Results Section */}
@@ -212,47 +224,51 @@ const LinkManager = () => {
                   exit={{ opacity: 0, y: -10 }}
                 >
                   {/* Stats */}
-                  <Card className="p-6 mb-6 backdrop-blur-sm border-border/50">
-                    <h2 className="text-2xl font-bold text-foreground mb-4">
-                      URL Analysis Results
-                    </h2>
-                    <URLStats result={result} />
-                  </Card>
+                  <GradientBorderCard variant="pink" className="mb-6">
+                    <LiquidGlassCard blur="lg" className="p-6">
+                      <h2 className="text-2xl font-bold text-foreground mb-4">
+                        URL Analysis Results
+                      </h2>
+                      <URLStats result={result} />
+                    </LiquidGlassCard>
+                  </GradientBorderCard>
                   
                   {/* URL List / Text View */}
-                  <Card className="p-6 backdrop-blur-sm border-border/50">
-                    <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-2xl font-bold text-foreground">
-                        Detected URLs
-                      </h2>
-                      <Tabs value={outputView} onValueChange={(v) => setOutputView(v as "list" | "text")}>
-                        <TabsList className="h-9">
-                          <TabsTrigger value="list" className="gap-1.5 text-xs px-3">
-                            <List className="h-3.5 w-3.5" />
-                            List
-                          </TabsTrigger>
-                          <TabsTrigger value="text" className="gap-1.5 text-xs px-3">
-                            <FileText className="h-3.5 w-3.5" />
-                            Text
-                          </TabsTrigger>
-                        </TabsList>
-                      </Tabs>
-                    </div>
-                    
-                    {outputView === "list" ? (
-                      <URLList
-                        urls={urls}
-                        onFix={fixUrl}
-                        onRemove={removeUrl}
-                      />
-                    ) : (
-                      <Textarea
-                        value={outputText}
-                        readOnly
-                        className="min-h-[300px] font-mono text-sm bg-muted/50"
-                      />
-                    )}
-                  </Card>
+                  <GradientBorderCard variant="purple">
+                    <LiquidGlassCard blur="lg" className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-2xl font-bold text-foreground">
+                          Detected URLs
+                        </h2>
+                        <Tabs value={outputView} onValueChange={(v) => setOutputView(v as "list" | "text")}>
+                          <TabsList className="h-9 bg-black/10 dark:bg-white/10 backdrop-blur-sm">
+                            <TabsTrigger value="list" className="gap-1.5 text-xs px-3">
+                              <List className="h-3.5 w-3.5" />
+                              List
+                            </TabsTrigger>
+                            <TabsTrigger value="text" className="gap-1.5 text-xs px-3">
+                              <FileText className="h-3.5 w-3.5" />
+                              Text
+                            </TabsTrigger>
+                          </TabsList>
+                        </Tabs>
+                      </div>
+                      
+                      {outputView === "list" ? (
+                        <URLList
+                          urls={urls}
+                          onFix={fixUrl}
+                          onRemove={removeUrl}
+                        />
+                      ) : (
+                        <Textarea
+                          value={outputText}
+                          readOnly
+                          className="min-h-[300px] font-mono text-sm bg-background/50 backdrop-blur-sm border-border/50"
+                        />
+                      )}
+                    </LiquidGlassCard>
+                  </GradientBorderCard>
                   
                   {/* Bulk Actions */}
                   <BulkActions

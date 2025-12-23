@@ -1,4 +1,5 @@
-import { Card } from "@/components/ui/card";
+import { LiquidGlassCard } from "@/components/ui/liquid-glass";
+import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Copy, Download, Undo2, Redo2, Trash2, Check, Sparkles } from "lucide-react";
@@ -126,156 +127,161 @@ export const EnhancedTextToolCard = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.2, 0, 0, 1] }}
       >
-        <Card className="p-6 bg-card shadow-lg transition-all duration-300 hover:shadow-xl border border-border/50 backdrop-blur-sm">
-          <div className="mb-4">
-            <h3 className="text-xl font-semibold text-foreground mb-1">{title}</h3>
-            <p className="text-sm text-muted-foreground">{description}</p>
-          </div>
-
-          <div className="space-y-4">
-            {/* Input Section */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-foreground">Input Text</label>
-                <div className="flex gap-1">
-                  <Button
-                    onClick={undo}
-                    disabled={!canUndo}
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 transition-m3"
-                    title="Undo"
-                  >
-                    <Undo2 className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    onClick={redo}
-                    disabled={!canRedo}
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 transition-m3"
-                    title="Redo"
-                  >
-                    <Redo2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-              <Textarea
-                value={inputValue}
-                onChange={(e) => handleInputChange(e.target.value)}
-                placeholder="Enter your text here..."
-                className="min-h-[120px] resize-none bg-input border-border focus:ring-2 focus:ring-ring transition-m3"
-              />
+        <GradientBorderCard variant="purple">
+          <LiquidGlassCard blur="xl" className="p-6">
+            <div className="mb-4">
+              <h3 className="text-xl font-semibold text-foreground mb-1">{title}</h3>
+              <p className="text-sm text-muted-foreground">{description}</p>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-2">
-              {!liveUpdate && (
-                <Button
-                  onClick={handleTransform}
-                  disabled={isTransforming || !inputValue.trim()}
-                  className={cn(
-                    "flex-1 bg-primary hover:bg-primary-hover text-primary-foreground transition-all duration-200 shadow-md relative overflow-hidden group",
-                    isTransforming && "animate-success-pulse"
-                  )}
-                >
-                  <motion.span 
-                    className="relative z-10 flex items-center gap-2"
-                    animate={isTransforming ? { scale: [1, 1.05, 1] } : {}}
-                  >
-                    {isTransforming && <Sparkles className="h-4 w-4 animate-wiggle" />}
-                    {buttonText}
-                  </motion.span>
-                  <motion.div
-                    className="absolute inset-0 bg-primary-foreground/20"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileTap={{ scale: 2, opacity: 1 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                </Button>
-              )}
-              <Button
-                onClick={handleClear}
-                variant="outline"
-                size="icon"
-                className="transition-all duration-200 hover:bg-destructive hover:text-destructive-foreground active:scale-95"
-                title="Clear all"
-                aria-label="Clear all text"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </div>
-
-            {/* Output Section */}
-            <AnimatePresence>
-              {outputValue && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-2"
-                >
-                  <label className="text-sm font-medium text-foreground">Output Text</label>
-                  <div className="relative">
-                    <Textarea
-                      value={outputValue}
-                      readOnly
-                      className="min-h-[120px] resize-none bg-muted border-border"
-                    />
-                    <div className="absolute top-2 right-2 flex gap-1.5">
-                      <Button
-                        onClick={handleCopy}
-                        size="icon"
-                        variant="outline"
-                        className={cn(
-                          "transition-all duration-200 bg-background/90 backdrop-blur-sm hover:bg-background active:scale-95",
-                          copied && "bg-green-500/10 border-green-500/50 text-green-600"
-                        )}
-                        title="Copy to clipboard"
-                        aria-label="Copy to clipboard"
-                      >
-                        <AnimatePresence mode="wait">
-                          {copied ? (
-                            <motion.div
-                              key="check"
-                              initial={{ scale: 0, rotate: -45 }}
-                              animate={{ scale: 1, rotate: 0 }}
-                              exit={{ scale: 0, rotate: 45 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <Check className="h-4 w-4 text-green-600" />
-                            </motion.div>
-                          ) : (
-                            <motion.div
-                              key="copy"
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              exit={{ scale: 0 }}
-                              transition={{ duration: 0.15 }}
-                            >
-                              <Copy className="h-4 w-4" />
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </Button>
-                      <Button
-                        onClick={handleDownload}
-                        size="icon"
-                        variant="outline"
-                        className="transition-all duration-200 bg-background/90 backdrop-blur-sm hover:bg-background active:scale-95"
-                        title="Download as file"
-                        aria-label="Download as file"
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </div>
+            <div className="space-y-4">
+              {/* Input Section */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium text-foreground">Input Text</label>
+                  <div className="flex gap-1">
+                    <Button
+                      onClick={undo}
+                      disabled={!canUndo}
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 backdrop-blur-sm hover:bg-accent/50"
+                      title="Undo"
+                    >
+                      <Undo2 className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      onClick={redo}
+                      disabled={!canRedo}
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 backdrop-blur-sm hover:bg-accent/50"
+                      title="Redo"
+                    >
+                      <Redo2 className="h-4 w-4" />
+                    </Button>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </Card>
+                </div>
+                <Textarea
+                  value={inputValue}
+                  onChange={(e) => handleInputChange(e.target.value)}
+                  placeholder="Enter your text here..."
+                  className="min-h-[120px] resize-none bg-background/50 backdrop-blur-sm border-border/50 focus:ring-2 focus:ring-ring"
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2">
+                {!liveUpdate && (
+                  <Button
+                    onClick={handleTransform}
+                    disabled={isTransforming || !inputValue.trim()}
+                    className={cn(
+                      "flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all duration-300 relative overflow-hidden group",
+                      isTransforming && "animate-success-pulse"
+                    )}
+                  >
+                    <motion.span 
+                      className="relative z-10 flex items-center gap-2"
+                      animate={isTransforming ? { scale: [1, 1.05, 1] } : {}}
+                    >
+                      {isTransforming && <Sparkles className="h-4 w-4 animate-wiggle" />}
+                      {buttonText}
+                    </motion.span>
+                    <motion.div
+                      className="absolute inset-0 bg-white/20"
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileTap={{ scale: 2, opacity: 1 }}
+                      transition={{ duration: 0.4 }}
+                    />
+                  </Button>
+                )}
+                <Button
+                  onClick={handleClear}
+                  variant="outline"
+                  size="icon"
+                  className="backdrop-blur-sm border-border/50 hover:bg-destructive hover:text-destructive-foreground active:scale-95"
+                  title="Clear all"
+                  aria-label="Clear all text"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+
+              {/* Output Section */}
+              <AnimatePresence>
+                {outputValue && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <GradientBorderCard variant="pink" className="mt-2">
+                      <LiquidGlassCard blur="lg" className="p-4 space-y-2">
+                        <label className="text-sm font-medium text-foreground">Output Text</label>
+                        <div className="relative">
+                          <Textarea
+                            value={outputValue}
+                            readOnly
+                            className="min-h-[120px] resize-none bg-background/50 backdrop-blur-sm border-border/50"
+                          />
+                          <div className="absolute top-2 right-2 flex gap-1.5">
+                            <Button
+                              onClick={handleCopy}
+                              size="icon"
+                              variant="outline"
+                              className={cn(
+                                "backdrop-blur-sm bg-background/80 hover:bg-background border-border/50 active:scale-95",
+                                copied && "bg-green-500/10 border-green-500/50 text-green-600"
+                              )}
+                              title="Copy to clipboard"
+                              aria-label="Copy to clipboard"
+                            >
+                              <AnimatePresence mode="wait">
+                                {copied ? (
+                                  <motion.div
+                                    key="check"
+                                    initial={{ scale: 0, rotate: -45 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    exit={{ scale: 0, rotate: 45 }}
+                                    transition={{ duration: 0.2 }}
+                                  >
+                                    <Check className="h-4 w-4 text-green-600" />
+                                  </motion.div>
+                                ) : (
+                                  <motion.div
+                                    key="copy"
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    exit={{ scale: 0 }}
+                                    transition={{ duration: 0.15 }}
+                                  >
+                                    <Copy className="h-4 w-4" />
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </Button>
+                            <Button
+                              onClick={handleDownload}
+                              size="icon"
+                              variant="outline"
+                              className="backdrop-blur-sm bg-background/80 hover:bg-background border-border/50 active:scale-95"
+                              title="Download as file"
+                              aria-label="Download as file"
+                            >
+                              <Download className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </LiquidGlassCard>
+                    </GradientBorderCard>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </LiquidGlassCard>
+        </GradientBorderCard>
       </motion.div>
 
       {/* Clear Confirmation Dialog */}
