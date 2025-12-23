@@ -4,9 +4,10 @@ import { BottomNav } from "@/components/BottomNav";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ReactLenis } from "lenis/react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
+import { BentoGrid } from "@/components/BentoGrid";
 
 
 const Index = () => {
@@ -84,7 +85,7 @@ const Index = () => {
   ];
 
   // Incremental top positions for stacking effect
-  const stackingTops = ["top-0", "top-4", "top-8", "top-12"];
+  const stackingTops = ["top-0", "top-2", "top-4", "top-6"];
 
   return (
     <ReactLenis root>
@@ -101,7 +102,7 @@ const Index = () => {
           <Header />
           
           {/* Hero Section - Sticky */}
-          <section className="text-foreground h-screen w-full grid place-content-center sticky top-0 relative overflow-hidden">
+          <section className="text-foreground h-[85vh] md:h-screen w-full grid place-content-center sticky top-0 relative overflow-hidden">
             {/* Sparkles Background - Purple Layer */}
             <div className="absolute inset-0 z-0">
               <Sparkles 
@@ -152,6 +153,15 @@ const Index = () => {
                 at Creative Fuel
               </p>
             </motion.div>
+            
+            {/* Scroll Indicator */}
+            <motion.div 
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+            >
+              <ChevronDown className="w-8 h-8 text-muted-foreground" />
+            </motion.div>
           </section>
 
           {/* Infinite Brand Scroll */}
@@ -167,6 +177,24 @@ const Index = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* BentoGrid Section */}
+          <section className="py-12 px-4 relative z-20 bg-background">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-8"
+            >
+              <h2 className="text-2xl md:text-3xl font-bold">
+                Why Choose <span className="gradient-text">TextCraft</span>?
+              </h2>
+              <p className="text-muted-foreground mt-2">Powerful features at your fingertips</p>
+            </motion.div>
+            <div className="max-w-6xl mx-auto">
+              <BentoGrid />
             </div>
           </section>
 
@@ -190,7 +218,7 @@ const Index = () => {
                 data-category={category.id}
                 className={`sm:sticky ${stackingTops[categoryIndex]} w-full`}
               >
-                <div className="w-full min-h-screen flex items-center justify-center py-8">
+                <div className="w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center py-8">
                   <GradientBorderCard 
                     variant={categoryIndex === 0 ? 'pink' : categoryIndex === 1 ? 'purple' : 'default'}
                     className="w-[90%] md:w-[85%] max-w-6xl rounded-[32px]"
