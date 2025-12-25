@@ -10,6 +10,7 @@ import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { BentoGrid } from "@/components/BentoGrid";
 import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 import { useSmartScroll } from "@/hooks/useSmartScroll";
+import { ScrollTextMarquee } from "@/components/ui/scroll-text-marquee";
 
 
 const Index = () => {
@@ -281,6 +282,22 @@ const Index = () => {
             <div className="max-w-6xl mx-auto">
               <BentoGrid />
             </div>
+          </section>
+
+          {/* Scroll Text Marquee */}
+          <section className="py-8 relative z-20 bg-background overflow-hidden">
+            <ScrollTextMarquee baseVelocity={50}>
+              <span>Star the repo if you like it</span>
+              <span>Share it if you like it</span>
+              <span>100% Free & Open Source</span>
+              <span>Built with React & TypeScript</span>
+            </ScrollTextMarquee>
+            <ScrollTextMarquee baseVelocity={-30} className="mt-4 opacity-60">
+              <span>Text Tools</span>
+              <span>Link Manager</span>
+              <span>Case Converter</span>
+              <span>Encoding & Decoding</span>
+            </ScrollTextMarquee>
           </section>
 
           {/* Enhanced Stacking Category Cards */}
