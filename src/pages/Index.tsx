@@ -9,9 +9,11 @@ import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { BentoGrid } from "@/components/BentoGrid";
 import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
+import { useSmartScroll } from "@/hooks/useSmartScroll";
 
 
 const Index = () => {
+  const { trackCategoryInteraction } = useSmartScroll();
   const brandItems = [
     { icon: "fa-bolt", color: "text-purple-accent", text: "Lightning Fast" },
     { icon: "fa-shield-alt", color: "text-green-accent", text: "100% Private" },
@@ -318,6 +320,7 @@ const Index = () => {
                         {category.tools.map((tool, toolIndex) => (
                           <motion.div
                             key={tool.name}
+                            onClick={() => trackCategoryInteraction(category.id)}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
