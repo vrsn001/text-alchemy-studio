@@ -31,6 +31,7 @@ const Index = () => {
       icon: "fa-pen-to-square",
       gradient: "gradient-overlay-pink",
       iconGradient: "from-pink-500 to-red-500",
+      bgColor: "bg-rose-50 dark:bg-slate-950",
       tools: [
         { icon: "fa-right-left", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
         { icon: "fa-compress", color: "text-blue-accent", name: "Remove Spaces", desc: "No whitespace", href: "/tools/add-line-breaks" },
@@ -45,6 +46,7 @@ const Index = () => {
       icon: "fa-link",
       gradient: "gradient-overlay-cyan",
       iconGradient: "from-cyan-500 to-blue-500",
+      bgColor: "bg-cyan-50 dark:bg-gray-900",
       tools: [
         { icon: "fa-link", color: "text-cyan-accent", name: "Link Manager", desc: "Validate & organize URLs", href: "/tools/link-manager" },
         { icon: "fa-broom", color: "text-pink-accent", name: "URL Cleaner", desc: "Remove tracking params", href: "/tools/link-manager" },
@@ -60,6 +62,7 @@ const Index = () => {
       icon: "fa-code",
       gradient: "gradient-overlay-blue",
       iconGradient: "from-blue-500 to-purple-600",
+      bgColor: "bg-blue-50 dark:bg-slate-950",
       tools: [
         { icon: "fa-lock", color: "text-purple-accent", name: "Base64 Encode", desc: "Encode to Base64", href: "/tools/text-to-html" },
         { icon: "fa-lock-open", color: "text-blue-accent", name: "Base64 Decode", desc: "Decode from Base64", href: "/tools/text-to-html" },
@@ -75,6 +78,7 @@ const Index = () => {
       icon: "fa-list",
       gradient: "gradient-overlay-green",
       iconGradient: "from-green-500 to-yellow-500",
+      bgColor: "bg-green-50 dark:bg-gray-900",
       tools: [
         { icon: "fa-list-ol", color: "text-purple-accent", name: "Add Line Numbers", desc: "Number lines", href: "/tools/add-line-breaks" },
         { icon: "fa-list-ul", color: "text-blue-accent", name: "Add Bullets", desc: "Bullet points", href: "/tools/add-line-breaks" },
@@ -89,6 +93,7 @@ const Index = () => {
       icon: "fa-text-height",
       gradient: "gradient-overlay-purple",
       iconGradient: "from-purple-500 to-pink-500",
+      bgColor: "bg-purple-50 dark:bg-slate-950",
       tools: [
         { icon: "fa-arrow-up", color: "text-purple-accent", name: "UPPERCASE", desc: "ALL CAPS", href: "/tools/case-converter" },
         { icon: "fa-arrow-down", color: "text-blue-accent", name: "lowercase", desc: "all lowercase", href: "/tools/case-converter" },
@@ -102,8 +107,8 @@ const Index = () => {
     },
   ];
 
-  // Incremental top positions for stacking effect
-  const stackingTops = ["top-0", "top-2", "top-4", "top-6", "top-8"];
+  // Staggered top positions for enhanced stacking effect
+  const stackingTops = ["top-0", "top-4", "top-8", "top-12", "top-16"];
 
   return (
     <ReactLenis root>
@@ -112,7 +117,7 @@ const Index = () => {
         <div className="blur-vignette"></div>
         
         {/* Grid Pattern Background */}
-        <div className="fixed inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
+        <div className="fixed inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
         
         {/* Main Container */}
         <div className="relative z-10">
@@ -245,7 +250,7 @@ const Index = () => {
           </section>
 
           {/* Infinite Brand Scroll */}
-          <section className="mb-8 relative z-20">
+          <section className="mb-8 relative z-20 bg-background">
             <div className="infinity-scroll">
               <div className="infinity-scroll-inner">
                 {[...brandItems, ...brandItems].map((item, index) => (
@@ -278,30 +283,29 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Stacking Category Cards */}
-          <section className="w-full pb-20 relative">
-            {/* Sparkles Background */}
-            <div className="fixed inset-0 pointer-events-none z-0">
-              <Sparkles 
-                className="w-full h-full"
-                color="#a855f7"
-                density={150}
-                speed={0.8}
-                opacity={0.6}
-                size={1.5}
-              />
+          {/* Enhanced Stacking Category Cards */}
+          <section id="text-tools" className="w-full relative">
+            {/* Section Header */}
+            <div className="sticky top-0 z-30 bg-background py-8 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                Explore Our <span className="gradient-text">Tools</span>
+              </h2>
+              <p className="text-muted-foreground">Scroll down to discover each category</p>
             </div>
             
             {categories.map((category, categoryIndex) => (
-              <div 
+              <section 
                 key={category.id}
                 data-category={category.id}
-                className={`sm:sticky ${stackingTops[categoryIndex]} w-full`}
+                className={`${stackingTops[categoryIndex]} sticky h-screen w-full grid place-content-center overflow-hidden ${category.bgColor} ${categoryIndex > 0 ? 'rounded-t-3xl' : ''}`}
               >
-                <div className="w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center py-8">
+                {/* Grid Pattern for this section */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+                
+                <div className="w-[90%] md:w-[85%] max-w-6xl mx-auto relative z-10">
                   <GradientBorderCard 
                     variant={categoryIndex === 0 ? 'pink' : categoryIndex === 1 ? 'purple' : 'default'}
-                    className="w-[90%] md:w-[85%] max-w-6xl rounded-[32px]"
+                    className="rounded-[32px]"
                   >
                     <div className={`p-6 md:p-10 rounded-[32px] ${category.gradient}`}>
                       {/* Category Header */}
@@ -354,23 +358,30 @@ const Index = () => {
                     </div>
                   </GradientBorderCard>
                 </div>
-              </div>
+                
+                {/* Scroll hint for all but last */}
+                {categoryIndex < categories.length - 1 && (
+                  <motion.div 
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2"
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    <ChevronDown className="w-6 h-6 text-muted-foreground" />
+                  </motion.div>
+                )}
+              </section>
             ))}
           </section>
 
 
-
-          {/* Footer */}
-          <footer className="group">
-            <h1 className="text-[12vw] md:text-[16vw] translate-y-20 leading-[100%] uppercase font-semibold text-center bg-gradient-to-r from-gray-600 to-gray-800 bg-clip-text text-transparent">
-              TextCraft
-            </h1>
-            <div className="bg-background h-40 relative z-10 grid place-content-center rounded-t-[50%]">
-              <p className="text-muted-foreground text-sm">
-                Made with ❤️ · 100% Private · No Data Stored
-              </p>
+          {/* Footer Section */}
+          <section className="relative z-20 bg-background">
+            <Footer />
+            <div className="text-center py-8">
+              <p className="text-muted-foreground text-sm">TextCraft — Your Text, Transformed</p>
             </div>
-          </footer>
+          </section>
+
         </div>
         
         <BottomNav />
