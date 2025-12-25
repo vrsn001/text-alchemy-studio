@@ -82,10 +82,24 @@ const Index = () => {
         { icon: "fa-arrow-down-a-z", color: "text-yellow-accent", name: "Sort Lines A-Z", desc: "Alphabetical", href: "/tools/alphabetical-order" },
       ]
     },
+    {
+      id: "links",
+      title: "Link Tools",
+      subtitle: "Manage and validate URLs",
+      icon: "fa-link",
+      gradient: "gradient-overlay-cyan",
+      iconGradient: "from-cyan-500 to-blue-500",
+      tools: [
+        { icon: "fa-link", color: "text-cyan-accent", name: "Link Manager", desc: "Validate & organize URLs", href: "/tools/link-manager" },
+        { icon: "fa-check-circle", color: "text-green-accent", name: "Link Validator", desc: "Check active links", href: "/tools/link-manager" },
+        { icon: "fa-sitemap", color: "text-purple-accent", name: "Categorize Links", desc: "Sort by platform", href: "/tools/link-manager" },
+        { icon: "fa-clone", color: "text-orange-accent", name: "Find Duplicates", desc: "Remove duplicate URLs", href: "/tools/link-manager" },
+      ]
+    },
   ];
 
   // Incremental top positions for stacking effect
-  const stackingTops = ["top-0", "top-2", "top-4", "top-6"];
+  const stackingTops = ["top-0", "top-2", "top-4", "top-6", "top-8"];
 
   return (
     <ReactLenis root>
