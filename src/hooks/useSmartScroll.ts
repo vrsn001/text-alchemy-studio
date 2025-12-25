@@ -1,11 +1,21 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getLastCategory, saveLastCategory, hasVisitedBefore, markAsVisited } from '@/utils/storage';
+import { toast } from 'sonner';
 
 interface UseSmartScrollOptions {
   defaultCategory?: string;
   scrollDelay?: number; // ms delay before auto-scroll
 }
+
+// Map category IDs to display names
+const categoryNames: Record<string, string> = {
+  modify: 'Text Modifications',
+  links: 'Link Tools',
+  encode: 'Encoding Tools',
+  format: 'Formatting Tools',
+  case: 'Case Transformations',
+};
 
 export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
   const { defaultCategory = 'modify', scrollDelay = 3500 } = options;
@@ -41,6 +51,11 @@ export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
 
       if (lastCategory) {
         // Return visitor - scroll to their last used category
+        const categoryName = categoryNames[lastCategory] || lastCategory;
+        toast(`Welcome back! Taking you to ${categoryName}...`, {
+          duration: 3000,
+          icon: '👋',
+        });
         scrollToCategory(lastCategory);
       } else {
         // First-time or no history - scroll to default category
