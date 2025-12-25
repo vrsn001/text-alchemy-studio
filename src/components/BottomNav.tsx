@@ -5,7 +5,7 @@ const navItems = [
   { icon: "fa-home", label: "Home", href: "/", id: "home" },
   { icon: "fa-text-height", label: "Case", href: "#case", id: "case" },
   { icon: "fa-edit", label: "Modify", href: "#modify", id: "modify" },
-  { icon: "fa-code", label: "Encode", href: "#encode", id: "encode" },
+  { icon: "fa-link", label: "Links", href: "/tools/link-manager", id: "links" },
 ];
 
 export const BottomNav = () => {
@@ -14,6 +14,9 @@ export const BottomNav = () => {
   const isActive = (href: string) => {
     if (href === "/") {
       return location.pathname === "/" && !location.hash;
+    }
+    if (href.startsWith("/tools/")) {
+      return location.pathname === href;
     }
     return location.hash === href;
   };

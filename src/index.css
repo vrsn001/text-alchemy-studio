@@ -526,6 +526,10 @@
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(234, 179, 8, 0.1) 100%);
   }
 
+  .gradient-overlay-cyan {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  }
+
   /* Animated Gradient Border */
   .animated-border {
     --border-angle: 0deg;
