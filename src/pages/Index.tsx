@@ -8,6 +8,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { BentoGrid } from "@/components/BentoGrid";
+import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 
 
 const Index = () => {
@@ -139,6 +140,68 @@ const Index = () => {
                 speed={0.3}
                 opacity={0.6}
                 size={1.5}
+              />
+            </div>
+
+            {/* Animated SVG decorative elements */}
+            <div className="absolute top-[15%] left-[8%] w-40 h-40 opacity-20 hidden md:block">
+              <AnimateSvg
+                path={decorativePaths.spiral}
+                strokeColor="#a855f7"
+                strokeWidth={1.5}
+                animationDuration={2.5}
+                animationDelay={0.3}
+                enableHoverAnimation
+                hoverAnimationType="glow"
+              />
+            </div>
+            <div className="absolute top-[20%] right-[10%] w-32 h-32 opacity-15 hidden md:block">
+              <AnimateSvg
+                path={decorativePaths.infinity}
+                strokeColor="#ec4899"
+                strokeWidth={1}
+                animationDuration={3}
+                animationDelay={0.6}
+                enableHoverAnimation
+                hoverAnimationType="redraw"
+              />
+            </div>
+            <div className="absolute bottom-[25%] left-[12%] w-36 h-36 opacity-20 hidden md:block">
+              <AnimateSvg
+                path={decorativePaths.wave}
+                strokeColor="#a855f7"
+                strokeWidth={2}
+                animationDuration={2}
+                animationDelay={0.9}
+              />
+            </div>
+            <div className="absolute bottom-[20%] right-[8%] w-28 h-28 opacity-15 hidden md:block">
+              <AnimateSvg
+                path={decorativePaths.spark}
+                strokeColor="#ec4899"
+                strokeWidth={1.5}
+                animationDuration={1.8}
+                animationDelay={1.2}
+                enableHoverAnimation
+                hoverAnimationType="glow"
+              />
+            </div>
+            <div className="absolute top-[40%] left-[3%] w-24 h-24 opacity-10 hidden lg:block">
+              <AnimateSvg
+                path={decorativePaths.circle}
+                strokeColor="#a855f7"
+                strokeWidth={1}
+                animationDuration={2.2}
+                animationDelay={1.5}
+              />
+            </div>
+            <div className="absolute top-[35%] right-[5%] w-20 h-20 opacity-10 hidden lg:block">
+              <AnimateSvg
+                path={decorativePaths.loop}
+                strokeColor="#ec4899"
+                strokeWidth={1}
+                animationDuration={2.8}
+                animationDelay={1.8}
               />
             </div>
             
