@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 
 export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -60,6 +61,44 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
             }}
           />
         ))}
+      </div>
+
+      {/* Animated SVG decorative elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 opacity-30">
+        <AnimateSvg
+          path={decorativePaths.spiral}
+          strokeColor="hsl(var(--primary))"
+          strokeWidth={1.5}
+          animationDuration={2}
+          animationDelay={0.5}
+        />
+      </div>
+      <div className="absolute top-32 right-16 w-24 h-24 opacity-20">
+        <AnimateSvg
+          path={decorativePaths.infinity}
+          strokeColor="hsl(var(--accent))"
+          strokeWidth={1}
+          animationDuration={2.5}
+          animationDelay={0.8}
+        />
+      </div>
+      <div className="absolute bottom-32 left-16 w-28 h-28 opacity-25">
+        <AnimateSvg
+          path={decorativePaths.wave}
+          strokeColor="hsl(var(--primary))"
+          strokeWidth={2}
+          animationDuration={1.8}
+          animationDelay={1}
+        />
+      </div>
+      <div className="absolute bottom-20 right-10 w-20 h-20 opacity-20">
+        <AnimateSvg
+          path={decorativePaths.spark}
+          strokeColor="hsl(var(--accent))"
+          strokeWidth={1.5}
+          animationDuration={1.5}
+          animationDelay={1.2}
+        />
       </div>
 
       {/* Logo container */}
