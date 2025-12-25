@@ -298,3 +298,57 @@ export const exportAsMarkdown = (urls: ParsedURL[]): string => {
 export const exportAsHTML = (urls: ParsedURL[]): string => {
   return urls.map(u => `<p><a href="${u.url}" target="_blank" rel="noopener">${u.url}</a></p>`).join('\n');
 };
+
+// URL Encoding/Decoding utilities
+export const encodeURL = (url: string): string => {
+  try {
+    // Split URL into parts to only encode the path and query
+    const urlObj = new URL(url.startsWith('http') ? url : `https://${url}`);
+    
+    // Encode path segments
+    const encodedPath = urlObj.pathname
+      .split('/')
+      .map(segment => encodeURIComponent(decodeURIComponent(segment)))
+      .join('/');
+    
+    // Encode query parameters
+    const encodedParams = new URLSearchParams();
+    urlObj.searchParams.forEach((value, key) => {
+      encodedParams.set(key, value);
+    });
+    
+    urlObj.pathname = encodedPath;
+    
+    return urlObj.toString();
+  } catch {
+    // Fallback: encode the entire URL
+    return encodeURI(url);
+  }
+};
+
+export const decodeURL = (url: string): string => {
+  try {
+    return decodeURIComponent(url);
+  } catch {
+    // If decoding fails, return original
+    return url;
+  }
+};
+
+// Check if URL needs encoding (has special characters)
+export const needsEncoding = (url: string): boolean => {
+  try {
+    return url !== encodeURL(url);
+  } catch {
+    return false;
+  }
+};
+
+// Check if URL is encoded
+export const isEncoded = (url: string): boolean => {
+  try {
+    return url !== decodeURIComponent(url);
+  } catch {
+    return false;
+  }
+};

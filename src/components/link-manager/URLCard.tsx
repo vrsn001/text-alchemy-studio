@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { URLStatusPill } from "./URLStatusPill";
 import { DuplicateBadge } from "./DuplicateBadge";
+import { PlatformIcon } from "./PlatformIcon";
 import { 
   Copy, 
   ExternalLink, 
@@ -14,22 +15,47 @@ import {
   Trash2, 
   ChevronDown, 
   ChevronUp,
-  Check 
+  Check,
+  Activity
 } from "lucide-react";
 import { toast } from "sonner";
 import { triggerHaptic } from "@/utils/haptics";
 import type { ParsedURL } from "@/utils/urlParser";
+import { detectCategory, getCategoryInfo, type LinkCategory } from "@/utils/linkCategories";
+
+export type LiveStatus = 'unchecked' | 'checking' | 'active' | 'redirect' | 'dead' | 'error';
 
 interface URLCardProps {
   url: ParsedURL;
   onFix?: (id: string) => void;
   onRemove?: (id: string) => void;
   showLineNumber?: boolean;
+  liveStatus?: LiveStatus;
+  responseTime?: number;
 }
 
-export const URLCard = ({ url, onFix, onRemove, showLineNumber = true }: URLCardProps) => {
+const LIVE_STATUS_CONFIG: Record<LiveStatus, { color: string; label: string; icon: string }> = {
+  unchecked: { color: 'text-muted-foreground', label: 'Not checked', icon: '○' },
+  checking: { color: 'text-blue-500', label: 'Checking...', icon: '◌' },
+  active: { color: 'text-green-500', label: 'Active', icon: '●' },
+  redirect: { color: 'text-amber-500', label: 'Redirect', icon: '◐' },
+  dead: { color: 'text-red-500', label: 'Dead', icon: '●' },
+  error: { color: 'text-red-400', label: 'Error', icon: '⚠' }
+};
+
+export const URLCard = ({ 
+  url, 
+  onFix, 
+  onRemove, 
+  showLineNumber = true,
+  liveStatus = 'unchecked',
+  responseTime
+}: URLCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
+  
+  const category = detectCategory(url.host);
+  const categoryInfo = getCategoryInfo(category);
   
   const truncatedUrl = url.url.length > 45 ? `${url.url.substring(0, 45)}...` : url.url;
   const needsTruncation = url.url.length > 45;
@@ -59,6 +85,8 @@ export const URLCard = ({ url, onFix, onRemove, showLineNumber = true }: URLCard
     triggerHaptic('medium');
     toast.success("URL removed");
   };
+
+  const statusConfig = LIVE_STATUS_CONFIG[liveStatus];
   
   return (
     <motion.div
@@ -74,17 +102,40 @@ export const URLCard = ({ url, onFix, onRemove, showLineNumber = true }: URLCard
     >
       {/* Header row */}
       <div className="flex items-start justify-between gap-2 mb-2">
-        <div className="flex-1 min-w-0">
-          {/* Host prominently displayed */}
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-medium text-foreground truncate">{url.host}</span>
-            <URLStatusPill status={url.status} showLabel={false} />
-            {url.duplicateCount > 1 && <DuplicateBadge count={url.duplicateCount} />}
-          </div>
+        <div className="flex items-start gap-3 flex-1 min-w-0">
+          {/* Platform Icon */}
+          <PlatformIcon category={category} size="md" />
           
-          {/* URL preview */}
-          <div className="text-sm text-muted-foreground break-all">
-            {isExpanded ? url.url : truncatedUrl}
+          <div className="flex-1 min-w-0">
+            {/* Host prominently displayed with category label */}
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <span className="font-medium text-foreground truncate">{url.host}</span>
+              <span className={cn("text-xs px-1.5 py-0.5 rounded", categoryInfo.bgColor, categoryInfo.color)}>
+                {categoryInfo.label}
+              </span>
+              <URLStatusPill status={url.status} showLabel={false} />
+              {url.duplicateCount > 1 && <DuplicateBadge count={url.duplicateCount} />}
+            </div>
+            
+            {/* URL preview */}
+            <div className="text-sm text-muted-foreground break-all">
+              {isExpanded ? url.url : truncatedUrl}
+            </div>
+            
+            {/* Live status indicator */}
+            {liveStatus !== 'unchecked' && (
+              <div className={cn("flex items-center gap-1.5 mt-1 text-xs", statusConfig.color)}>
+                {liveStatus === 'checking' ? (
+                  <Activity className="h-3 w-3 animate-pulse" />
+                ) : (
+                  <span>{statusConfig.icon}</span>
+                )}
+                <span>{statusConfig.label}</span>
+                {responseTime && liveStatus === 'active' && (
+                  <span className="text-muted-foreground">({responseTime}ms)</span>
+                )}
+              </div>
+            )}
           </div>
         </div>
         
@@ -107,7 +158,7 @@ export const URLCard = ({ url, onFix, onRemove, showLineNumber = true }: URLCard
       
       {/* Meta info */}
       {showLineNumber && (
-        <div className="text-xs text-muted-foreground mb-2">
+        <div className="text-xs text-muted-foreground mb-2 ml-11">
           Line {url.lineNumber}
           {url.isDuplicate && url.duplicateOf && (
             <span className="ml-2 text-purple-600 dark:text-purple-400">
@@ -118,7 +169,7 @@ export const URLCard = ({ url, onFix, onRemove, showLineNumber = true }: URLCard
       )}
       
       {/* Action buttons - always visible on mobile */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 ml-11">
         <Button
           variant="outline"
           size="sm"
