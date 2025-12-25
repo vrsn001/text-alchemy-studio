@@ -17,6 +17,36 @@ const SHORTENERS = [
 // UTM parameters to strip during normalization
 const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id'];
 
+// Platform-specific tracking parameters to strip for URL cleaning
+export const TRACKING_PARAMS = [
+  // UTM parameters
+  'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id',
+  
+  // Instagram
+  'igsh', 'igshid', 'img_index',
+  
+  // Facebook
+  'fbclid', 'mibextid', 'fb_action_ids', 'fb_action_types', 'fb_source', 'fb_ref',
+  
+  // TikTok
+  'is_copy_url', 'is_from_webapp', 'sender_device', 'sender_web_id',
+  
+  // YouTube (keep 'v' for video ID and 't' for timestamp)
+  'si', 'feature', 'pp', 'ab_channel',
+  
+  // Twitter/X
+  'ref_src', 'ref_url',
+  
+  // LinkedIn
+  'lipi', 'lici', 'trk', 'trkInfo',
+  
+  // Google
+  'ved', 'usg', 'sa', 'ei', 'gclid', 'dclid', 'msclkid', 'bih', 'biw', 'dpr', 'prmd', 'rlz',
+  
+  // General tracking
+  'ref', 'mc_cid', 'mc_eid', 'zanpid', '_ga', '_gl', 'yclid', 'spm', 'share_token'
+];
+
 export type URLStatus = 'valid' | 'missing-scheme' | 'malformed' | 'shortener';
 
 export interface ParsedURL {
@@ -351,4 +381,56 @@ export const isEncoded = (url: string): boolean => {
   } catch {
     return false;
   }
+};
+
+// Clean URL by removing tracking parameters
+export const cleanURL = (url: string, options: { stripAll?: boolean } = {}): string => {
+  const { stripAll = false } = options;
+  
+  try {
+    const testUrl = url.startsWith('http') ? url : `https://${url}`;
+    const parsed = new URL(testUrl);
+    
+    if (stripAll) {
+      // Remove all query parameters
+      parsed.search = '';
+    } else {
+      // Remove only tracking parameters
+      TRACKING_PARAMS.forEach(param => {
+        parsed.searchParams.delete(param);
+      });
+    }
+    
+    // Remove trailing slash if no path content
+    let cleaned = parsed.toString();
+    if (cleaned.endsWith('/') && parsed.pathname === '/') {
+      cleaned = cleaned.slice(0, -1);
+    }
+    
+    return cleaned;
+  } catch {
+    return url;
+  }
+};
+
+// Get cleaning stats for a URL
+export const getCleanedStats = (url: string): { original: string; cleaned: string; charsSaved: number } => {
+  const cleaned = cleanURL(url);
+  return {
+    original: url,
+    cleaned,
+    charsSaved: url.length - cleaned.length
+  };
+};
+
+// Clean all URLs in a list
+export const cleanAllURLs = (urls: ParsedURL[], options: { stripAll?: boolean } = {}): ParsedURL[] => {
+  return urls.map(u => {
+    const cleaned = cleanURL(u.url, options);
+    return {
+      ...u,
+      url: cleaned,
+      original: u.original, // Keep original for reference
+    };
+  });
 };
