@@ -62,6 +62,7 @@ const LinkManager = () => {
     parse,
     removeDuplicatesAction,
     fixAllSchemesAction,
+    cleanAllAction,
     removeUrl,
     fixUrl,
     clear
@@ -407,6 +408,7 @@ const LinkManager = () => {
                     urls={filteredUrls}
                     onRemoveDuplicates={removeDuplicatesAction}
                     onFixAllSchemes={fixAllSchemesAction}
+                    onCleanAll={cleanAllAction}
                     onSort={handleSort}
                     isProcessing={isProcessing}
                   />

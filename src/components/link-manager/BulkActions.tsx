@@ -21,6 +21,7 @@ import {
   Check,
   ChevronDown,
   FileText,
+  Sparkles,
   FileCode,
   FileSpreadsheet
 } from "lucide-react";
@@ -39,6 +40,7 @@ interface BulkActionsProps {
   urls: ParsedURL[];
   onRemoveDuplicates: () => void;
   onFixAllSchemes: () => void;
+  onCleanAll?: (stripAll?: boolean) => void;
   onSort?: (type: 'alphabetical' | 'domain') => void;
   isProcessing?: boolean;
   className?: string;
@@ -48,6 +50,7 @@ export const BulkActions = ({
   urls, 
   onRemoveDuplicates, 
   onFixAllSchemes,
+  onCleanAll,
   onSort,
   isProcessing,
   className 
@@ -56,6 +59,15 @@ export const BulkActions = ({
   
   const missingSchemeCount = urls.filter(u => u.status === 'missing-scheme').length;
   const duplicateCount = urls.filter(u => u.isDuplicate).length;
+  
+  // Count URLs that have tracking params (rough estimate)
+  const hasTrackingParams = urls.some(u => 
+    u.url.includes('?') && (
+      u.url.includes('utm_') || u.url.includes('fbclid') || 
+      u.url.includes('igsh') || u.url.includes('gclid') ||
+      u.url.includes('si=') || u.url.includes('ref=')
+    )
+  );
   
   const handleCopyAll = async () => {
     const text = urlsToText(urls);
@@ -166,6 +178,35 @@ export const BulkActions = ({
           <Trash2 className="h-4 w-4 mr-2" />
           Remove Dups ({duplicateCount})
         </Button>
+      )}
+      
+      {/* Clean All URLs */}
+      {onCleanAll && hasTrackingParams && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="h-10 px-4 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 dark:hover:bg-cyan-950"
+              disabled={isProcessing}
+            >
+              <Sparkles className="h-4 w-4 mr-2" />
+              Clean URLs
+              <ChevronDown className="h-3 w-3 ml-1" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => onCleanAll(false)}>
+              Remove Tracking Params
+              <span className="ml-2 text-xs text-muted-foreground">(igsh, fbclid, utm...)</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => onCleanAll(true)}>
+              Remove All Params
+              <span className="ml-2 text-xs text-muted-foreground">(Everything after ?)</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
       
       {/* Sort Menu */}

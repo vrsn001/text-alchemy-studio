@@ -4,6 +4,7 @@ import {
   parseURLs, 
   removeDuplicates, 
   fixAllMissingSchemes,
+  cleanAllURLs,
   type ParseResult, 
   type ParsedURL 
 } from '@/utils/urlParser';
@@ -25,6 +26,7 @@ interface UseURLParserReturn {
   parse: (text: string) => void;
   removeDuplicatesAction: (keepFirst?: boolean) => void;
   fixAllSchemesAction: () => void;
+  cleanAllAction: (stripAll?: boolean) => void;
   removeUrl: (id: string) => void;
   fixUrl: (id: string) => void;
   clear: () => void;
@@ -213,6 +215,14 @@ export const useURLParser = (options: UseURLParserOptions = {}): UseURLParserRet
     updateResultCounts(newUrls);
   }, [urls, updateResultCounts]);
 
+  const cleanAllAction = useCallback((stripAll = false) => {
+    setIsProcessing(true);
+    const newUrls = cleanAllURLs(urls, { stripAll });
+    setUrls(newUrls);
+    updateResultCounts(newUrls);
+    setIsProcessing(false);
+  }, [urls, updateResultCounts]);
+
   const clear = useCallback(() => {
     setResult(EMPTY_RESULT);
     setUrls([]);
@@ -231,6 +241,7 @@ export const useURLParser = (options: UseURLParserOptions = {}): UseURLParserRet
     parse,
     removeDuplicatesAction,
     fixAllSchemesAction,
+    cleanAllAction,
     removeUrl,
     fixUrl,
     clear
