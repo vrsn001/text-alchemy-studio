@@ -5,13 +5,15 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ReactLenis } from "lenis/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import { Liquid, Colors } from "@/components/ui/liquid-gradient";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { BentoGrid } from "@/components/BentoGrid";
 import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 import { useSmartScroll } from "@/hooks/useSmartScroll";
 import { ScrollTextMarquee } from "@/components/ui/scroll-text-marquee";
-import creativeFuelLogo from "@/assets/creative-fuel-logo.png";
+import { Github, Star } from "lucide-react";
+
 
 
 const Index = () => {
@@ -400,29 +402,48 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Sparkles Footer Section with Logo */}
-          <section className="relative h-[50vh] w-full overflow-hidden bg-background">
-            <Sparkles
-              className="absolute inset-0 w-full h-full"
-              density={400}
-              size={1.5}
-              speed={1}
-              opacity={0.8}
-              color="hsl(var(--primary))"
-              hover={true}
-              mousemove={true}
+          {/* Liquid Gradient Footer with GitHub Button */}
+          <section className="relative h-[60vh] w-full overflow-hidden">
+            <Liquid
+              colors={{
+                color1: '#FFFFFF',
+                color2: '#1E10C5',
+                color3: '#9089E2',
+                color4: '#FCFCFE',
+                color5: '#F9F9FD',
+                color6: '#B2B8E7',
+                color7: '#0E2DCB',
+                color8: '#0017E9',
+                color9: '#4743EF',
+                color10: '#7D7BF4',
+                color11: '#0B06FC',
+                color12: '#C5C1EA',
+                color13: '#1403DE',
+                color14: '#B6BAF6',
+                color15: '#C1BEEB',
+                color16: '#290ECB',
+                color17: '#3F4CC0',
+              }}
+              className="opacity-80"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-              <img 
-                src={creativeFuelLogo} 
-                alt="TextCraft Logo" 
-                className="w-24 h-24 md:w-32 md:h-32 object-contain mb-4 drop-shadow-2xl"
-              />
-              <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">
-                TextCraft
-              </h2>
-              <p className="text-muted-foreground mt-2 text-center px-4">
-                Powerful text tools at your fingertips
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative"
+              >
+                <div className="relative flex items-center gap-3 px-8 py-4 bg-black/90 hover:bg-black text-white rounded-full transition-all duration-300 hover:scale-105 shadow-2xl">
+                  <Github className="w-6 h-6" />
+                  <span className="font-semibold text-lg">Star on GitHub</span>
+                  <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-medium">1.2k</span>
+                  </div>
+                </div>
+              </a>
+              <p className="text-white/80 mt-6 text-center px-4 text-lg font-medium drop-shadow-lg">
+                Open source and free forever
               </p>
             </div>
           </section>
