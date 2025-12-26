@@ -394,16 +394,8 @@ const Index = () => {
           </section>
 
 
-          {/* Footer Section */}
-          <section className="relative z-20 bg-background">
-            <Footer />
-            <div className="text-center py-8">
-              <p className="text-muted-foreground text-sm">TextCraft — Your Text, Transformed</p>
-            </div>
-          </section>
-
-          {/* Liquid Gradient Footer with GitHub Button */}
-          <section className="relative h-[60vh] w-full overflow-hidden">
+          {/* Compact Footer Section with Liquid Gradient */}
+          <section className="relative h-[40vh] w-full overflow-hidden">
             <Liquid
               colors={{
                 color1: '#FFFFFF',
@@ -424,29 +416,53 @@ const Index = () => {
                 color16: '#290ECB',
                 color17: '#3F4CC0',
               }}
-              className="opacity-80"
+              className="opacity-60"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+            <div className="absolute inset-0 bg-background/60" />
+            
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-10 gap-6">
+              {/* Made with love pill */}
+              <div className="px-5 py-2.5 rounded-full border border-border/50 bg-card/80 backdrop-blur-sm">
+                <span className="text-sm text-muted-foreground">
+                  Made with <span className="text-pink-500">❤️</span> · 100% Private · No Data Stored
+                </span>
+              </div>
+              
+              {/* Logo + Typography */}
+              <div className="flex items-center gap-3">
+                {/* Crescent Moon Logo */}
+                <div className="relative w-8 h-8">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-primary/60" />
+                  <div className="absolute top-0.5 right-0.5 w-6 h-6 rounded-full bg-background" />
+                </div>
+                <h2 className="text-xl font-semibold text-foreground tracking-tight">
+                  TextCraft
+                </h2>
+                <span className="text-muted-foreground text-sm">—</span>
+                <p className="text-muted-foreground text-sm">Your Text, Transformed</p>
+              </div>
+              
+              {/* Compact GitHub Button */}
               <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative"
+                className="group"
               >
-                <div className="relative flex items-center gap-3 px-8 py-4 bg-black/90 hover:bg-black text-white rounded-full transition-all duration-300 hover:scale-105 shadow-2xl">
-                  <Github className="w-6 h-6" />
-                  <span className="font-semibold text-lg">Star on GitHub</span>
-                  <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full">
-                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium">1.2k</span>
+                <div className="flex items-center gap-2 px-5 py-2.5 bg-foreground/90 hover:bg-foreground text-background rounded-full transition-all duration-300 hover:scale-105 shadow-lg">
+                  <Github className="w-4 h-4" />
+                  <span className="font-medium text-sm">Star on GitHub</span>
+                  <div className="flex items-center gap-1 px-2 py-0.5 bg-background/20 rounded-full">
+                    <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                    <span className="text-xs font-medium">1.2k</span>
                   </div>
                 </div>
               </a>
-              <p className="text-white/80 mt-6 text-center px-4 text-lg font-medium drop-shadow-lg">
-                Open source and free forever
-              </p>
             </div>
           </section>
+          
+          {/* Footer */}
+          <Footer />
 
         </div>
         
