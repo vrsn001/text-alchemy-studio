@@ -11,6 +11,7 @@ import { BentoGrid } from "@/components/BentoGrid";
 import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 import { useSmartScroll } from "@/hooks/useSmartScroll";
 import { ScrollTextMarquee } from "@/components/ui/scroll-text-marquee";
+import creativeFuelLogo from "@/assets/creative-fuel-logo.png";
 
 
 const Index = () => {
@@ -396,6 +397,33 @@ const Index = () => {
             <Footer />
             <div className="text-center py-8">
               <p className="text-muted-foreground text-sm">TextCraft — Your Text, Transformed</p>
+            </div>
+          </section>
+
+          {/* Sparkles Footer Section with Logo */}
+          <section className="relative h-[50vh] w-full overflow-hidden bg-background">
+            <Sparkles
+              className="absolute inset-0 w-full h-full"
+              density={400}
+              size={1.5}
+              speed={1}
+              opacity={0.8}
+              color="hsl(var(--primary))"
+              hover={true}
+              mousemove={true}
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+              <img 
+                src={creativeFuelLogo} 
+                alt="TextCraft Logo" 
+                className="w-24 h-24 md:w-32 md:h-32 object-contain mb-4 drop-shadow-2xl"
+              />
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">
+                TextCraft
+              </h2>
+              <p className="text-muted-foreground mt-2 text-center px-4">
+                Powerful text tools at your fingertips
+              </p>
             </div>
           </section>
 
