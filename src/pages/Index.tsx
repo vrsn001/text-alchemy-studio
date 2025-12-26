@@ -430,11 +430,22 @@ const Index = () => {
               
               {/* Logo + Typography */}
               <div className="flex items-center gap-3">
-                {/* Crescent Moon Logo */}
-                <div className="relative w-8 h-8">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-primary/60" />
+                {/* Crescent Moon Logo with floating animation */}
+                <motion.div 
+                  className="relative w-8 h-8"
+                  animate={{ 
+                    y: [0, -4, 0],
+                    rotate: [0, 5, 0, -5, 0]
+                  }}
+                  transition={{ 
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-primary/60 shadow-lg shadow-primary/30" />
                   <div className="absolute top-0.5 right-0.5 w-6 h-6 rounded-full bg-background" />
-                </div>
+                </motion.div>
                 <h2 className="text-xl font-semibold text-foreground tracking-tight">
                   TextCraft
                 </h2>
