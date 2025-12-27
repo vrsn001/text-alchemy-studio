@@ -395,30 +395,26 @@ const Index = () => {
 
 
           {/* Sparkles Footer Section */}
-          <section className="relative min-h-[60vh] w-full overflow-hidden">
-            {/* Gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent z-10" />
-            
-            {/* Content */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-20 gap-8 px-4">
+          <section className="relative min-h-screen w-full overflow-hidden bg-black">
+            {/* Top/Center Content */}
+            <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center">
               {/* Get Access Button */}
-              <button className="px-8 py-3 bg-foreground text-background font-semibold rounded-full hover:bg-foreground/90 transition-all duration-300 hover:scale-105 shadow-lg">
+              <button className="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-lg mb-8">
                 Get Access
               </button>
               
               {/* Main Typography */}
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground leading-tight">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-12">
                 Design with a Global
                 <br />
-                <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                   Perspective
                 </span>
                 , Innovate with Ease.
               </h2>
               
               {/* TextCraft branding */}
-              <div className="flex flex-col items-center gap-2 mt-4">
+              <div className="flex flex-col items-center gap-2">
                 <motion.div 
                   className="relative"
                   animate={{ 
@@ -431,23 +427,23 @@ const Index = () => {
                     ease: "easeInOut"
                   }}
                 >
-                  <span className="text-5xl md:text-6xl font-black tracking-tighter bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent drop-shadow-lg">
+                  <span className="text-5xl md:text-7xl font-black tracking-tighter text-white drop-shadow-lg">
                     TextCraft
                   </span>
                 </motion.div>
-                <p className="text-muted-foreground text-lg">Your Text, Transformed</p>
+                <p className="text-white/60 text-lg">Your Text, Transformed</p>
               </div>
             </div>
             
             {/* Bottom Sparkles */}
-            <div className="absolute bottom-0 left-0 right-0 h-[300px] z-0">
+            <div className="absolute bottom-0 left-0 right-0 h-[400px] z-0">
               <Sparkles
                 density={1200}
-                speed={0.5}
+                speed={1.5}
                 size={1.2}
                 direction="top"
                 opacitySpeed={2}
-                color="hsl(var(--primary))"
+                color="#ffffff"
                 className="absolute inset-0 h-full w-full"
               />
             </div>
