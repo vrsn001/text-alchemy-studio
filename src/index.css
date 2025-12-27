@@ -752,4 +752,31 @@
   .stacking-section:not(:first-child) {
     border-radius: 2rem 2rem 0 0;
   }
+
+  /* TextCraft 3D Hero Animations */
+  @keyframes textcraft-float {
+    0%, 100% {
+      transform: translateY(0px) rotateY(0deg);
+    }
+    25% {
+      transform: translateY(-15px) rotateY(45deg);
+    }
+    50% {
+      transform: translateY(-20px) rotateY(180deg);
+    }
+    75% {
+      transform: translateY(-15px) rotateY(315deg);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+  }
 }

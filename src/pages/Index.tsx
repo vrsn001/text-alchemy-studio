@@ -128,129 +128,80 @@ const Index = () => {
           
           <Header />
           
-          {/* Hero Section - Sticky */}
-          <section className="text-foreground h-[85vh] md:h-screen w-full grid place-content-center sticky top-0 relative overflow-hidden">
-            {/* Sparkles Background - Purple Layer */}
-            <div className="absolute inset-0 z-0">
-              <Sparkles 
-                className="w-full h-full"
-                color="#a855f7"
-                density={150}
-                speed={0.5}
-                opacity={0.8}
-                size={1.2}
-              />
-            </div>
-            
-            {/* Sparkles Background - Pink Layer */}
-            <div className="absolute inset-0 z-0">
-              <Sparkles 
-                className="w-full h-full"
-                color="#ec4899"
-                density={100}
-                speed={0.3}
-                opacity={0.6}
-                size={1.5}
-              />
-            </div>
-
-            {/* Animated SVG decorative elements */}
-            <div className="absolute top-[15%] left-[5%] md:left-[8%] w-20 h-20 md:w-40 md:h-40 opacity-40 md:opacity-30">
-              <AnimateSvg
-                path={decorativePaths.spiral}
-                strokeColor="#a855f7"
-                strokeWidth={2}
-                animationDuration={2.5}
-                animationDelay={0.3}
-                enableHoverAnimation
-                hoverAnimationType="glow"
-              />
-            </div>
-            <div className="absolute top-[12%] right-[5%] md:right-[10%] w-16 h-16 md:w-32 md:h-32 opacity-35 md:opacity-25">
-              <AnimateSvg
-                path={decorativePaths.infinity}
-                strokeColor="#ec4899"
-                strokeWidth={1.5}
-                animationDuration={3}
-                animationDelay={0.6}
-                enableHoverAnimation
-                hoverAnimationType="redraw"
-              />
-            </div>
-            <div className="absolute bottom-[30%] left-[8%] md:left-[12%] w-24 h-24 md:w-36 md:h-36 opacity-40 md:opacity-30">
-              <AnimateSvg
-                path={decorativePaths.wave}
-                strokeColor="#a855f7"
-                strokeWidth={2.5}
-                animationDuration={2}
-                animationDelay={0.9}
-              />
-            </div>
-            <div className="absolute bottom-[25%] right-[5%] md:right-[8%] w-20 h-20 md:w-28 md:h-28 opacity-35 md:opacity-25">
-              <AnimateSvg
-                path={decorativePaths.spark}
-                strokeColor="#ec4899"
-                strokeWidth={2}
-                animationDuration={1.8}
-                animationDelay={1.2}
-                enableHoverAnimation
-                hoverAnimationType="glow"
-              />
-            </div>
-            <div className="absolute top-[40%] left-[2%] md:left-[3%] w-16 h-16 md:w-24 md:h-24 opacity-25 md:opacity-15 hidden sm:block">
-              <AnimateSvg
-                path={decorativePaths.circle}
-                strokeColor="#a855f7"
-                strokeWidth={1.5}
-                animationDuration={2.2}
-                animationDelay={1.5}
-              />
-            </div>
-            <div className="absolute top-[35%] right-[3%] md:right-[5%] w-14 h-14 md:w-20 md:h-20 opacity-25 md:opacity-15 hidden sm:block">
-              <AnimateSvg
-                path={decorativePaths.loop}
-                strokeColor="#ec4899"
-                strokeWidth={1.5}
-                animationDuration={2.8}
-                animationDelay={1.8}
-              />
-            </div>
-            
-            <motion.div
-              className="text-center px-8 relative z-10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-4xl md:text-6xl 2xl:text-7xl font-bold mb-4 tracking-tight leading-[120%]">
+          {/* Hero Section - TextCraft 3D */}
+          <section className="h-screen w-full overflow-hidden bg-black text-white sticky top-0">
+            <article className="grid gap-4 text-center relative z-10 pt-10 px-4">
+              {/* Badge */}
+              <span className="inline-block text-sm border p-1 px-3 w-fit mx-auto rounded-full border-[#3273ff] bg-[#0f1c35]">
                 Transform Your Text
+              </span>
+
+              {/* Headline */}
+              <h1 className="text-3xl md:text-4xl font-semibold bg-gradient-to-b from-[#edeffd] to-[#7b9cda] bg-clip-text text-transparent leading-[100%] tracking-tighter px-4">
+                Transform Your Text With a Global
                 <br />
-                <span className="gradient-text">Instantly</span>
-              </h2>
-              <p className="text-muted-foreground text-lg mb-2 flex items-center justify-center gap-1.5">
-                Made with <span className="text-red-500">❤️</span> by{" "}
-                <a 
-                  href="https://www.linkedin.com/in/lakshayrohilla/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="font-medium text-foreground hover:text-purple-400 transition-all duration-300 underline-offset-2 hover:underline hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.6)] inline-block"
-                >
-                  Lakshay Rohilla
-                </a>
-              </p>
-              <p className="text-muted-foreground text-sm">
-                at Creative Fuel
-              </p>
-            </motion.div>
-            
-            {/* Scroll Indicator */}
-            <motion.div 
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-            >
-              <ChevronDown className="w-8 h-8 text-muted-foreground" />
-            </motion.div>
+                Perspective, Innovate with Ease.
+              </h1>
+
+              {/* 3D TextCraft Component */}
+              <div className="relative w-full h-[400px] flex items-center justify-center [perspective:1000px]">
+                {/* Orbiting Particles Background */}
+                <div className="absolute inset-0 animate-[spin_20s_linear_infinite]">
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-60 animate-[pulse_2s_ease-in-out_infinite]"
+                      style={{
+                        transform: `rotate(${i * 45}deg) translateX(150px) translateY(-50%)`,
+                        animationDelay: `${i * 0.3}s`,
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Main 3D Text */}
+                <div className="relative z-10">
+                  <h2 
+                    className="text-5xl md:text-6xl lg:text-8xl font-black select-none tracking-[-0.05em] bg-gradient-to-br from-[#3273ff] to-[#9333ea] bg-clip-text text-transparent [filter:drop-shadow(0_0_40px_rgba(50,115,255,0.5))_drop-shadow(0_0_80px_rgba(50,115,255,0.3))] animate-[textcraft-float_6s_ease-in-out_infinite] [transform-style:preserve-3d]"
+                  >
+                    TextCraft
+                  </h2>
+                  
+                  {/* Reflection Effect */}
+                  <h2 
+                    className="text-5xl md:text-6xl lg:text-8xl font-black select-none tracking-[-0.05em] bg-gradient-to-br from-[#3273ff] to-[#9333ea] bg-clip-text text-transparent opacity-10 blur-[2px] absolute top-0 left-0 [transform:scaleY(-1)_translateY(100%)]"
+                    aria-hidden="true"
+                  >
+                    TextCraft
+                  </h2>
+                </div>
+
+                {/* Glow Effect Layer */}
+                <div className="absolute inset-0 flex items-center justify-center -z-10">
+                  <div className="w-96 h-96 bg-blue-500/20 rounded-full blur-[60px] animate-[glow-pulse_4s_ease-in-out_infinite]" />
+                </div>
+              </div>
+            </article>
+
+            {/* Bottom Gradient + Sparkles Section */}
+            <div className="relative -mt-32 h-80 w-screen overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
+              {/* Before pseudo-element effect */}
+              <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_bottom_center,#3273ff,transparent_90%)]" />
+              
+              {/* After pseudo-element effect */}
+              <div className="absolute -left-1/2 top-1/2 w-[200%] rounded-[10%] border-t border-[#163474] bg-[#08132b] aspect-[1/0.7]" />
+              
+              {/* Sparkles */}
+              <Sparkles
+                density={800}
+                speed={1.2}
+                size={1.2}
+                direction="top"
+                opacitySpeed={2}
+                color="#32A7FF"
+                className="absolute inset-x-0 bottom-0 h-full w-full"
+              />
+            </div>
           </section>
 
           {/* Infinite Brand Scroll */}

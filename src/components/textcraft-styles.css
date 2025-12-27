@@ -1,0 +1,108 @@
+/* 3D TextCraft Styles */
+.text-craft-3d {
+  background: linear-gradient(135deg, #3273ff 0%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(50, 115, 255, 0.5))
+          drop-shadow(0 0 80px rgba(50, 115, 255, 0.3));
+  animation: float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+  letter-spacing: -0.05em;
+}
+
+.text-craft-reflection {
+  background: linear-gradient(135deg, #3273ff 0%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.1;
+  filter: blur(2px);
+  transform: scaleY(-1) translateY(100%);
+  letter-spacing: -0.05em;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotateY(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotateY(45deg);
+  }
+  50% {
+    transform: translateY(-20px) rotateY(180deg);
+  }
+  75% {
+    transform: translateY(-15px) rotateY(315deg);
+  }
+}
+
+/* Orbit Particles */
+.orbit-container {
+  position: absolute;
+  inset: 0;
+  animation: spin 20s linear infinite;
+}
+
+.orbit-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa, #a855f7);
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    scale: 1;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.2;
+  }
+}
+
+/* Glow Sphere */
+.glow-sphere {
+  width: 24rem;
+  height: 24rem;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .orbit-particle {
+    transform: rotate(var(--rotation, 0deg)) translateX(100px) translateY(-50%);
+  }
+}
