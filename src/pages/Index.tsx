@@ -394,48 +394,36 @@ const Index = () => {
           </section>
 
 
-          {/* Compact Footer Section with Liquid Gradient */}
-          <section className="relative h-[40vh] w-full overflow-hidden">
-            <Liquid
-              colors={{
-                color1: '#FFFFFF',
-                color2: '#1E10C5',
-                color3: '#9089E2',
-                color4: '#FCFCFE',
-                color5: '#F9F9FD',
-                color6: '#B2B8E7',
-                color7: '#0E2DCB',
-                color8: '#0017E9',
-                color9: '#4743EF',
-                color10: '#7D7BF4',
-                color11: '#0B06FC',
-                color12: '#C5C1EA',
-                color13: '#1403DE',
-                color14: '#B6BAF6',
-                color15: '#C1BEEB',
-                color16: '#290ECB',
-                color17: '#3F4CC0',
-              }}
-              className="opacity-60"
-            />
-            <div className="absolute inset-0 bg-background/60" />
+          {/* Sparkles Footer Section */}
+          <section className="relative min-h-[60vh] w-full overflow-hidden">
+            {/* Gradient overlays */}
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent z-10" />
             
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-10 gap-6">
-              {/* Made with love pill */}
-              <div className="px-5 py-2.5 rounded-full border border-border/50 bg-card/80 backdrop-blur-sm">
-                <span className="text-sm text-muted-foreground">
-                  Made with <span className="text-pink-500">❤️</span> · 100% Private · No Data Stored
-                </span>
-              </div>
+            {/* Content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-20 gap-8 px-4">
+              {/* Get Access Button */}
+              <button className="px-8 py-3 bg-foreground text-background font-semibold rounded-full hover:bg-foreground/90 transition-all duration-300 hover:scale-105 shadow-lg">
+                Get Access
+              </button>
               
-              {/* Logo + Typography */}
-              <div className="flex items-center gap-3">
-                {/* Crescent Moon Logo with floating animation */}
+              {/* Main Typography */}
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground leading-tight">
+                Design with a Global
+                <br />
+                <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                  Perspective
+                </span>
+                , Innovate with Ease.
+              </h2>
+              
+              {/* TextCraft branding */}
+              <div className="flex flex-col items-center gap-2 mt-4">
                 <motion.div 
-                  className="relative w-8 h-8"
+                  className="relative"
                   animate={{ 
                     y: [0, -4, 0],
-                    rotate: [0, 5, 0, -5, 0]
+                    rotate: [0, 2, 0, -2, 0]
                   }}
                   transition={{ 
                     duration: 4,
@@ -443,32 +431,25 @@ const Index = () => {
                     ease: "easeInOut"
                   }}
                 >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-primary/60 shadow-lg shadow-primary/30" />
-                  <div className="absolute top-0.5 right-0.5 w-6 h-6 rounded-full bg-background" />
+                  <span className="text-5xl md:text-6xl font-black tracking-tighter bg-gradient-to-br from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent drop-shadow-lg">
+                    TextCraft
+                  </span>
                 </motion.div>
-                <h2 className="text-xl font-semibold text-foreground tracking-tight">
-                  TextCraft
-                </h2>
-                <span className="text-muted-foreground text-sm">—</span>
-                <p className="text-muted-foreground text-sm">Your Text, Transformed</p>
+                <p className="text-muted-foreground text-lg">Your Text, Transformed</p>
               </div>
-              
-              {/* Compact GitHub Button */}
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group"
-              >
-                <div className="flex items-center gap-2 px-5 py-2.5 bg-foreground/90 hover:bg-foreground text-background rounded-full transition-all duration-300 hover:scale-105 shadow-lg">
-                  <Github className="w-4 h-4" />
-                  <span className="font-medium text-sm">Star on GitHub</span>
-                  <div className="flex items-center gap-1 px-2 py-0.5 bg-background/20 rounded-full">
-                    <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                    <span className="text-xs font-medium">1.2k</span>
-                  </div>
-                </div>
-              </a>
+            </div>
+            
+            {/* Bottom Sparkles */}
+            <div className="absolute bottom-0 left-0 right-0 h-[300px] z-0">
+              <Sparkles
+                density={1200}
+                speed={0.5}
+                size={1.2}
+                direction="top"
+                opacitySpeed={2}
+                color="hsl(var(--primary))"
+                className="absolute inset-0 h-full w-full"
+              />
             </div>
           </section>
           
