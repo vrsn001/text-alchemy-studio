@@ -8,6 +8,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { Liquid, Colors } from "@/components/ui/liquid-gradient";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
+import ChromaGrid from "@/components/ui/ChromaGrid";
 import { BentoGrid } from "@/components/BentoGrid";
 import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 import { useSmartScroll } from "@/hooks/useSmartScroll";
@@ -393,6 +394,28 @@ const Index = () => {
             ))}
           </section>
 
+          {/* ChromaGrid Team Section */}
+          <section className="py-16 px-4 relative z-20 bg-background">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                Meet the <span className="gradient-text">Team</span>
+              </h2>
+              <p className="text-muted-foreground">The people behind TextCraft</p>
+            </motion.div>
+            <div className="relative h-[600px] max-w-6xl mx-auto">
+              <ChromaGrid 
+                radius={300}
+                damping={0.45}
+                fadeOut={0.6}
+                ease="power3.out"
+              />
+            </div>
+          </section>
 
           {/* Sparkles Footer Section */}
           <section className="relative min-h-screen w-full overflow-hidden bg-black">
