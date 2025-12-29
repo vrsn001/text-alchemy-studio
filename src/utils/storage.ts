@@ -14,6 +14,12 @@ export interface CategoryHistory {
   timestamp: number;
 }
 
+export interface ToolHistory {
+  toolPath: string;
+  categoryId: string;
+  timestamp: number;
+}
+
 export const saveToolState = (toolId: string, input: string): void => {
   try {
     const state: ToolState = {
@@ -75,6 +81,38 @@ export const getLastCategory = (): string | null => {
     }
   } catch (error) {
     console.error('Failed to load category history:', error);
+  }
+  return null;
+};
+
+// Tool history functions for tracking last used tool
+export const saveLastTool = (toolPath: string, categoryId: string): void => {
+  try {
+    const history: ToolHistory = {
+      toolPath,
+      categoryId,
+      timestamp: Date.now(),
+    };
+    localStorage.setItem(`${STORAGE_PREFIX}last_tool`, JSON.stringify(history));
+    // Also save category for backwards compatibility
+    saveLastCategory(categoryId);
+  } catch (error) {
+    console.error('Failed to save tool history:', error);
+  }
+};
+
+export const getLastTool = (): ToolHistory | null => {
+  try {
+    const stored = localStorage.getItem(`${STORAGE_PREFIX}last_tool`);
+    if (stored) {
+      const history: ToolHistory = JSON.parse(stored);
+      // Return if less than 30 days old
+      if (Date.now() - history.timestamp < 30 * 24 * 60 * 60 * 1000) {
+        return history;
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load tool history:', error);
   }
   return null;
 };
