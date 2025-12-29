@@ -1,5 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { SlotItemMapArray, utils } from "swapy";
+import { DragHandle, SwapyItem, SwapyLayout, SwapySlot } from "@/components/ui/swapy";
 import { Heart, PlusCircle, Type, ArrowUpDown, Code, List, Sparkles, FileText, Hash, Github, Loader2 } from "lucide-react";
 
 interface GitHubContributor {
@@ -13,6 +15,7 @@ interface GitHubContributor {
 export function ProjectViewsCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 p-6 animated-border-purple">
+      <DragHandle />
       <div className="flex items-start justify-between">
         <h2 className="text-4xl font-bold text-foreground">40+</h2>
         <div className="flex items-center gap-1 text-green-400 text-sm">
@@ -28,6 +31,7 @@ export function ProjectViewsCard() {
 export function NewUsersCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 p-6 animated-border">
+      <DragHandle />
       <div className="flex items-center gap-2">
         <p className="text-muted-foreground text-sm">Daily Users</p>
         <span className="relative flex h-2 w-2">
@@ -44,6 +48,7 @@ export function NewUsersCard() {
 export function TeamCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-orange-500/20 to-yellow-500/20 p-6 animated-border-pink">
+      <DragHandle />
       <p className="text-muted-foreground text-sm mb-4">
         Lightning fast text transformations
       </p>
@@ -61,6 +66,7 @@ export function TeamCard() {
 export function AgencyCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 p-6 animated-border-purple flex flex-col justify-between">
+      <DragHandle />
       <div>
         <p className="text-lg font-medium text-foreground">Smart Text</p>
         <p className="text-2xl font-bold text-foreground">Transformations</p>
@@ -80,7 +86,8 @@ export function AgencyCard() {
 
 export function LogoCard() {
   return (
-    <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-slate-500/20 to-slate-600/20 dark:from-slate-800 dark:to-slate-900 p-6 animated-border-purple flex flex-col items-center justify-center">
+    <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 p-6 animated-border-purple flex flex-col items-center justify-center">
+      <DragHandle />
       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
         <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M12 2L2 7l10 5 10-5-10-5z" />
@@ -111,6 +118,7 @@ export function UserTrustCard() {
 
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 p-6 animated-border">
+      <DragHandle />
       <a 
         href="https://github.com/vrsn001/text-alchemy-studio" 
         target="_blank" 
@@ -140,7 +148,7 @@ export function UserTrustCard() {
                 className="w-8 h-8 rounded-full border-2 border-background object-cover"
               />
             ))}
-            <div className="w-8 h-8 rounded-full bg-muted border-2 border-background flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center">
               <PlusCircle className="w-4 h-4 text-muted-foreground" />
             </div>
           </>
@@ -154,7 +162,7 @@ export function UserTrustCard() {
                 {emoji}
               </div>
             ))}
-            <div className="w-8 h-8 rounded-full bg-muted border-2 border-background flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center">
               <PlusCircle className="w-4 h-4 text-muted-foreground" />
             </div>
           </>
@@ -177,14 +185,15 @@ export function UserTrustCard() {
 export function FontCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-rose-500/20 to-red-500/20 p-6 animated-border-pink">
+      <DragHandle />
       <p className="text-muted-foreground text-sm">Case</p>
       <h2 className="text-xl font-bold text-foreground mt-1">Converter</h2>
       
       <div className="grid grid-cols-2 gap-2 mt-4">
-        <div className="text-xs bg-muted/50 dark:bg-white/5 rounded-lg p-2 text-center text-foreground">UPPER</div>
-        <div className="text-xs bg-muted/50 dark:bg-white/5 rounded-lg p-2 text-center text-foreground">lower</div>
-        <div className="text-xs bg-muted/50 dark:bg-white/5 rounded-lg p-2 text-center text-foreground">Title</div>
-        <div className="text-xs bg-muted/50 dark:bg-white/5 rounded-lg p-2 text-center text-foreground">camel</div>
+        <div className="text-xs bg-white/5 rounded-lg p-2 text-center text-foreground">UPPER</div>
+        <div className="text-xs bg-white/5 rounded-lg p-2 text-center text-foreground">lower</div>
+        <div className="text-xs bg-white/5 rounded-lg p-2 text-center text-foreground">Title</div>
+        <div className="text-xs bg-white/5 rounded-lg p-2 text-center text-foreground">camel</div>
       </div>
     </div>
   );
@@ -193,6 +202,7 @@ export function FontCard() {
 export function DesignIndustryCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 p-6 animated-border flex flex-col justify-center">
+      <DragHandle />
       <p className="text-muted-foreground text-sm">We Build Future of</p>
       <h2 className="text-2xl font-bold text-foreground">Text Tools</h2>
     </div>
@@ -202,6 +212,7 @@ export function DesignIndustryCard() {
 export function CardBalanceCard() {
   return (
     <div className="relative h-full w-full rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-6 animated-border-purple">
+      <DragHandle />
       <p className="text-muted-foreground text-sm">Characters Processed</p>
       <h2 className="text-2xl font-bold text-foreground mt-1">12.4M</h2>
       
@@ -249,14 +260,34 @@ const initialItems: Item[] = [
 ];
 
 export function BentoGrid() {
+  const [slotItemMap, setSlotItemMap] = useState(
+    utils.initSlotItemMap(initialItems, "id")
+  );
+
+  const slottedItems = useMemo(
+    () => utils.toSlottedItems(initialItems, "id", slotItemMap),
+    [slotItemMap]
+  );
+
   return (
-    <div className="grid grid-cols-12 gap-4 max-w-6xl mx-auto p-4">
-      {initialItems.map((item) => (
-        <div key={item.id} className={item.className}>
-          {item.widgets}
-        </div>
-      ))}
-    </div>
+    <SwapyLayout
+      className="grid-cols-12 max-w-6xl mx-auto p-4"
+      onSwap={(event) => {
+        setSlotItemMap(event.newSlotItemMap.asArray);
+      }}
+    >
+      {slottedItems.map(({ slotId, itemId }) => {
+        const item = initialItems.find((i) => i.id === itemId);
+
+        return (
+          <SwapySlot key={slotId} id={slotId} className={item?.className}>
+            <SwapyItem id={itemId!}>
+              {item?.widgets}
+            </SwapyItem>
+          </SwapySlot>
+        );
+      })}
+    </SwapyLayout>
   );
 }
 

@@ -5,16 +5,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ReactLenis } from "lenis/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import { Liquid, Colors } from "@/components/ui/liquid-gradient";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
-import ChromaGrid from "@/components/ui/ChromaGrid";
 import { BentoGrid } from "@/components/BentoGrid";
 import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 import { useSmartScroll } from "@/hooks/useSmartScroll";
-import { ScrollTextMarquee } from "@/components/ui/scroll-text-marquee";
-import { Github, Star } from "lucide-react";
-
 
 
 const Index = () => {
@@ -36,7 +31,6 @@ const Index = () => {
       icon: "fa-pen-to-square",
       gradient: "gradient-overlay-pink",
       iconGradient: "from-pink-500 to-red-500",
-      bgColor: "bg-rose-50 dark:bg-slate-950",
       tools: [
         { icon: "fa-right-left", color: "text-purple-accent", name: "Reverse Text", desc: "Mirror text", href: "/tools/reverse-text" },
         { icon: "fa-compress", color: "text-blue-accent", name: "Remove Spaces", desc: "No whitespace", href: "/tools/add-line-breaks" },
@@ -51,7 +45,6 @@ const Index = () => {
       icon: "fa-link",
       gradient: "gradient-overlay-cyan",
       iconGradient: "from-cyan-500 to-blue-500",
-      bgColor: "bg-cyan-50 dark:bg-gray-900",
       tools: [
         { icon: "fa-link", color: "text-cyan-accent", name: "Link Manager", desc: "Validate & organize URLs", href: "/tools/link-manager" },
         { icon: "fa-broom", color: "text-pink-accent", name: "URL Cleaner", desc: "Remove tracking params", href: "/tools/link-manager" },
@@ -67,7 +60,6 @@ const Index = () => {
       icon: "fa-code",
       gradient: "gradient-overlay-blue",
       iconGradient: "from-blue-500 to-purple-600",
-      bgColor: "bg-blue-50 dark:bg-slate-950",
       tools: [
         { icon: "fa-lock", color: "text-purple-accent", name: "Base64 Encode", desc: "Encode to Base64", href: "/tools/text-to-html" },
         { icon: "fa-lock-open", color: "text-blue-accent", name: "Base64 Decode", desc: "Decode from Base64", href: "/tools/text-to-html" },
@@ -83,7 +75,6 @@ const Index = () => {
       icon: "fa-list",
       gradient: "gradient-overlay-green",
       iconGradient: "from-green-500 to-yellow-500",
-      bgColor: "bg-green-50 dark:bg-gray-900",
       tools: [
         { icon: "fa-list-ol", color: "text-purple-accent", name: "Add Line Numbers", desc: "Number lines", href: "/tools/add-line-breaks" },
         { icon: "fa-list-ul", color: "text-blue-accent", name: "Add Bullets", desc: "Bullet points", href: "/tools/add-line-breaks" },
@@ -98,7 +89,6 @@ const Index = () => {
       icon: "fa-text-height",
       gradient: "gradient-overlay-purple",
       iconGradient: "from-purple-500 to-pink-500",
-      bgColor: "bg-purple-50 dark:bg-slate-950",
       tools: [
         { icon: "fa-arrow-up", color: "text-purple-accent", name: "UPPERCASE", desc: "ALL CAPS", href: "/tools/case-converter" },
         { icon: "fa-arrow-down", color: "text-blue-accent", name: "lowercase", desc: "all lowercase", href: "/tools/case-converter" },
@@ -112,8 +102,8 @@ const Index = () => {
     },
   ];
 
-  // Staggered top positions for enhanced stacking effect
-  const stackingTops = ["top-0", "top-4", "top-8", "top-12", "top-16"];
+  // Incremental top positions for stacking effect
+  const stackingTops = ["top-0", "top-2", "top-4", "top-6", "top-8"];
 
   return (
     <ReactLenis root>
@@ -122,7 +112,7 @@ const Index = () => {
         <div className="blur-vignette"></div>
         
         {/* Grid Pattern Background */}
-        <div className="fixed inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
+        <div className="fixed inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
         
         {/* Main Container */}
         <div className="relative z-10">
@@ -255,7 +245,7 @@ const Index = () => {
           </section>
 
           {/* Infinite Brand Scroll */}
-          <section className="mb-8 relative z-20 bg-background">
+          <section className="mb-8 relative z-20">
             <div className="infinity-scroll">
               <div className="infinity-scroll-inner">
                 {[...brandItems, ...brandItems].map((item, index) => (
@@ -288,45 +278,30 @@ const Index = () => {
             </div>
           </section>
 
-          {/* Scroll Text Marquee */}
-          <section className="py-8 relative z-20 bg-background overflow-hidden">
-            <ScrollTextMarquee baseVelocity={50}>
-              <span>Star the repo if you like it</span>
-              <span>Share it if you like it</span>
-              <span>100% Free & Open Source</span>
-              <span>Built with React & TypeScript</span>
-            </ScrollTextMarquee>
-            <ScrollTextMarquee baseVelocity={-30} className="mt-4 opacity-60">
-              <span>Text Tools</span>
-              <span>Link Manager</span>
-              <span>Case Converter</span>
-              <span>Encoding & Decoding</span>
-            </ScrollTextMarquee>
-          </section>
-
-          {/* Enhanced Stacking Category Cards */}
-          <section id="text-tools" className="w-full relative">
-            {/* Section Header */}
-            <div className="sticky top-0 z-30 bg-background py-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                Explore Our <span className="gradient-text">Tools</span>
-              </h2>
-              <p className="text-muted-foreground">Scroll down to discover each category</p>
+          {/* Stacking Category Cards */}
+          <section className="w-full pb-20 relative">
+            {/* Sparkles Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+              <Sparkles 
+                className="w-full h-full"
+                color="#a855f7"
+                density={150}
+                speed={0.8}
+                opacity={0.6}
+                size={1.5}
+              />
             </div>
             
             {categories.map((category, categoryIndex) => (
-              <section 
+              <div 
                 key={category.id}
                 data-category={category.id}
-                className={`${stackingTops[categoryIndex]} sticky h-screen w-full grid place-content-center overflow-hidden ${category.bgColor} ${categoryIndex > 0 ? 'rounded-t-3xl' : ''}`}
+                className={`sm:sticky ${stackingTops[categoryIndex]} w-full`}
               >
-                {/* Grid Pattern for this section */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
-                
-                <div className="w-[90%] md:w-[85%] max-w-6xl mx-auto relative z-10">
+                <div className="w-full min-h-[70vh] md:min-h-[80vh] flex items-center justify-center py-8">
                   <GradientBorderCard 
                     variant={categoryIndex === 0 ? 'pink' : categoryIndex === 1 ? 'purple' : 'default'}
-                    className="rounded-[32px]"
+                    className="w-[90%] md:w-[85%] max-w-6xl rounded-[32px]"
                   >
                     <div className={`p-6 md:p-10 rounded-[32px] ${category.gradient}`}>
                       {/* Category Header */}
@@ -379,102 +354,23 @@ const Index = () => {
                     </div>
                   </GradientBorderCard>
                 </div>
-                
-                {/* Scroll hint for all but last */}
-                {categoryIndex < categories.length - 1 && (
-                  <motion.div 
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2"
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.5 }}
-                  >
-                    <ChevronDown className="w-6 h-6 text-muted-foreground" />
-                  </motion.div>
-                )}
-              </section>
+              </div>
             ))}
           </section>
 
-          {/* ChromaGrid Team Section */}
-          <section className="py-16 px-4 relative z-20 bg-background">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                Meet the <span className="gradient-text">Team</span>
-              </h2>
-              <p className="text-muted-foreground">The people behind TextCraft</p>
-            </motion.div>
-            <div className="relative h-[600px] max-w-6xl mx-auto">
-              <ChromaGrid 
-                radius={300}
-                damping={0.45}
-                fadeOut={0.6}
-                ease="power3.out"
-              />
-            </div>
-          </section>
 
-          {/* Sparkles Footer Section */}
-          <section className="relative min-h-screen w-full overflow-hidden bg-black">
-            {/* Top/Center Content */}
-            <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center">
-              {/* Get Access Button */}
-              <button className="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-lg mb-8">
-                Get Access
-              </button>
-              
-              {/* Main Typography */}
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-12">
-                Design with a Global
-                <br />
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  Perspective
-                </span>
-                , Innovate with Ease.
-              </h2>
-              
-              {/* TextCraft branding */}
-              <div className="flex flex-col items-center gap-2">
-                <motion.div 
-                  className="relative"
-                  animate={{ 
-                    y: [0, -4, 0],
-                    rotate: [0, 2, 0, -2, 0]
-                  }}
-                  transition={{ 
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  <span className="text-5xl md:text-7xl font-black tracking-tighter text-white drop-shadow-lg">
-                    TextCraft
-                  </span>
-                </motion.div>
-                <p className="text-white/60 text-lg">Your Text, Transformed</p>
-              </div>
-            </div>
-            
-            {/* Bottom Sparkles */}
-            <div className="absolute bottom-0 left-0 right-0 h-[400px] z-0">
-              <Sparkles
-                density={1200}
-                speed={1.5}
-                size={1.2}
-                direction="top"
-                opacitySpeed={2}
-                color="#ffffff"
-                className="absolute inset-0 h-full w-full"
-              />
-            </div>
-          </section>
-          
+
           {/* Footer */}
-          <Footer />
-
+          <footer className="group">
+            <h1 className="text-[12vw] md:text-[16vw] translate-y-20 leading-[100%] uppercase font-semibold text-center bg-gradient-to-r from-gray-600 to-gray-800 bg-clip-text text-transparent">
+              TextCraft
+            </h1>
+            <div className="bg-background h-40 relative z-10 grid place-content-center rounded-t-[50%]">
+              <p className="text-muted-foreground text-sm">
+                Made with ❤️ · 100% Private · No Data Stored
+              </p>
+            </div>
+          </footer>
         </div>
         
         <BottomNav />
