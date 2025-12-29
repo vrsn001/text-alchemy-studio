@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getLastCategory, saveLastCategory, hasVisitedBefore, markAsVisited } from '@/utils/storage';
+import { getLastCategory, getLastTool, saveLastTool, hasVisitedBefore, markAsVisited } from '@/utils/storage';
 import { toast } from 'sonner';
 
 interface UseSmartScrollOptions {
@@ -17,6 +17,18 @@ const categoryNames: Record<string, string> = {
   case: 'Case Transformations',
 };
 
+// Map tool paths to display names
+const toolNames: Record<string, string> = {
+  '/tools/reverse-text': 'Reverse Text',
+  '/tools/add-line-breaks': 'Line Breaks Tool',
+  '/tools/link-manager': 'Link Manager',
+  '/tools/text-to-html': 'Text to HTML',
+  '/tools/alphabetical-order': 'Alphabetical Order',
+  '/tools/case-converter': 'Case Converter',
+  '/tools/word-counter': 'Word Counter',
+  '/tools/random-words': 'Random Words',
+};
+
 export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
   const { defaultCategory = 'modify', scrollDelay = 3500 } = options;
   const location = useLocation();
@@ -30,9 +42,14 @@ export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
     }
   }, []);
 
-  // Save category when user interacts with a tool
+  // Save tool when user interacts with a tool
+  const trackToolInteraction = useCallback((toolPath: string, categoryId: string) => {
+    saveLastTool(toolPath, categoryId);
+  }, []);
+
+  // Legacy support - track category only
   const trackCategoryInteraction = useCallback((categoryId: string) => {
-    saveLastCategory(categoryId);
+    // This is now handled by trackToolInteraction, but kept for backwards compatibility
   }, []);
 
   // Auto-scroll on page load
@@ -42,15 +59,24 @@ export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
     // Prevent multiple scrolls
     if (hasScrolledRef.current) return;
 
-    const lastCategory = getLastCategory();
+    const lastTool = getLastTool();
+    const lastCategory = lastTool?.categoryId || getLastCategory();
     const isFirstVisit = !hasVisitedBefore();
 
     const performScroll = () => {
       if (hasScrolledRef.current) return;
       hasScrolledRef.current = true;
 
-      if (lastCategory) {
-        // Return visitor - scroll to their last used category
+      if (lastTool) {
+        // Return visitor - scroll to their last used category and show tool name
+        const toolName = toolNames[lastTool.toolPath] || 'your last tool';
+        toast(`Welcome back! Last used: ${toolName}`, {
+          duration: 3000,
+          icon: '👋',
+        });
+        scrollToCategory(lastTool.categoryId);
+      } else if (lastCategory) {
+        // Has category but no specific tool
         const categoryName = categoryNames[lastCategory] || lastCategory;
         toast(`Welcome back! Taking you to ${categoryName}...`, {
           duration: 3000,
@@ -77,5 +103,6 @@ export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
   return {
     scrollToCategory,
     trackCategoryInteraction,
+    trackToolInteraction,
   };
 };
