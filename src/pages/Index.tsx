@@ -122,7 +122,7 @@ const Index = () => {
           {/* Hero Section - Sticky */}
           <section className="text-foreground h-[85vh] md:h-screen w-full grid place-content-center sticky top-0 relative overflow-hidden">
             {/* Sparkles Background - Purple Layer */}
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0 dark:block hidden">
               <Sparkles 
                 className="w-full h-full"
                 color="#a855f7"
@@ -132,9 +132,19 @@ const Index = () => {
                 size={1.2}
               />
             </div>
+            <div className="absolute inset-0 z-0 dark:hidden block">
+              <Sparkles 
+                className="w-full h-full"
+                color="#7c3aed"
+                density={150}
+                speed={0.5}
+                opacity={0.9}
+                size={1.4}
+              />
+            </div>
             
             {/* Sparkles Background - Pink Layer */}
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0 dark:block hidden">
               <Sparkles 
                 className="w-full h-full"
                 color="#ec4899"
@@ -142,6 +152,16 @@ const Index = () => {
                 speed={0.3}
                 opacity={0.6}
                 size={1.5}
+              />
+            </div>
+            <div className="absolute inset-0 z-0 dark:hidden block">
+              <Sparkles 
+                className="w-full h-full"
+                color="#be185d"
+                density={100}
+                speed={0.3}
+                opacity={0.8}
+                size={1.6}
               />
             </div>
 
@@ -281,7 +301,7 @@ const Index = () => {
           {/* Stacking Category Cards */}
           <section className="w-full pb-20 relative">
             {/* Sparkles Background */}
-            <div className="fixed inset-0 pointer-events-none z-0">
+            <div className="fixed inset-0 pointer-events-none z-0 dark:block hidden">
               <Sparkles 
                 className="w-full h-full"
                 color="#a855f7"
@@ -289,6 +309,16 @@ const Index = () => {
                 speed={0.8}
                 opacity={0.6}
                 size={1.5}
+              />
+            </div>
+            <div className="fixed inset-0 pointer-events-none z-0 dark:hidden block">
+              <Sparkles 
+                className="w-full h-full"
+                color="#7c3aed"
+                density={150}
+                speed={0.8}
+                opacity={0.8}
+                size={1.6}
               />
             </div>
             
