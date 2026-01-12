@@ -10,9 +10,12 @@ import { GradientBorderCard } from "@/components/ui/gradient-border-card";
 import { BentoGrid } from "@/components/BentoGrid";
 import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 import { useSmartScroll } from "@/hooks/useSmartScroll";
+import { GlassDistortion } from "@/components/GlassDistortion";
+import { useTheme } from "next-themes";
 
 
 const Index = () => {
+  const { resolvedTheme } = useTheme();
   const { trackToolInteraction } = useSmartScroll();
   const brandItems = [
     { icon: "fa-bolt", color: "text-purple-accent", text: "Lightning Fast" },
@@ -121,6 +124,12 @@ const Index = () => {
           
           {/* Hero Section - Sticky */}
           <section className="text-foreground h-[85vh] md:h-screen w-full grid place-content-center sticky top-0 relative overflow-hidden">
+            {/* Glass Distortion Effect */}
+            <GlassDistortion 
+              className="z-[1] opacity-60" 
+              isDark={resolvedTheme === 'dark'} 
+            />
+            
             {/* Sparkles Background - Purple Layer */}
             <div className="absolute inset-0 z-0 dark:block hidden">
               <Sparkles 
