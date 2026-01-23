@@ -17,34 +17,182 @@ const SHORTENERS = [
 // UTM parameters to strip during normalization
 const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id'];
 
-// Platform-specific tracking parameters to strip for URL cleaning
+// COMPREHENSIVE tracking parameters to strip - covers ALL major platforms globally
 export const TRACKING_PARAMS = [
-  // UTM parameters
+  // ========== UTM Parameters (Universal) ==========
   'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id',
+  'utm_cid', 'utm_reader', 'utm_name', 'utm_referrer', 'utm_social', 'utm_social-type',
+  'utm_brand', 'utm_viz_id', 'utm_pubreferrer', 'utm_swu', 'utm_hp_ref',
   
-  // Instagram
-  'igsh', 'igshid', 'img_index',
+  // ========== Google (Search, Ads, Analytics, Products) ==========
+  'gclid', 'gclsrc', 'dclid', 'gbraid', 'wbraid', 'gad_source', 'gad',
+  'ved', 'usg', 'sa', 'ei', 'sei', 'bih', 'biw', 'dpr', 'prmd', 'rlz', 'sxsrf',
+  'source', 'sourceid', 'sca_esv', 'sca_upv', 'fbs_aeid', 'tfeh', 'tfs', 'ictx',
+  'gs_lp', 'gs_lcp', 'sclient', 'stick', 'oq', 'aqs', 'gs_l', 'pf', 'pq',
+  '_ga', '_gl', '_gac', 'ga_source', 'ga_medium', 'ga_term', 'ga_content', 'ga_campaign',
+  'shem', 'authuser', 'sz', 'hl', 'gl', 'cshid', 'nfpr', 'spell', 'qsubts', 'lsig',
   
-  // Facebook
-  'fbclid', 'mibextid', 'fb_action_ids', 'fb_action_types', 'fb_source', 'fb_ref',
+  // ========== Facebook / Meta ==========
+  'fbclid', 'fb_action_ids', 'fb_action_types', 'fb_source', 'fb_ref', 'fb_beacon_info',
+  'mibextid', 'fbadid', 'fbc', 'fbp', 'fb_comment_id', 'fb_dtsg_ag', 'hrc',
+  '__tn__', '__cft__', '__eep__', 'acontext', 'paipv', 'eav', 'extid',
   
-  // TikTok
+  // ========== Instagram ==========
+  'igsh', 'igshid', 'img_index', 'igs', 'ig_rid',
+  
+  // ========== Twitter / X ==========
+  'ref_src', 'ref_url', 's', 't', 'twclid', 'src', 'original_referer',
+  
+  // ========== TikTok ==========
   'is_copy_url', 'is_from_webapp', 'sender_device', 'sender_web_id',
+  '_r', '_d', 'u_code', 'preview_pb', 'enter_from', 'enter_method',
+  'share_app_id', 'share_author_id', 'share_item_id', 'sharer_language',
   
-  // YouTube (keep 'v' for video ID and 't' for timestamp)
-  'si', 'feature', 'pp', 'ab_channel',
+  // ========== YouTube ==========
+  'si', 'feature', 'pp', 'ab_channel', 'cbrd', 'ucbcb', 'frags', 'lc',
   
-  // Twitter/X
-  'ref_src', 'ref_url',
+  // ========== LinkedIn ==========
+  'lipi', 'lici', 'trk', 'trkInfo', 'trackingId', 'refId', 'midToken', 'midSig',
+  'li_fat_id', 'li_tc', 'originalSubdomain',
   
-  // LinkedIn
-  'lipi', 'lici', 'trk', 'trkInfo',
+  // ========== Pinterest ==========
+  'pin_share',
   
-  // Google
-  'ved', 'usg', 'sa', 'ei', 'gclid', 'dclid', 'msclkid', 'bih', 'biw', 'dpr', 'prmd', 'rlz',
+  // ========== Reddit ==========
+  'share_id', 'rdt_cid', 'utm_name', '$deep_link', 'correlation_id',
   
-  // General tracking
-  'ref', 'mc_cid', 'mc_eid', 'zanpid', '_ga', '_gl', 'yclid', 'spm', 'share_token'
+  // ========== Snapchat ==========
+  'sc_referrer', 'sc_ua', 'sc_ad_id', 'sc_campaign_id',
+  
+  // ========== Microsoft / Bing ==========
+  'msclkid', 'cvid', 'form', 'pc', 'sp', 'pq', 'sc', 'qs', 'qsrc', 'sk', 'ocid',
+  
+  // ========== Amazon ==========
+  'tag', 'linkCode', 'linkId', 'ref_', 'pf_rd_r', 'pf_rd_p', 'pf_rd_s', 'pf_rd_t',
+  'pf_rd_i', 'pf_rd_m', 'psc', 'smid', 'dib', 'dib_tag', 'th', 'pd_rd_w', 'pd_rd_wg',
+  'pd_rd_r', 'content-id', 'qid', 'sr', 'keywords', 'sprefix', 'crid',
+  
+  // ========== Spotify ==========
+  'go', 'sp_cid', 'nd', 'dl_branch', 'context',
+  
+  // ========== Apple ==========
+  'mt', 'pt', 'ct', 'at', 'uo', 'app', 'ls', 'itscg', 'itsct',
+  
+  // ========== Mailchimp / Email Marketing ==========
+  'mc_cid', 'mc_eid', 'e', 'mc_tc', 'goal', 'mc_signupsource',
+  
+  // ========== HubSpot ==========
+  'hsCtaTracking', 'hsa_cam', 'hsa_grp', 'hsa_mt', 'hsa_src', 'hsa_ad', 'hsa_acc',
+  'hsa_net', 'hsa_kw', 'hsa_tgt', 'hsa_ver', '__hstc', '__hssc', '__hsfp', 'hsmi',
+  
+  // ========== Marketo ==========
+  'mkt_tok', 'trk',
+  
+  // ========== Salesforce ==========
+  'sfmc_id', 'sfmc_activityid', 'sfc', 'alias',
+  
+  // ========== Adobe Analytics ==========
+  'ICID', 'icid', 's_kwcid', 'cid', 'ef_id', 's_cid', 'cmpid',
+  
+  // ========== Rakuten / Affiliate Networks ==========
+  'ranMID', 'ranEAID', 'ranSiteID', 'siteID', 'lkid', 'afftrack',
+  
+  // ========== CJ Affiliate ==========
+  'cjsku', 'cjevent', 'cjdata',
+  
+  // ========== ShareASale ==========
+  'sscid', 'affid', 'afftrack',
+  
+  // ========== Yandex ==========
+  'yclid', 'ymclid', 'ysclid', 'from',
+  
+  // ========== Baidu ==========
+  'baidu', 'bd_vid', 'bd_source',
+  
+  // ========== Yahoo ==========
+  'guccounter', 'guce_referrer', 'guce_referrer_sig', 'vp',
+  
+  // ========== Outbrain / Taboola ==========
+  'obOrigUrl', 'obApiRedirect', 'ob_click_id', 'dicbo', 'tblci',
+  
+  // ========== Criteo ==========
+  'criteoId',
+  
+  // ========== Shopify ==========
+  'syclid', 'ssclid', 'stid', 'preview_theme_id', 'variant', 'srsltid',
+  
+  // ========== Wix ==========
+  'referralInfo', 'metaSiteId', 'siteRevision', 'compId',
+  
+  // ========== Squarespace ==========
+  'ssPageName', 'ss_source', 'ss_campaign_name', 'ss_campaign_id',
+  
+  // ========== WordPress / WooCommerce ==========
+  'replytocom', 'wcfmmp_guest_id',
+  
+  // ========== Mixpanel ==========
+  'mp_source', 'mp_medium', 'mp_content',
+  
+  // ========== Amplitude ==========
+  'amp_device_id', 'amp_js', 'ampDeviceId',
+  
+  // ========== Segment ==========
+  'ajs_aid', 'ajs_uid', 'ajs_event', 'ajs_prop_x',
+  
+  // ========== CleverTap ==========
+  'wzrk_cid', 'wzrk_source', 'wzrk_medium',
+  
+  // ========== Branch.io ==========
+  '_branch_match_id', '_branch_referrer', '$canonical_url',
+  
+  // ========== Adjust ==========
+  'adjust_tracker', 'adjust_adgroup', 'adjust_creative', 'adjust_campaign',
+  
+  // ========== AppsFlyer ==========
+  'af_c_id', 'af_c', 'af_siteid', 'af_sub1', 'af_sub2', 'af_sub3', 'af_sub4', 'af_sub5',
+  'pid', 'c', 'af_channel', 'af_ad', 'af_adset', 'af_adset_id', 'af_ad_id',
+  
+  // ========== Kochava ==========
+  'ko_click_id',
+  
+  // ========== General / Miscellaneous Tracking ==========
+  'ref', 'ref_id', 'referer', 'referrer', 'reference', 'reftype',
+  'zanpid', 'spm', 'share_token', 'share', 'shared', 'sharer',
+  'campaign_id', 'campaign', 'campaignid', 'adid', 'ad_id', 'adset_id',
+  'creative_id', 'placement', 'placement_id', 'clickid', 'click_id',
+  'track', 'tracking', 'tracker', 'trackid', 'tracking_id',
+  'source_id', 'medium_id', 'affiliate', 'affiliate_id', 'partner', 'partner_id',
+  'promo', 'promo_code', 'coupon', 'deal', 'offer',
+  'nb', 'nc', 'ncid', 'network', 'network_id',
+  'action', 'action_id', 'event', 'event_id',
+  'hash', 'hs', 'session', 'session_id', 'sid', 'ssid',
+  'uid', 'user_id', 'userid', 'visitor_id', 'vid',
+  'token', 'auth', 'key', 'apikey', 'api_key',
+  'redirect', 'redir', 'rd', 'return', 'returnUrl', 'return_url', 'next',
+  'cb', 'callback', 'cachebuster', 'nocache', 'rand', 'random', 'timestamp', 'ts', '_t',
+  'debug', 'test', 'preview', 'draft', 'dev', 'staging',
+  'embed', 'embedded', 'widget', 'iframe', 'popup', 'modal',
+  'locale', 'lang', 'language', 'country', 'region', 'currency',
+  'device', 'platform', 'os', 'browser', 'screen', 'viewport', 'resolution',
+  'entry', 'entry_point', 'exit', 'exit_point', 'flow', 'funnel', 'step',
+  'variant', 'version', 'v', 'ab', 'experiment', 'exp', 'bucket',
+  'page', 'pg', 'offset', 'limit', 'per_page', 'pageSize',
+  'sort', 'order', 'orderby', 'sortby', 'direction', 'dir', 'asc', 'desc',
+  'q', 'query', 'search', 'keyword', 'keywords', 'term', 'terms', 'filter', 'filters',
+  'category', 'categories', 'cat', 'type', 'types', 'tags', 'label', 'labels',
+  'view', 'mode', 'display', 'layout', 'format', 'style', 'theme',
+  'client', 'client_id', 'clientId', 'app_id', 'appId', 'app_version', 'appVersion',
+  'internal', 'external', 'origin', 'via', 'by', 'through', 'channel', 'channels',
+  'feature', 'features', 'module', 'modules', 'section', 'sections',
+  'impression_id', 'impression', 'view_id', 'conversion_id', 'conversion',
+  'checkout', 'cart', 'order_id', 'orderId', 'transaction', 'transaction_id',
+  'pixel', 'beacon', 'ping', 'log', 'analytics', 'stats', 'stat', 'metrics', 'metric',
+  'cx', 'cn', 'cm', 'cs', 'ck', 'cc', 'cp', 'cl', 'cr', 'cv',
+  'nr', 'nw', 'na', 'ns', 'nm', 'nt', 'ni', 'no', 'nu', 'np',
+  'sr', 'sw', 'sa', 'ss', 'sm', 'st', 'si', 'so', 'su', 'sp',
+  'pr', 'pw', 'pa', 'ps', 'pm', 'pt', 'pi', 'po', 'pu', 'pp',
+  'lr', 'lw', 'la', 'ls', 'lm', 'lt', 'li', 'lo', 'lu', 'lp',
+  'dr', 'dw', 'da', 'ds', 'dm', 'dt', 'di', 'do', 'du', 'dp'
 ];
 
 export type URLStatus = 'valid' | 'missing-scheme' | 'malformed' | 'shortener';
