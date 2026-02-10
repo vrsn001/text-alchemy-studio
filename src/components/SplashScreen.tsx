@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import { AnimateSvg, decorativePaths } from "@/components/ui/animate-svg";
 
 export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Check if user has visited before
     const hasVisited = localStorage.getItem("hasVisitedBefore");
     
     if (hasVisited) {
-      // Skip splash for returning visitors
       onComplete();
       setIsVisible(false);
       return;
     }
 
-    // Mark as visited
     localStorage.setItem("hasVisitedBefore", "true");
 
-    // Complete splash after animation
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 500);
@@ -45,8 +40,8 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
             key={i}
             className="absolute w-1 h-1 bg-primary/30 rounded-full"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
               scale: 0,
             }}
             animate={{
@@ -63,57 +58,13 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         ))}
       </div>
 
-      {/* Animated SVG decorative elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 opacity-30">
-        <AnimateSvg
-          path={decorativePaths.spiral}
-          strokeColor="hsl(var(--primary))"
-          strokeWidth={1.5}
-          animationDuration={2}
-          animationDelay={0.5}
-        />
-      </div>
-      <div className="absolute top-32 right-16 w-24 h-24 opacity-20">
-        <AnimateSvg
-          path={decorativePaths.infinity}
-          strokeColor="hsl(var(--accent))"
-          strokeWidth={1}
-          animationDuration={2.5}
-          animationDelay={0.8}
-        />
-      </div>
-      <div className="absolute bottom-32 left-16 w-28 h-28 opacity-25">
-        <AnimateSvg
-          path={decorativePaths.wave}
-          strokeColor="hsl(var(--primary))"
-          strokeWidth={2}
-          animationDuration={1.8}
-          animationDelay={1}
-        />
-      </div>
-      <div className="absolute bottom-20 right-10 w-20 h-20 opacity-20">
-        <AnimateSvg
-          path={decorativePaths.spark}
-          strokeColor="hsl(var(--accent))"
-          strokeWidth={1.5}
-          animationDuration={1.5}
-          animationDelay={1.2}
-        />
-      </div>
-
       {/* Logo container */}
       <motion.div
         initial={{ scale: 0, rotate: -180 }}
         animate={{ scale: 1, rotate: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-          duration: 1,
-        }}
+        transition={{ type: "spring", stiffness: 260, damping: 20, duration: 1 }}
         className="relative z-10"
       >
-        {/* Logo circle background */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -121,8 +72,6 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           className="absolute inset-0 bg-primary/10 rounded-full blur-3xl"
           style={{ width: '200px', height: '200px', margin: '-50px' }}
         />
-
-        {/* Icon */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -133,7 +82,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         </motion.div>
       </motion.div>
 
-      {/* Text animation */}
+      {/* Text */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -144,11 +93,7 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
           initial={{ backgroundPosition: "0% 50%" }}
           animate={{ backgroundPosition: "100% 50%" }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
           style={{ backgroundSize: "200% auto" }}
         >
           TextCraft
@@ -174,15 +119,8 @@ export const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
           <motion.div
             key={i}
             className="w-2 h-2 bg-primary rounded-full"
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
+            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
           />
         ))}
       </motion.div>
