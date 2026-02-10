@@ -1,21 +1,19 @@
-'use client';
-
-import { useEffect, useId, useState } from 'react';
-import Particles, { initParticlesEngine } from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
+// Lightweight CSS-based sparkles replacement (no heavy particle library)
+import { useEffect, useRef } from 'react';
 
 interface SparklesProps {
   className?: string;
   size?: number;
-  minSize?: number | null;
   density?: number;
   speed?: number;
-  minSpeed?: number | null;
   opacity?: number;
+  color?: string;
+  // Keep interface compatible but ignore unused props
+  minSize?: number | null;
+  minSpeed?: number | null;
   direction?: string;
   opacitySpeed?: number;
   minOpacity?: number | null;
-  color?: string;
   mousemove?: boolean;
   hover?: boolean;
   background?: string;
@@ -23,139 +21,69 @@ interface SparklesProps {
 }
 
 export function Sparkles({
-  className,
+  className = '',
   size = 1.2,
-  minSize = null,
   density = 800,
   speed = 1.5,
-  minSpeed = null,
   opacity = 1,
-  direction = '',
-  opacitySpeed = 3,
-  minOpacity = null,
   color = '#ffffff',
-  mousemove = false,
-  hover = false,
-  background = 'transparent',
-  options = {},
 }: SparklesProps) {
-  const [isReady, setIsReady] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setIsReady(true);
-    });
-  }, []);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-  const id = useId();
-  const defaultOptions = {
-    background: {
-      color: {
-        value: background,
-      },
-    },
-    fullScreen: {
-      enable: false,
-      zIndex: 1,
-    },
-    fpsLimit: 300,
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-    interactivity: {
-      events: {
-        onClick: {
-          enable: true,
-          mode: 'push',
-        },
-        onHover: {
-          enable: hover,
-          mode: 'grab',
-          parallax: {
-            enable: mousemove,
-            force: 60,
-            smooth: 10,
-          },
-        },
-        resize: true as any,
-      },
-      modes: {
-        push: {
-          quantity: 4,
-        },
-        repulse: {
-          distance: 200,
-          duration: 0.4,
-        },
-      },
-    },
-    particles: {
-      color: {
-        value: color,
-      },
-      move: {
-        enable: true,
-        direction,
-        speed: {
-          min: minSpeed || speed / 130,
-          max: speed,
-        },
-        straight: true,
-      },
-      collisions: {
-        absorb: {
-          speed: 2,
-        },
-        bounce: {
-          horizontal: {
-            value: 1,
-          },
-          vertical: {
-            value: 1,
-          },
-        },
-        enable: false,
-        maxSpeed: 50,
-        mode: 'bounce',
-        overlap: {
-          enable: true,
-          retries: 0,
-        },
-      },
-      number: {
-        value: density,
-      },
-      opacity: {
-        value: {
-          min: minOpacity || opacity / 10,
-          max: opacity,
-        },
-        animation: {
-          enable: true,
-          sync: false,
-          speed: opacitySpeed,
-        },
-      },
-      size: {
-        value: {
-          min: minSize || size / 1.5,
-          max: size,
-        },
-      },
-    },
-    detectRetina: true,
-  };
+    // Create particles
+    const count = Math.min(Math.floor(density / 5), 120);
+    const particles = Array.from({ length: count }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: (Math.random() * size * 0.5 + size * 0.5),
+      o: Math.random() * opacity,
+      dx: (Math.random() - 0.5) * speed * 0.3,
+      dy: (Math.random() - 0.5) * speed * 0.3,
+      phase: Math.random() * Math.PI * 2,
+    }));
 
-  return (
-    isReady && (
-      <Particles 
-        id={id} 
-        // @ts-ignore
-        options={defaultOptions} 
-        className={className} 
-      />
-    )
-  );
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const t = Date.now() * 0.001;
+      for (const p of particles) {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+        const flicker = 0.5 + 0.5 * Math.sin(t * 2 + p.phase);
+        ctx.globalAlpha = p.o * flicker;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      animRef.current = requestAnimationFrame(render);
+    };
+    render();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animRef.current);
+    };
+  }, [size, density, speed, opacity, color]);
+
+  return <canvas ref={canvasRef} className={className} style={{ pointerEvents: 'none' }} />;
 }
 
 export default Sparkles;
