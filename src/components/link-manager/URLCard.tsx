@@ -107,9 +107,19 @@ export const URLCard = ({
           <PlatformIcon category={category} size="md" />
           
           <div className="flex-1 min-w-0">
-            {/* Host prominently displayed with category label */}
+            {/* Username + Host prominently displayed with category label */}
             <div className="flex items-center gap-2 mb-1 flex-wrap">
-              <span className="font-medium text-foreground truncate">{url.host}</span>
+              {url.username?.displayName && (
+                <span className="font-semibold text-primary truncate">
+                  {url.username.displayName}
+                </span>
+              )}
+              <span className={cn(
+                "text-foreground truncate",
+                url.username?.displayName ? "text-sm text-muted-foreground" : "font-medium"
+              )}>
+                {url.host}
+              </span>
               <span className={cn("text-xs px-1.5 py-0.5 rounded", categoryInfo.bgColor, categoryInfo.color)}>
                 {categoryInfo.label}
               </span>
