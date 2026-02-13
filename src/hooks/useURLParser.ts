@@ -99,8 +99,10 @@ export const useURLParser = (options: UseURLParserOptions = {}): UseURLParserRet
           }
         };
         
-        workerRef.current.onerror = (err) => {
-          setError(`Worker error: ${err.message}`);
+        workerRef.current.onerror = () => {
+          // Worker failed to initialize, will use main thread fallback
+          workerRef.current?.terminate();
+          workerRef.current = null;
           setIsProcessing(false);
         };
       } catch (err) {
