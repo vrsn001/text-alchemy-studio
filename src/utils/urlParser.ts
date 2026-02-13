@@ -5,6 +5,8 @@ import {
   URL_REGEX, VALID_URL_REGEX, WWW_URL_REGEX,
   SHORTENERS, UTM_PARAMS, TRACKING_PARAMS, TRACKING_PARAMS_SET
 } from './urlConstants';
+import { extractUsernameFromURL, type ExtractedUsername } from './usernameExtractor';
+import { detectCategory } from './linkCategories';
 
 // Re-export for backwards compatibility
 export { TRACKING_PARAMS } from './urlConstants';
@@ -25,6 +27,7 @@ export interface ParsedURL {
   duplicateCount: number;
   duplicateOf?: string;
   isShortener: boolean;
+  username: ExtractedUsername;
 }
 
 export interface ParseResult {
@@ -181,11 +184,15 @@ export const parseURLs = (text: string, options: { normalizeForDuplicates?: bool
         normalizeProtocol: normalizeForDuplicates 
       });
       
+      const resolvedUrl = validation.status === 'missing-scheme' ? fixURL(original) : original;
+      const category = detectCategory(host);
+      const username = extractUsernameFromURL(resolvedUrl, host, category);
+      
       const parsedUrl: ParsedURL = {
         id: generateId(),
         original,
         normalized,
-        url: validation.status === 'missing-scheme' ? fixURL(original) : original,
+        url: resolvedUrl,
         host,
         status: isShort ? 'shortener' : validation.status,
         statusMessage: isShort ? 'URL shortener detected' : validation.message,
@@ -196,7 +203,8 @@ export const parseURLs = (text: string, options: { normalizeForDuplicates?: bool
         },
         isDuplicate: false,
         duplicateCount: 1,
-        isShortener: isShort
+        isShortener: isShort,
+        username
       };
       
       // Check for duplicates
@@ -276,9 +284,9 @@ export const urlsToText = (urls: ParsedURL[], separator: string = '\n'): string 
 
 // Export formats
 export const exportAsCSV = (urls: ParsedURL[]): string => {
-  const header = 'URL,Host,Status,Line Number,Is Duplicate\n';
+  const header = 'URL,Host,Username,Status,Line Number,Is Duplicate\n';
   const rows = urls.map(u => 
-    `"${u.url}","${u.host}","${u.status}",${u.lineNumber},${u.isDuplicate}`
+    `"${u.url}","${u.host}","${u.username?.displayName || ''}","${u.status}",${u.lineNumber},${u.isDuplicate}`
   ).join('\n');
   return header + rows;
 };
