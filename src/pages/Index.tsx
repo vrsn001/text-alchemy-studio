@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { BottomNav } from "@/components/BottomNav";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ReactLenis } from "lenis/react";
+
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Sparkles } from "@/components/ui/sparkles";
 import { GradientBorderCard } from "@/components/ui/gradient-border-card";
@@ -105,7 +105,6 @@ const Index = () => {
   const stackingTops = ["top-0", "top-2", "top-4", "top-6", "top-8"];
 
   return (
-    <ReactLenis root>
       <div className="min-h-screen flex flex-col bg-background pb-20 md:pb-0 overflow-x-hidden">
         {/* Blur Vignette Effect */}
         <div className="blur-vignette"></div>
@@ -313,7 +312,6 @@ const Index = () => {
         
         <BottomNav />
       </div>
-    </ReactLenis>
   );
 };
 
