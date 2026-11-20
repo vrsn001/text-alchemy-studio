@@ -1,84 +1,69 @@
 import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { CaseSensitive, Home, Link2, Text } from "lucide-react";
 
 const navItems = [
-  { icon: "fa-home", label: "Home", href: "/", id: "home" },
-  { icon: "fa-text-height", label: "Case", href: "#case", id: "case" },
-  { icon: "fa-edit", label: "Modify", href: "#modify", id: "modify" },
-  { icon: "fa-link", label: "Links", href: "/tools/link-manager", id: "links" },
+  { icon: Home, label: "Home", href: "/", id: "home" },
+  { icon: Text, label: "Modify", href: "#modify", id: "modify" },
+  { icon: Link2, label: "Links", href: "/tools/link-manager", id: "links" },
+  { icon: CaseSensitive, label: "Case", href: "#case", id: "case" },
 ];
 
 export const BottomNav = () => {
   const location = useLocation();
-  
+
   const isActive = (href: string) => {
-    if (href === "/") {
-      return location.pathname === "/" && !location.hash;
-    }
-    if (href.startsWith("/tools/")) {
-      return location.pathname === href;
-    }
-    return location.hash === href;
+    if (href === "/") return location.pathname === "/" && !location.hash;
+    if (href.startsWith("/tools/")) return location.pathname === href;
+    return location.pathname === "/" && location.hash === href;
   };
 
-  const handleNavClick = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.querySelector(`[data-category="${href.slice(1)}"]`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      window.location.hash = href;
+  const handleCategoryClick = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", `#${id}`);
     }
   };
 
   return (
-    <nav 
-      className="md:hidden fixed bottom-0 left-0 right-0 liquid-glass z-50 safe-area-bottom"
-      role="navigation"
-      aria-label="Bottom navigation"
+    <nav
+      className="safe-area-bottom fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 md:hidden"
+      aria-label="Main navigation"
     >
-      <div className="flex items-center justify-around h-16 px-2">
+      <div className="mx-auto flex h-16 max-w-lg items-center justify-around px-2">
         {navItems.map((item) => {
+          const Icon = item.icon;
           const active = isActive(item.href);
-          
-          const buttonContent = (
-            <div className="relative flex flex-col items-center justify-center">
-              <i className={cn(
-                `fas ${item.icon} text-lg mb-0.5 transition-all duration-200`,
-                active ? "text-purple-accent scale-110" : "text-muted-foreground"
-              )} />
-              <span 
-                className={cn(
-                  "text-[11px] transition-all duration-200",
-                  active ? "font-semibold text-purple-accent" : "font-medium text-muted-foreground"
-                )}
-              >
-                {item.label}
-              </span>
-              {active && (
-                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-purple-accent" />
-              )}
-            </div>
+          const content = (
+            <span className="flex flex-col items-center justify-center gap-1">
+              <Icon className="h-5 w-5" aria-hidden="true" />
+              <span className="text-[11px] leading-none">{item.label}</span>
+            </span>
           );
-          
+
           return item.href.startsWith("#") ? (
-            <button
+            <Button
               key={item.id}
-              onClick={() => handleNavClick(item.href)}
-              className="flex flex-col items-center justify-center flex-1 h-full relative"
+              type="button"
+              variant="ghost"
+              onClick={() => handleCategoryClick(item.href.slice(1))}
+              className={`h-14 min-w-16 flex-1 rounded-none ${active ? "text-primary" : "text-muted-foreground"}`}
               aria-current={active ? "page" : undefined}
             >
-              {buttonContent}
-            </button>
+              {content}
+            </Button>
           ) : (
-            <Link
+            <Button
               key={item.id}
-              to={item.href}
-              className="flex flex-col items-center justify-center flex-1 h-full relative"
-              aria-current={active ? "page" : undefined}
+              asChild
+              variant="ghost"
+              className={`h-14 min-w-16 flex-1 rounded-none ${active ? "text-primary" : "text-muted-foreground"}`}
             >
-              {buttonContent}
-            </Link>
+              <Link to={item.href} aria-current={active ? "page" : undefined}>
+                {content}
+              </Link>
+            </Button>
           );
         })}
       </div>
