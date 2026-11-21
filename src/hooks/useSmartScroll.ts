@@ -30,7 +30,7 @@ const toolNames: Record<string, string> = {
 };
 
 export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
-  const { defaultCategory = 'modify', scrollDelay = 3500 } = options;
+  const { defaultCategory = 'modify', scrollDelay = 0 } = options;
   const location = useLocation();
   const hasScrolledRef = useRef(false);
 
@@ -38,7 +38,7 @@ export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
   const scrollToCategory = useCallback((categoryId: string) => {
     const element = document.querySelector(`[data-category="${categoryId}"]`);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'auto', block: 'start' });
     }
   }, []);
 
@@ -83,10 +83,8 @@ export const useSmartScroll = (options: UseSmartScrollOptions = {}) => {
           icon: '👋',
         });
         scrollToCategory(lastCategory);
-      } else {
-        // First-time or no history - scroll to default category
-        scrollToCategory(defaultCategory);
       }
+      // First visit: stay at the top, tools are already visible
 
       // Mark as visited after first scroll
       if (isFirstVisit) {
