@@ -12,15 +12,16 @@ interface UseSmartScrollOptions {
 const categoryNames: Record<string, string> = {
   modify: 'Text Modifications',
   links: 'Link Tools',
-  encode: 'Encoding Tools',
-  format: 'Formatting Tools',
+  encode: 'Text Conversion',
+  format: 'Text Organization',
   case: 'Case Transformations',
+  generate: 'Word Generation',
 };
 
 // Map tool paths to display names
 const toolNames: Record<string, string> = {
   '/tools/reverse-text': 'Reverse Text',
-  '/tools/add-line-breaks': 'Line Breaks Tool',
+  '/tools/add-line-breaks': 'Add Line Breaks',
   '/tools/link-manager': 'Link Manager',
   '/tools/text-to-html': 'Text to HTML',
   '/tools/alphabetical-order': 'Alphabetical Order',

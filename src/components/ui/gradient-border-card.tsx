@@ -9,7 +9,7 @@ interface GradientBorderCardProps {
 
 export function GradientBorderCard({ children, className }: GradientBorderCardProps) {
   return (
-    <div className={cn("w-full rounded-lg border border-border bg-card text-card-foreground", className)}>
+    <div className={cn("w-full", className)}>
       {children}
     </div>
   );

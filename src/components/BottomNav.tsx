@@ -28,7 +28,7 @@ export const BottomNav = () => {
 
   return (
     <nav
-      className="safe-area-bottom fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 md:hidden"
+      className="safe-area-bottom fixed inset-x-0 bottom-0 z-50 border-t-2 border-foreground bg-background md:hidden"
       aria-label="Main navigation"
     >
       <div className="mx-auto flex h-16 max-w-lg items-center justify-around px-2">

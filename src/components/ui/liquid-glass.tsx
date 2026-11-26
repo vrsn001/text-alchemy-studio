@@ -11,7 +11,7 @@ const LiquidGlassCard = React.forwardRef<HTMLDivElement, LiquidGlassCardProps>(
   ({ className, children, blur: _blur, variant: _variant, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("relative border border-border bg-card text-card-foreground", className)}
+      className={cn("relative border-2 border-foreground bg-card text-card-foreground", className)}
       {...props}
     >
       {children}
@@ -30,7 +30,7 @@ const LiquidGlassItem = React.forwardRef<HTMLDivElement, LiquidGlassItemProps>(
     <div
       ref={ref}
       className={cn(
-        "relative flex aspect-square cursor-pointer items-center justify-center rounded-lg border border-border transition-colors",
+        "relative flex aspect-square cursor-pointer items-center justify-center border-2 border-foreground transition-colors",
         active ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-accent",
         className,
       )}
@@ -52,7 +52,7 @@ const LiquidGlassWideItem = React.forwardRef<HTMLDivElement, LiquidGlassWideItem
     <div
       ref={ref}
       className={cn(
-        "relative flex cursor-pointer items-center gap-3 rounded-lg border border-border p-4 transition-colors",
+        "relative flex cursor-pointer items-center gap-3 border-2 border-foreground p-4 transition-colors",
         active ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-accent",
         className,
       )}
