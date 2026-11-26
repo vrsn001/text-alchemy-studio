@@ -1,3 +1,3 @@
 # Architecture rules
 
-- Keep the homepage as a direct, category-grouped tool directory using shared semantic Material 3-style surfaces; avoid decorative effects and fabricated dashboard metrics so visitors reach real tools immediately.
+- Keep the homepage a direct, category-grouped directory of real tools; use shared semantic theme tokens and a purposeful brutalist style so visitors reach working tools immediately without decorative effects or fabricated metrics.
